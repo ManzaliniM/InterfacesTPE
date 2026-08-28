@@ -1,0 +1,105 @@
+/* Falta agregar un fondo con la estética del trabajo,
+y hacer cambios menores, pero no es muy importante. */
+
+:root {
+    --dragonfruit: #ED4B9E;
+    --majorelle: #4B4DED;
+    --amber: #FFCC00;
+    --text-light: #e4e4e4;
+    --text-muted: rgba(228, 228, 228, 0.7);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito Sans', Arial, sans-serif;
+    background: linear-gradient(rgba(0, 0, 0, 0.789), rgba(0, 0, 0, 0.5)),
+        url("assets/mainBackground.jpg") center/cover no-repeat #121212;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.card {
+    background: var(--majorelle);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 100%;
+    max-width: 420px;
+}
+
+h1 {
+    color: var(--text-light);
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+h2 {
+    color: var(--text-muted);
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 25px;
+}
+
+.participants {
+    margin-bottom: 30px;
+}
+
+.participants p {
+    color: var(--text-light);
+    font-size: 20px;
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+.links-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn {
+    display: block;
+    background-color: var(--dragonfruit);
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-secondary {
+    background-color: var(--amber);
+    color: #121212;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+@media (min-width: 400px) {
+    .links-container {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .btn {
+        flex: 1;
+    }
+}
