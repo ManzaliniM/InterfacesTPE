@@ -1,0 +1,14 @@
+[
+    {
+        "id": "moon-solitaire",
+        "titulo": "Moon Solitaire",
+        "categoria": "Puzzle",
+        "descripcion": "descripción",
+        "imagenPortada": "assets/images/NOMBREIMAGEN.png",
+        "galeria": [
+            "assets/images/NOMBREIMAGEN.png",
+            "assets/images/NOMBREIMAGEN.png",
+            "assets/images/NOMBREIMAGEN.png"
+        ]
+    }
+]

@@ -19,7 +19,7 @@
 |Entregable N° | |
 |:-|-|
 |[TP1](1)| Diseño de una plataforma de Juegos Online, prototipo interactivo con Figma. |
-|[TP2](2)| TBD |
+|[TP2](2)| Continuar con el trabajo anterior e implementarlo utilizando HTML5, JavaScript y CSS3. |
 |[TP3](3)| TBD |
 |[TP4](4)| TBD |
 |[TP5](5)| TBD |
