@@ -1,0 +1,21 @@
+.buscador, input{background-color: #3E3D42; border-radius: 8px;}
+
+.buscador{width: 629px; height: 40px; display: flex; align-items: center;}
+
+input{width: 600px; height: 40px;padding: 20px;}
+input, button{ border: none; outline: none;}
+button, .navbar{background-color: #2B2A2F;}
+
+.navbar{display: flex; flex-direction: row; align-items: center; height: 80px;}
+
+.menu-hbg{ width: 32px; height: 32px;padding: 20px;}
+.logo{width: 152px; height: 40px;padding-right: 206px; }
+.usuario{padding-left: 226px; display: flex; align-items: center;}
+
+.item-menu{margin:20px; display: flex; align-items: center;}
+
+img{margin-right: 10px;}
+
+.menu{background-color: #2B2A2F; padding: 20px; width: 260px;}
+.menu-oculto{ display: none;}
+.mostrar{display: block;}
