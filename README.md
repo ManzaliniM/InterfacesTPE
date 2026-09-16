@@ -1,6 +1,7 @@
 <!-- README completamente innecesario -->
-## Trabajo Práctico Especial de Interfaces de Usuario e Interacción
+<img src="2/assets/images/stars.gif"><img src="2/assets/images/stars.gif">
 
+## Trabajo Práctico Especial de Interfaces de Usuario e Interacción
 
 |Grupo 12|
 |:-|
@@ -9,12 +10,12 @@
 ||
 |[Planilla de Interfaces 2026](https://docs.google.com/spreadsheets/d/1LqPdhdm1ntHpSC726fi5hq1Qj-2Z8jbY96FL_-35cjU) |
 
+<img src="2/assets/images/sailor-moon.gif" width="200" height="200">
+
 ### Contiene
 > - **Home** con listado de juegos.
 > - Pagina de juego en **modo ejecución**.
 > - Pagina de **registración**.
-
-***
 
 |Entregable N° | |
 |:-|-|
@@ -23,3 +24,5 @@
 |[TP3](3)| TBD |
 |[TP4](4)| TBD |
 |[TP5](5)| TBD |
+
+<img src="2/assets/images/divider.gif" width="400">

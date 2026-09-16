@@ -1,126 +1,42 @@
-<link rel="stylesheet" href="../css/base.css">
-<link rel="stylesheet" href="../css/navbar.css">
+<header class="navbar">
+    <div class="navbar-start">
+        <button id="btn-hamburguesa" class="menu-hbg" aria-expanded="false" aria-controls="menu"
+            aria-label="Abrir menú de categorías">
+            <img src="assets/icons/Menu hamburguesa 1.svg" alt="">
+        </button>
+        <img src="assets/icons/Logo.svg" alt="Moon Arcade" class="logo">
+    </div>
 
-<div class="navbar">
-    <button><img src="../assets/icons/Menu hamburguesa 1.svg" id="btn-hamburguesa" class="menu-hbg"></button>
-    <img src="../assets/icons/Logo.svg" alt="" class="logo">
     <div class="buscador">
-        <input type="text" placeholder="Buscar juegos">
-        <img src="../assets/icons/Buscar.svg" alt="">
+        <input type="text" placeholder="Buscar juegos" aria-label="Buscar juegos">
+        <img src="assets/icons/Buscar.svg" alt="">
     </div>
-    <div class="usuario">
-        <img src="../assets/icons/Usuario.svg" alt="">
-        <button><img src="../assets/icons/desplazar.svg" alt=""></button>
-    </div>
-</div>
-<div class="menu menu-oculto" id="menu">
-    <div class="item-menu">
-        <img src="../assets/icons/Accion.svg" alt="">
-        <p>
-            Acción
-        </p>
-    </div>
-    <div class="item-menu">
-        <img src="../assets/icons/Clasicos.svg" alt="">
-        <p>
-            Clasicos
-        </p>
-    </div>
-    <div class="item-menu">
-        <img src="../assets/icons/Juegos de mesa.svg" alt="">
-        <p>
-            Juegos de mesa
-        </p>
-    </div>
-    <div class="item-menu">
-        <img src="../assets/icons/Cartas.svg " alt="">
-        <p>
-            Cartas
-        </p>
-    </div>
-    <div class="item-menu">
-        <img src="../assets/icons/Futbol.svg" alt="">
-        <p>
-            Futbol
-        </p>
-    </div>
-    <div class="item-menu">
-        <img src="../assets/icons/Cocina.svg" alt="">
-        <p>
-            Cocina
-        </p>
-    </div>
-    <div class="item-menu">
-        <img src="../assets/icons/Autos.svg" alt="">
-        <p>
-            Autos
-        </p>
-    </div>
-    <div class="item-menu">
-        <img src="../assets/icons/Motoss.svg" alt="">
-        <p>
-            Motos
-        </p>
-    </div>
-    <div class="item-menu">
-        <img src="../assets/icons/Vestir.svg" alt="">
-        <p>
-            Vestir
-        </p>
-    </div>
-    <div class="item-menu">
-        <img src="../assets/icons/Minecraft.svg" alt="">
-        <p>
-            Minecraft
-        </p>
-    </div>
-    <div class="item-menu">
-        <img src="../assets/icons/Terror.svg" alt="">
-        <p>
-            Terror
-        </p>
-    </div>
-    <div class="item-menu">
-        <img src="../assets/icons/Escape.svg" alt="">
-        <p>
-            Escape
-        </p>
-    </div>
-    <div class="item-menu">
-        <img src="../assets/icons/Divertido.svg" alt="">
-        <p>
-            Divertidos
-        </p>
-    </div>
-    <div class="item-menu">
-        <img src="../assets/icons/Armas.svg" alt="">
-        <p>
-            Armas
-        </p>
-    </div>
-    <div class="item-menu">
-        <img src="../assets/icons/Matematicas.svg" alt="">
-        <bopdy>
-            Matematicas
-        </p>
-    </div>
-    <div class="item-menu">
-        <img src="../assets/icons/Estrategia.svg" alt="">
-        <p>
-            Estrategia
-        </p>
-    </div>
-    <div class="item-menu">
-        <img src="../assets/icons/Pintar.svg" alt="">
-        <p>
-            Pintar
-        </p>
-    </div>
-    <div class="item-menu">
-        <img src="../assets/icons/Puzzle.svg" alt="">
-        <p>
-            Puzzle
-        </p>
-    </div>   
-</div> 
 
+    <div class="usuario">
+        <img src="assets/icons/Usuario.svg" alt="">
+        <button aria-label="Más opciones"><img src="assets/icons/desplazar.svg" alt=""></button>
+    </div>
+</header>
+
+<nav class="menu menu-oculto" id="menu" aria-label="Categorías de juegos">
+    <ul>
+        <li class="item-menu"><a href="home.html?categoria=accion"><img src="assets/icons/Accion.svg" alt="">Acción</a></li>
+        <li class="item-menu"><a href="home.html?categoria=clasicos"><img src="assets/icons/Clasicos.svg" alt="">Clasicos</a></li>
+        <li class="item-menu"><a href="home.html?categoria=mesa"><img src="assets/icons/Juegos de mesa.svg" alt="">Juegos de mesa</a></li>
+        <li class="item-menu"><a href="home.html?categoria=cartas"><img src="assets/icons/Cartas.svg" alt="">Cartas</a></li>
+        <li class="item-menu"><a href="home.html?categoria=futbol"><img src="assets/icons/Futbol.svg" alt="">Futbol</a></li>
+        <li class="item-menu"><a href="home.html?categoria=cocina"><img src="assets/icons/Cocina.svg" alt="">Cocina</a></li>
+        <li class="item-menu"><a href="home.html?categoria=autos"><img src="assets/icons/Autos.svg" alt="">Autos</a></li>
+        <li class="item-menu"><a href="home.html?categoria=motos"><img src="assets/icons/Motoss.svg" alt="">Motos</a></li>
+        <li class="item-menu"><a href="home.html?categoria=vestir"><img src="assets/icons/Vestir.svg" alt="">Vestir</a></li>
+        <li class="item-menu"><a href="home.html?categoria=minecraft"><img src="assets/icons/Minecraft.svg" alt="">Minecraft</a></li>
+        <li class="item-menu"><a href="home.html?categoria=terror"><img src="assets/icons/Terror.svg" alt="">Terror</a></li>
+        <li class="item-menu"><a href="home.html?categoria=escape"><img src="assets/icons/Escape.svg" alt="">Escape</a></li>
+        <li class="item-menu"><a href="home.html?categoria=divertidos"><img src="assets/icons/Divertido.svg" alt="">Divertidos</a></li>
+        <li class="item-menu"><a href="home.html?categoria=armas"><img src="assets/icons/Armas.svg" alt="">Armas</a></li>
+        <li class="item-menu"><a href="home.html?categoria=matematicas"><img src="assets/icons/Matematicas.svg" alt="">Matematicas</a></li>
+        <li class="item-menu"><a href="home.html?categoria=estrategia"><img src="assets/icons/Estrategia.svg" alt="">Estrategia</a></li>
+        <li class="item-menu"><a href="home.html?categoria=pintar"><img src="assets/icons/Pintar.svg" alt="">Pintar</a></li>
+        <li class="item-menu"><a href="home.html?categoria=puzzle"><img src="assets/icons/Puzzle.svg" alt="">Puzzle</a></li>
+    </ul>
+</nav>

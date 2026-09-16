@@ -1,21 +1,124 @@
-.buscador, input{background-color: #3E3D42; border-radius: 8px;}
+/* HEADER */
+.navbar {
+    display: flex;
+    align-items: center;
+    height: 80px;
+    padding: 0 20px;
+    background-color: #2B2A2F;
+}
 
-.buscador{width: 629px; height: 40px; display: flex; align-items: center;}
+.navbar-start {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+}
 
-input{width: 600px; height: 40px;padding: 20px;}
-input, button{ border: none; outline: none;}
-button, .navbar{background-color: #2B2A2F;}
+.usuario {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
 
-.navbar{display: flex; flex-direction: row; align-items: center; height: 80px;}
+.logo {
+    width: 152px;
+    height: 40px;
+}
 
-.menu-hbg{ width: 32px; height: 32px;padding: 20px;}
-.logo{width: 152px; height: 40px;padding-right: 206px; }
-.usuario{padding-left: 226px; display: flex; align-items: center;}
+.menu-hbg {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-.item-menu{margin:20px; display: flex; align-items: center;}
+.menu-hbg img {
+    width: 100%;
+    height: 100%;
+}
 
-img{margin-right: 10px;}
+/* BOTONES (reset) */
+button {
+    border: none;
+    outline: none;
+    background-color: #2B2A2F;
+}
 
-.menu{background-color: #2B2A2F; padding: 20px; width: 260px;}
-.menu-oculto{ display: none;}
-.mostrar{display: block;}
+/* BUSCADOR */
+.buscador {
+    width: 100%;
+    max-width: 640px;
+    flex-shrink: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.buscador input {
+    width: 100%;
+    height: 40px;
+    padding: 20px;
+    border: none;
+    outline: none;
+    background-color: #3E3D42;
+    color: inherit;
+    border-radius: 8px;
+}
+
+/* Ícono de lupa solo visible en mobile */
+.lupa-btn {
+    display: none;
+}
+
+/* CATEGORÍAS */
+.menu {
+    background-color: #2B2A2F;
+    padding: 20px;
+    width: 260px;
+}
+
+.menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.item-menu {
+    margin: 0;
+}
+
+.item-menu a {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+    color: inherit;
+    text-decoration: none;
+}
+
+.item-menu img {
+    margin-right: 10px;
+}
+
+.menu-oculto {
+    display: none;
+}
+
+.mostrar {
+    display: block;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    .buscador {
+        display: none;
+    }
+
+    .lupa-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+    }
+}

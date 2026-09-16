@@ -5,7 +5,8 @@ async function injectComponent(url, placeholderId) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await injectComponent('components/nav.html', 'nav-placeholder');
+  await injectComponent('components/navbar.html', 'nav-placeholder');
   await injectComponent('components/footer.html', 'footer-placeholder');
   // inicializar listeners que dependen de nav/footer, como el menú hamburguesa
+  initNavbar();
 });
