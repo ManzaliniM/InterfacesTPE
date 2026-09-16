@@ -10,8 +10,6 @@
 ||
 |[Planilla de Interfaces 2026](https://docs.google.com/spreadsheets/d/1LqPdhdm1ntHpSC726fi5hq1Qj-2Z8jbY96FL_-35cjU) |
 
-<img src="2/assets/images/sailor-moon.gif" width="200" height="200">
-
 ### Contiene
 > - **Home** con listado de juegos.
 > - Pagina de juego en **modo ejecución**.
@@ -25,4 +23,4 @@
 |[TP4](4)| TBD |
 |[TP5](5)| TBD |
 
-<img src="2/assets/images/divider.gif" width="400">
+<img src="2/assets/images/sailor-moon.gif" width="300" height="300">
