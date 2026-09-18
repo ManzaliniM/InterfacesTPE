@@ -1,9 +1,116 @@
+:root {
+    --color-bg: #16151A;
+    --color-input-bg: #2B2A2F;
+    --color-input-border: #3E3D42;
+
+    --color-font: #D4D4D4;
+    --color-font-muted: #d9d9d966;
+
+    --color-primary: #ED4B9E;
+    --color-secondary: #4B4DED;
+    --color-accent: #FFBF36;
+
+    --color-primary-shadow: #E72087;
+    --color-primary-light: #EF84BC;
+    --color-secondary-shadow: #383AB1;
+
+    --color-error: #ff5470;
+    --color-success: #35d488;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
     background-image: url('../assets/images/background.png');
     background-size: cover;
-    background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
-    height: 100vh;
+}
+
+#app {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.screen {
+    width: 100%;
+}
+
+/* esta bien que esto tenga important?? */
+.hidden {
+    display: none !important;
+}
+
+#welcome-screen {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 200px;
+    max-width: 100%;
+    margin: 0 auto;
+    margin-bottom: 90px;
+}
+
+#welcome-screen div {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.logo {
+    width: 100%;
+    max-width: 800px;
+}
+
+.subtitle {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 48px;
+    font-weight: 400;
+    color: var(--color-primary-light);
     margin: 0;
+}
+
+#welcome-screen p {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 16px;
+    font-weight: 400;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.btn-start {
+    background: var(--color-primary-shadow);
+    color: #FFFFFF;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 64px;
+    font-weight: 400;
+    padding: 24px 24px;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 24px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn {
+    cursor: pointer;
+    border: none;
+    transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.btn:hover {
+    filter: brightness(1.08);
+}
+
+.btn:active {
+    transform: scale(0.9);
 }

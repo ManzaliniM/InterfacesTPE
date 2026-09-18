@@ -163,7 +163,7 @@ nav {
     border: none;
     cursor: pointer;
     color: var(--color-primary-light);
-    font-family: 'Press Start 2P', sans-serif;
+    font-family: 'Press Start 2P', monospace;
     font-size: 12px;
     text-align: center;
     text-decoration: none;
