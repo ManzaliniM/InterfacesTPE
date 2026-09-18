@@ -9,4 +9,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   await injectComponent('components/footer.html', 'footer-placeholder');
   // inicializar listeners que dependen de nav/footer, como el menú hamburguesa
   initNavbar();
+  initMenuUsuario();
 });
