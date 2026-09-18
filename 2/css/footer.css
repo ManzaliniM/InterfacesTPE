@@ -1,7 +1,6 @@
 :root {
     --color-bg: #16151A;
     --color-font: #D4D4D4;
-
     --color-primary: #ED4B9E;
     --color-secondary: #4B4DED;
     --color-accent: #FFBF36;
@@ -14,23 +13,21 @@
 footer {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 48px;
+    gap: 60px;
     width: 100%;
-    max-width: 1440px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 80px;
     box-sizing: border-box;
-    background: var(--color-bg);
-    color: var(--color-font);
+    background-image: url('../assets/images/background.png');
+    background-size: cover;
 }
 
 .footer-main {
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: flex-start;
-    gap: 48px;
 }
 
 .brand-block {
@@ -40,15 +37,15 @@ footer {
 }
 
 .brand-block p {
-    font-weight: 300;
-    line-height: 24px;
-    color: var(--color-font);
-    margin: 0 0 16px;
+    font-weight: 400;
+    font-style: italic;
+    margin: 0 40px 16px;
 }
 
-.logo {
+.brand-block .logo {
     display: block;
-    width: 180px;
+    width: 200px;
+    height: auto;
 }
 
 .btn-random {
@@ -57,8 +54,11 @@ footer {
     align-items: center;
     padding: 16px 32px;
     gap: 10px;
+    max-width: 200px;
+    width: 100%;
     background: var(--color-primary-shadow);
     color: #FFFFFF;
+    font-family: inherit;
     font-weight: 700;
     font-size: 16px;
     border-radius: 24px;
@@ -67,31 +67,33 @@ footer {
     white-space: nowrap;
 }
 
-.btn-random:hover,
-.btn-random:focus-visible {
-    background: var(--color-primary);
-}
-
 .socials {
     display: flex;
     width: 100%;
+    max-width: 200px;
     justify-content: space-between;
     padding: 16px 0;
-    gap: 16px;
 }
 
-/* hacer que los iconos cambien de color con otros svgs */
-.socials a:hover {
-    color: var(--color-primary-light);
+.socials .icon-hover {
+    display: none;
+}
+
+.socials a:hover .icon-default,
+.socials a:focus-visible .icon-default {
+    display: none;
+}
+
+.socials a:hover .icon-hover,
+.socials a:focus-visible .icon-hover {
+    display: block;
 }
 
 /* columnas de links */
 nav {
     display: grid;
-    row-gap: 76px;
-    column-gap: 76px;
+    column-gap: 150px;
     grid-template-columns: repeat(4, fit-content(100%));
-    grid-auto-flow: row;
 }
 
 .footer-col h3 {
@@ -137,9 +139,9 @@ nav {
 }
 
 .separador {
-    width: 90%;
+    width: 95%;
     border: none;
-    height: 1px;
+    height: 2px;
     background: var(--color-secondary-shadow);
 }
 
@@ -148,6 +150,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
+    padding: 0 5.5% 0 3.67%;
     color: var(--color-primary);
 }
 
@@ -167,8 +170,8 @@ nav {
 }
 
 .btn-back-top .circle {
-    width: 60px;
-    height: 60px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
     background: var(--color-primary-shadow);
     display: flex;
@@ -183,4 +186,22 @@ nav {
 
 .btn-back-top .arrow-up {
     display: block;
+}
+
+/* Grow hover cortesía de https://ianlunn.github.io/Hover/ */
+.hvr-grow {
+    display: inline-block;
+    vertical-align: middle;
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+
+.hvr-grow:hover,
+.hvr-grow:focus,
+.hvr-grow:active {
+    transform: scale(1.1);
 }
