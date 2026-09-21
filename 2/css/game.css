@@ -1,0 +1,19 @@
+.juegos-recomendados{
+    margin-top: 50px;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    margin-left: 14px;
+}
+
+.carrusel-peque{
+    width: 200px;
+    height: 130px;
+}
+
+.carrusel{
+    display: flex;
+    flex-direction: row;
+}
