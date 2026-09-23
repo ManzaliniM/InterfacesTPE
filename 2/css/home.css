@@ -1,0 +1,41 @@
+#juegos-recomendados{
+    margin-top: 50px;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+}
+
+.carrusel-peque{
+    width: 260px;
+    height:156px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.carrusel{
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    gap: 14px;
+}
+
+.carrusel-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+
+btn-previous, btn-next{
+    position: sticky;
+}
+
+.carrusel-track {
+    display: flex;
+    flex-direction: row;
+    gap: 14px;
+    transition: transform 0.4s ease;
+}
