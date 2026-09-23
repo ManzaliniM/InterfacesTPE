@@ -5,7 +5,7 @@
 .card{
     display: flex;
     flex-direction: column;
-    margin-left: 14px;
+    flex: 0 0 auto;
 }
 
 .carrusel-peque{
@@ -16,4 +16,16 @@
 .carrusel{
     display: flex;
     flex-direction: row;
+    overflow-x: auto; /*permite que cuando el contenido sea mas grande que el contenedor se scrolee*/
+    gap: 14px;
+}
+
+.carrusel-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.carrusel::-webkit-scrollbar {
+    display: none; /* elimina la barra fea del overflow*/
 }
