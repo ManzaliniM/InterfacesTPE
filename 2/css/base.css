@@ -1,7 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
-/* Tendria que traer todos los colores base acá */
+:root {
+    --color-bg: #16151A;
+    --color-input-bg: #2B2A2F;
+    --color-input-border: #3E3D42;
 
+    --color-font: #D4D4D4;
+    --color-font-muted: #d9d9d966;
+
+    --color-primary: #ED4B9E;
+    --color-secondary: #4B4DED;
+    --color-accent: #FFBF36;
+
+    --color-primary-shadow: #E72087;
+    --color-primary-light: #EF84BC;
+    --color-secondary-shadow: #383AB1;
+
+    --color-error: #ff5470;
+    --color-success: #35d488;
+}
 
 html {
     scroll-behavior: smooth;

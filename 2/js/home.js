@@ -13,20 +13,6 @@ async function obtenerJuegos(categoria= null, limite= null) {  //url dinamica
   return res.json();
 }
 
-async function injectComponent(url, placeholderId) { //le pasamos a la funcion la unicacion del archivo (url) y la id de donde queremos inyectarla
-  const res = await fetch(url);
-  const html = await res.text();
-  document.getElementById(placeholderId).innerHTML = html; //inyeccion
-}
-
-document.addEventListener('DOMContentLoaded', async () => {
-  await injectComponent('components/navbar.html', 'nav-placeholder');
-  await injectComponent('components/footer.html', 'footer-placeholder');
-  // inicializar listeners que dependen de nav/footer, como el menú hamburguesa
-  initNavbar();
-  initMenuUsuario();
-});
-
 async function mostrarJuegos(categoria, elementoId) {
   let juegos = await obtenerJuegos(categoria);
   const contenedor = document.getElementById(elementoId);

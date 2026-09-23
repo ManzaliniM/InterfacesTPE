@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 
+<!-- TODO: AGREGAR ANIMACIÓN DE LOGIN/REGIS SUCCESSFUL (o゜▽゜)o☆ -->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,8 +20,8 @@
 <body>
     <main id="app">
         <!-- ============ BIENVENIDA ============ -->
-        <section id="welcome-screen" class="screen active">
-            
+        <section id="welcome-screen" class="screen">
+
             <div>
                 <!-- creo que logo no deberia ser un icono? quiza?? -->
                 <img src="assets/icons/Logo.svg" alt="Logo de Moon Arcade" class="logo">
@@ -27,14 +29,152 @@
                 <p>Descubrí nuevos juegos, dejá tus opiniones,<br>y guardá tu progreso con tan solo registrarte.</p>
             </div>
 
-            <button class="btn btn-start">START</button>
+            <button id="start-btn" class="btn btn-start">START</button>
         </section>
 
-        <!-- TODO: OTRAS SECCIONES, LOGIN, REGISTER. -->
+        <!-- ============ LOGIN / REGISTRO ============ -->
+        <section id="auth-card" class="auth-card hidden" aria-live="polite">
+
+            <!-- ---- LOGIN ---- -->
+            <div id="login-view" class="auth-view">
+                <h2 class="auth-title">Iniciar sesión</h2>
+
+                <form id="login-form" novalidate>
+                    <div class="field">
+                        <label for="login-email">Correo electrónico</label>
+                        <input type="email" id="login-email" name="email" placeholder="Placeholder" required>
+                        <span class="field-error" data-error-for="login-email"></span>
+                    </div>
+
+                    <div class="field">
+                        <label for="login-password">Contraseña</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="login-password" name="password" placeholder="Placeholder"
+                                required>
+                            <button type="button" class="toggle-password" data-target="login-password"
+                                aria-label="Mostrar contraseña">
+                                <img src="assets/icons/eye.svg" alt="" class="password-icon icon-show">
+                                <img src="assets/icons/eye-off.svg" alt="" class="password-icon icon-hide">
+                            </button>
+                        </div>
+                        <span class="field-error" data-error-for="login-password"></span>
+                        <a href="#" class="link-muted forgot-password">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                </form>
+
+                <div class="divider"><span>o continuar con</span></div>
+
+                <div class="social-buttons">
+                    <button type="button" class="btn btn-socials btn-google">
+                        <img src="assets/icons/google.svg" alt="" class="social-icon">
+                        <span>Continuar con Google</span>
+                    </button>
+                    <button type="button" class="btn btn-socials btn-facebook">
+                        <img src="assets/icons/facebook.svg" alt="" class="social-icon">
+                        <span>Continuar con Facebook</span>
+                    </button>
+                </div>
+
+                <p class="switch-auth">¿No tenés cuenta? <a href="#" id="go-to-register">¡Registrate!</a></p>
+            </div>
+
+            <!-- ---- REGISTRO ---- -->
+            <div id="register-view" class="auth-view hidden">
+                <h2 class="auth-title">Crear cuenta</h2>
+                <p class="auth-subtitle">creación rápida con</p>
+
+                <div class="social-buttons">
+                    <button type="button" class="btn btn-socials btn-google">
+                        <img src="assets/icons/google.svg" alt="" class="social-icon">
+                        <span>Continuar con Google</span>
+                    </button>
+                    <button type="button" class="btn btn-socials btn-facebook">
+                        <img src="assets/icons/facebook.svg" alt="" class="social-icon">
+                        <span>Continuar con Facebook</span>
+                    </button>
+                </div>
+
+                <form id="register-form" novalidate>
+                    <h3 class="form-section-title">Datos personales</h3>
+
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="reg-firstname">Nombre <span class="required">*</span></label>
+                            <input type="text" id="reg-firstname" name="firstname" placeholder="Placeholder" required>
+                        </div>
+                        <div class="field">
+                            <label for="reg-lastname">Apellido <span class="required">*</span></label>
+                            <input type="text" id="reg-lastname" name="lastname" placeholder="Placeholder" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="reg-username">Username</label>
+                        <input type="text" id="reg-username" name="username" placeholder="Placeholder">
+                        <span class="field-hint">Opcional: elegí un nick que te represente!</span>
+                    </div>
+
+                    <div class="field">
+                        <label for="reg-birthdate">Fecha de nacimiento <span class="required">*</span></label>
+                        <input type="date" id="reg-birthdate" name="birthdate" required>
+                    </div>
+
+                    <h3 class="form-section-title">Datos de acceso</h3>
+
+                    <div class="field">
+                        <label for="reg-email">Correo electrónico <span class="required">*</span></label>
+                        <input type="email" id="reg-email" name="email" placeholder="Placeholder" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="reg-password">Contraseña <span class="required">*</span></label>
+                        <div class="password-wrapper">
+                            <input type="password" id="reg-password" name="password" placeholder="Placeholder" required>
+                            <button type="button" class="toggle-password" data-target="reg-password"
+                                aria-label="Mostrar contraseña">
+                                <img src="assets/icons/eye.svg" alt="" class="password-icon icon-show">
+                                <img src="assets/icons/eye-off.svg" alt="" class="password-icon icon-hide">
+                            </button>
+                        </div>
+                        <ul class="password-checklist" id="password-checklist">
+                            <li data-rule="length">Al menos 8 caracteres</li>
+                            <li data-rule="uppercase">Al menos una mayúscula</li>
+                            <li data-rule="number">Al menos un número</li>
+                        </ul>
+                    </div>
+
+                    <div class="field">
+                        <label for="reg-password-repeat">Repetí la contraseña <span class="required">*</span></label>
+                        <div class="password-wrapper">
+                            <input type="password" id="reg-password-repeat" name="password_repeat"
+                                placeholder="Placeholder" required>
+                            <button type="button" class="toggle-password" data-target="reg-password-repeat"
+                                aria-label="Mostrar contraseña">
+                                <img src="assets/icons/eye.svg" alt="" class="password-icon icon-show">
+                                <img src="assets/icons/eye-off.svg" alt="" class="password-icon icon-hide">
+                            </button>
+                        </div>
+                        <span class="field-error" data-error-for="reg-password-repeat"></span>
+                    </div>
+
+                    <label class="checkbox-field">
+                        <input type="checkbox" id="reg-not-robot" required>
+                        <span>No soy un robot</span>
+                    </label>
+
+                    <button type="submit" class="btn btn-primary">Crear usuario</button>
+                </form>
+
+                <p class="switch-auth">¿Ya tenés cuenta? <a href="#" id="go-to-login">¡Inicia sesión!</a></p>
+            </div>
+
+        </section>
     </main>
 
-    <!-- <script src="js/validation.js"></script> -->
-    <!-- <script src="js/login.js"></script> -->
+    <script src="js/validation.js"></script>
+    <script src="js/login.js"></script>
 </body>
 
 </html>
