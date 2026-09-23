@@ -45,7 +45,7 @@ function initCarruseles() {
     const carruselTrack = wrapper.querySelector('.carrusel-track'); // acotado a ESTE wrapper
     const btnPrev = wrapper.querySelector('.btn-previous');
     const btnNext = wrapper.querySelector('.btn-next');
-    const distancia = 808;
+    const distancia = 628;
     let posicion = 1; // propia de este carrusel, no compartida
 
     function scrollAtras() {
