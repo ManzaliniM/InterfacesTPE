@@ -1,25 +1,37 @@
 #juegos-recomendados{
-    margin-top: 50px;
+    margin-top: 80px;
 }
 
 .card{
     display: flex;
     flex-direction: column;
     flex: 0 0 auto;
+    position: relative;
+}
+
+.card p{
+    margin: 6px;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
 }
 
 .carrusel-peque{
+
     width: 200px;
     height:110px;
     object-fit: cover;
     border-radius: 8px;
+  
 }
 
 .carrusel{
     display: flex;
     flex-direction: row;
     overflow: hidden;
-    gap: 14px;
+    margin-left:20px; margin-right:20px;
 }
 
 .carrusel-wrapper {
@@ -29,8 +41,21 @@
 }
 
 
-btn-previous, btn-next{
-    position: sticky;
+.btn-previous, .btn-next{
+    position: absolute;
+    transform: translateY(-50%); /* centrado vertical preciso */
+    z-index: 1;
+    border-radius: 8px;
+    background: none;
+    border-style: none;
+}
+
+.btn-previous {
+    left: 42px;
+}
+
+.btn-next {
+    right: 42px;
 }
 
 .carrusel-track {
@@ -39,3 +64,43 @@ btn-previous, btn-next{
     gap: 14px;
     transition: transform 0.4s ease;
 }
+
+.tagPremium{
+    width: 62px;
+    height: 16px;
+    position: absolute;
+    z-index: 1;
+    margin: 5px;
+}
+
+.premium-card{
+    border: 2px solid #FFBF36;
+    border-radius: 8px;
+}
+
+h3{
+    margin-left:20px;
+}
+
+#carrusel-grande{
+    display: flex;
+    margin-top: 90px;
+    gap: 40px;
+    transform: translate(-84px);
+    overflow: hidden;
+}
+
+ .img1, .img3, .img4, .img-chica h2{
+    width: 472px;
+    height: 290px;
+    transform: translate(0,75px);
+}
+
+.img2{
+    width: 600px;
+    height: 404px;
+}
+
+
+
+

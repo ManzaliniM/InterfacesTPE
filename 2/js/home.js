@@ -1,12 +1,15 @@
 const API_URL = 'https://6aad4daea2413bf0ec1191a0.mockapi.io/juego'; // o la URL de tu mock API
 
-async function obtenerJuegos(categoria= null, limite= null) {  //url dinamica 
+async function obtenerJuegos(categoria= null, limite= null, nombre=null) {  //url dinamica 
   let url= API_URL
   if(categoria!=null){ // evaluamos que existan los parametros de busqueda, si existen se los agregamos a la url
     url+='?categoria='+categoria;
     if(limite){
       url+= '&page=1&limit='+limite;
     }
+  }
+  if(nombre!=null){
+    url+='?nombre='+ nombre;
   }
   const res = await fetch(url); // traemos el contenido del url, el await nos frena el recorrido del codigo hasta que esta accion se complete
   if (!res.ok) throw new Error('No se pudieron cargar los juegos'); //si no hay respuesta tira error
@@ -22,11 +25,19 @@ async function mostrarJuegos(categoria, elementoId) {
   );
 
   const cardsHTML = juegos.map(juego => `
-    <div class="card">
-      <img class="carrusel-peque" src='${juego.img}'>
-      <p>${juego.nombre}</p>
-    </div>
-  `).join('');
+    <div class="card"> 
+      ${juego.premium
+        ? `
+          <img class="carrusel-peque premium-card " src="${juego.img}">
+          <img class="tagPremium" src="assets/icons/premiumTag.svg">
+          `
+        : `
+          <img class="carrusel-peque" src="${juego.img}">
+          `
+      }
+    <p>${juego.nombre}</p>
+    </div>`
+  ).join('');
 
   contenedor.innerHTML = `<div class="carrusel-track">${cardsHTML}</div>`;
 }
@@ -84,5 +95,36 @@ async function initTodo() {
 }
 
 initTodo();
+
+
+ async function formarCarruselGrande(){
+  let zombieRoad= await(obtenerJuegos(null,null,'Zombie road'));
+  let moonSol=await(obtenerJuegos(null,null,'Moon solitairie'));
+  let findCow=await(obtenerJuegos(null,null,'Find the cow'));
+  let papa=await(obtenerJuegos(null,null,"Papa's bakeria"));
+  console.log(zombieRoad)
+  document.getElementById('carrusel-grande').innerHTML= 
+  `<div class="img-chica">
+      <img src="${zombieRoad[0].img}" class="img1">
+      <h2> ${zombieRoad[0].nombre}
+    </div>
+    <div>
+      <img src="${moonSol[0].img}" class="img2">
+      <h2> ${moonSol[0].nombre}
+    </div>
+    <div class="img-chica">
+      <img src="${findCow[0].img}" class="img3">
+      <h2> ${findCow[0].nombre}
+    </div>
+    <div class="img-chica">
+      <img src="${papa[0].img}" class="img4">
+      <h2> ${papa[0].nombre}
+    </div>`
+
+ 
+}
+
+formarCarruselGrande();
+
 
 
