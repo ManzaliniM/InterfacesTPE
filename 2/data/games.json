@@ -1,0 +1,86 @@
+[
+    {
+        "id": "moon-solitaire",
+        "titulo": "Moon Solitaire",
+        "categoria": "puzzle",
+        "descripcion": [
+            "Moon Solitaire lleva el clásico juego de solitario al espacio. Enfréntate a un desafiante tablero lunar lleno de fichas brillantes y pon a prueba tu capacidad para pensar varios movimientos por adelantado.",
+            "Salta sobre las fichas para eliminarlas, despeja el tablero y trata de conseguir el resultado perfecto: ¡que quede una sola ficha! Pero cuidado: un movimiento mal calculado puede dejarte sin opciones.",
+            "Con una estética arcade inspirada en el pinball y el espacio, cada partida combina estrategia clásica con una experiencia visual vibrante. ¿Serás capaz de resolver el tablero lunar?"
+        ],
+        "comoJugar": [
+            "Tu objetivo es eliminar todas las fichas posibles hasta dejar solamente una. Haz clic en una ficha y salta sobre otra ficha adyacente hacia un espacio vacío. Al realizar el movimiento, la ficha saltada desaparece y la ficha que moviste ocupa su lugar.",
+            "Planifica tus movimientos con cuidado y busca la mejor combinación para despejar el tablero. Cada movimiento cuenta, así que piensa antes de saltar. ¿Puedes completar el desafío y dejar una única ficha en el centro?"
+        ],
+        "controlesTexto": "Ratón: haz clic en una ficha para realizar un movimiento.",
+        "tutorialUrl": "https://youtu.be/ZEcqHA7dbwM",
+        "imagenPortada": "assets/juegos/moon-solitaire/portada.png",
+        "galeria": [
+            {
+                "src": "assets/juegos/moon-solitaire/tablero-inicial.png",
+                "alt": "Tablero inicial de Moon Solitaire, con todas las fichas colocadas",
+                "caption": "Tablero inicial"
+            },
+            {
+                "src": "assets/juegos/moon-solitaire/seleccion-salto.png",
+                "alt": "Tablero luego de realizar el primer salto, con una ficha eliminada",
+                "caption": "Selección y salto de una ficha"
+            },
+            {
+                "src": "assets/juegos/moon-solitaire/avance-juego.png",
+                "alt": "Tablero a mitad de partida, con varias fichas ya eliminadas",
+                "caption": "Avance del juego"
+            },
+            {
+                "src": "assets/juegos/moon-solitaire/estado-final.png",
+                "alt": "Tablero casi vacío, en el estado final del juego",
+                "caption": "Estado final del juego"
+            }
+        ]
+    },
+    {
+        "id": "fireboy-watergirl",
+        "titulo": "Fireboy & Watergirl in The Forest Temple",
+        "categoria": "Aventura",
+        "descripcion": "Controlá a Fireboy y Watergirl al mismo tiempo para resolver puzzles cooperativos dentro de un templo en ruinas, evitando el agua y el fuego según corresponda a cada personaje.",
+        "comoJugar": "Guiá a ambos personajes hasta sus respectivas puertas de salida sin que toquen el elemento que los destruye.",
+        "imagenPortada": "assets/images/juegos/fireboy-watergirl-portada.png",
+        "galeria": []
+    },
+    {
+        "id": "happy-wheels",
+        "titulo": "Happy Wheels",
+        "categoria": "Arcade",
+        "descripcion": "Un juego de físicas caótico donde tenés que llevar a tu personaje lo más lejos posible por un recorrido lleno de obstáculos peligrosos.",
+        "comoJugar": "Usá las flechas del teclado para acelerar, frenar e inclinar tu vehículo.",
+        "imagenPortada": "assets/images/juegos/happy-wheels-portada.png",
+        "galeria": []
+    },
+    {
+        "id": "frizzle-fraz",
+        "titulo": "Frizzle Fraz",
+        "categoria": "Habilidad",
+        "descripcion": "Dibujá el camino para guiar a tu personaje a través de niveles con física de gravedad, esquivando obstáculos y llegando a la meta.",
+        "comoJugar": "Hacé clic y arrastrá para dibujar líneas que sirvan de camino o rampa.",
+        "imagenPortada": "assets/images/juegos/frizzle-fraz-portada.png",
+        "galeria": []
+    },
+    {
+        "id": "arrow-escape",
+        "titulo": "Arrow Escape",
+        "categoria": "Puzzle",
+        "descripcion": "Sacá todas las flechas del tablero deslizándolas en la dirección en la que apuntan, sin que choquen entre sí.",
+        "comoJugar": "Tocá una flecha para deslizarla hasta el borde del tablero en la dirección indicada.",
+        "imagenPortada": "assets/images/juegos/arrow-escape-portada.png",
+        "galeria": []
+    },
+    {
+        "id": "jewel-coloring",
+        "titulo": "Jewel Coloring Crystal Sort",
+        "categoria": "Relax",
+        "descripcion": "Ordená cristales de colores por tubos hasta que cada uno quede agrupado por su propio color.",
+        "comoJugar": "Hacé clic en un tubo de origen y luego en un tubo de destino para verter el cristal superior.",
+        "imagenPortada": "assets/images/juegos/jewel-coloring-portada.png",
+        "galeria": []
+    }
+]

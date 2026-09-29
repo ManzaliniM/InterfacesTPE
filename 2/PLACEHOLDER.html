@@ -1,0 +1,104 @@
+<!-- PLACEHOLDER, ESTO VA A SER GAME.HTML LUEGO. -->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{TITULO_JUEGO}</title>
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/game.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="nav-placeholder"></div>
+    <!-- ################################## -->
+
+    <nav aria-label="breadcrumb" id="breadcrumbs">
+        <ol>
+            <li><a href="index.html">Juegos</a></li>
+            <li><a href="categoria.html" data-bind="categoria-link">Puzzle</a></li>
+            <li aria-current="page" data-bind="titulo-breadcrumb">Moon Solitaire</li>
+        </ol>
+    </nav>
+
+    <div id="game-layout">
+
+        <!-- contenido relacionado al juego -->
+        <main id="juego">
+
+            <img id="juego-portada" src="" alt="" data-bind="imagen-principal">
+            <h1 data-bind="titulo">Título del juego</h1>
+
+            <section id="info-juego" aria-labelledby="info-juego-heading">
+                <h2 id="info-juego-heading" class="sr-only">Información del juego</h2>
+
+                <article>
+                    <h3>Descripción</h3>
+                    <div data-bind="descripcion"><!-- uno o más <p> inyectados desde JS --></div>
+                </article>
+
+                <article>
+                    <h3>Cómo jugar</h3>
+                    <div data-bind="como-jugar"><!-- uno o más <p> inyectados desde JS --></div>
+                </article>
+
+                <article>
+                    <h3>Controles</h3>
+                    <p data-bind="controles-texto"></p>
+                    <div class="galeria-controles" data-bind="galeria-controles">
+                        <!-- cada item de galería se inyecta desde JS: <figure><img><figcaption> -->
+                    </div>
+                </article>
+
+                <article>
+                    <h3>Tutorial</h3>
+                    <p class="tutorial-subtitulo" data-bind="tutorial-subtitulo"></p>
+                    <div data-bind="tutorial">
+                        <!-- thumbnail + botón play, se completa desde JS si el juego tiene tutorialUrl -->
+                    </div>
+                </article>
+
+            </section>
+
+            <!-- lista de comentarios en cada juego -->
+            <section id="comentarios" aria-labelledby="comentarios-heading">
+                <h2 id="comentarios-heading">Comentarios (<span data-bind="comentarios-count">0</span>)</h2>
+
+                <form id="form-comentario">
+                    <label for="nuevo-comentario" class="sr-only">Escribí un comentario</label>
+                    <input type="text" id="nuevo-comentario" name="comentario" placeholder="Escribe un comentario"
+                        autocomplete="off">
+                    <button type="submit">Comentar</button>
+                </form>
+
+                <ul id="lista-comentarios" data-bind="lista-comentarios">
+                    <!-- comentarios inyectados desde JS, cuando exista esa fuente de datos -->
+                </ul>
+            </section>
+        </main>
+
+        <!-- carrusel de juegos sin categoria fija -->
+        <aside id="carrusel-vertical" aria-label="Otros juegos">
+            <!-- items inyectados desde JS: <a><img><span> por cada juego -->
+        </aside>
+
+    </div>
+
+    <!-- ################################## -->
+    <div id="footer-placeholder"></div>
+
+    <script src="js/main.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/game.js"></script>
+</body>
+
+</html>
