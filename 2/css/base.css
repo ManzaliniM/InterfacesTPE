@@ -24,6 +24,11 @@
     box-sizing: border-box;
 }
 
+a:visited {
+    color: inherit;
+    text-decoration: none;
+}
+
 html {
     scroll-behavior: smooth;
 }

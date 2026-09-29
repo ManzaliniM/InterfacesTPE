@@ -16,8 +16,10 @@
 
     <div class="usuario">
         <!-- meter la img de usuario tambien en el btn usuario asi al clickear se abre tambien. minimo edit en css -->
-        <img src="assets/icons/Usuario.svg" alt="">
-        <button aria-label="Más opciones" id="btn-usuario"><img src="assets/icons/desplazar.svg" alt=""></button>
+        <button aria-label="Más opciones" id="btn-usuario">
+            <img src="assets/icons/Usuario.svg" alt="">
+            <img src="assets/icons/desplazar.svg" alt="">
+        </button>
 
         <div class="usuario-menu menu-oculto" id="usuario-menu">
             <h3>UserName</h3>
@@ -25,8 +27,8 @@
                 <li class="premium"><img src="assets/icons/Corona.svg" alt=""> Mejorar a plan premium</li>
                 <li><img src="assets/icons/Configuracion.svg" alt=""> Configuaracion</li>
                 <li><img src="assets/icons/Editar.svg" alt="">Editar usuario</li>
-                <!-- aca el cerrar sesion deberia llevar a index.html pero no se si conviene hacerlo con js o con simple href a index -->
-                <li><img src="assets/icons/CerrarSesion.svg" alt="">Cerrar sesion</li>
+                <!-- agregué que al clickear cerrar sesión te lleve al index -->
+                <li><a href="index.html" class="logout-link"><img src="assets/icons/CerrarSesion.svg" alt="">Cerrar sesion</a></li>
             </ul>
         </div>
     </div>
@@ -36,7 +38,8 @@
     <ul>
         <li class="item-menu"><a href="#"><img src="assets/icons/categories/Accion.svg" alt="">Acción</a></li>
         <li class="item-menu"><a href="#"><img src="assets/icons/categories/Clasicos.svg" alt="">Clasicos</a></li>
-        <li class="item-menu"><a href="#"><img src="assets/icons/categories/Juegos de mesa.svg" alt="">Juegos de mesa</a></li>
+        <li class="item-menu"><a href="#"><img src="assets/icons/categories/Juegos de mesa.svg" alt="">Juegos de
+                mesa</a></li>
         <li class="item-menu"><a href="#"><img src="assets/icons/categories/Cartas.svg" alt="">Cartas</a></li>
         <li class="item-menu"><a href="#"><img src="assets/icons/categories/Futbol.svg" alt="">Futbol</a></li>
         <li class="item-menu"><a href="#"><img src="assets/icons/categories/Cocina.svg" alt="">Cocina</a></li>
@@ -54,4 +57,3 @@
         <li class="item-menu"><a href="#"><img src="assets/icons/categories/Puzzle.svg" alt="">Puzzle</a></li>
     </ul>
 </nav>
-
