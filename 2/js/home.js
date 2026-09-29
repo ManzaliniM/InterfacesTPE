@@ -1,28 +1,36 @@
 const API_URL = 'https://6aad4daea2413bf0ec1191a0.mockapi.io/juego'; // o la URL de tu mock API
 
-async function obtenerJuegos(categoria= null, limite= null, nombre=null) {  //url dinamica 
+async function obtenerJuegos(categoria= null, limite= null, page=null, nombre=null) {  //url dinamica 
   let url= API_URL
   if(categoria!=null){ // evaluamos que existan los parametros de busqueda, si existen se los agregamos a la url
     url+='?categoria='+categoria;
-    if(limite){
-      url+= '&page=1&limit='+limite;
+    if(limite & page){
+      url+= '&page='+page+'&limit='+limite;
     }
   }
   if(nombre!=null){
     url+='?nombre='+ nombre;
   }
+  console.log(url);
   const res = await fetch(url); // traemos el contenido del url, el await nos frena el recorrido del codigo hasta que esta accion se complete
   if (!res.ok) throw new Error('No se pudieron cargar los juegos'); //si no hay respuesta tira error
   return res.json();
 }
 
 async function mostrarJuegos(categoria, elementoId) {
-  let juegos = await obtenerJuegos(categoria);
+  let juegos = await obtenerJuegos(categoria,4,2);
   const contenedor = document.getElementById(elementoId);
-
   juegos.push(
-    ...await obtenerJuegos(categoria, calcularExtra(9, 3))
+    ...await obtenerJuegos(categoria,4,3)
+  ); 
+  juegos.push(
+    ...await obtenerJuegos(categoria)
+  );  
+  juegos.push(
+    ...await obtenerJuegos(categoria, 7,1)
   );
+
+  console.log(juegos)
 
   const cardsHTML = juegos.map(juego => `
     <div class="card"> 
@@ -42,9 +50,7 @@ async function mostrarJuegos(categoria, elementoId) {
   contenedor.innerHTML = `<div class="carrusel-track">${cardsHTML}</div>`;
 }
 
-function calcularExtra(cantVisible, cantSlide){ //calculamos la cantidad de cards extra que le agregamos al final del carrusel
-  return cantVisible-cantSlide +1; //le agrego 1 mas por si las dudas
-}
+
 
 
 let posicion=1;
@@ -56,26 +62,31 @@ function initCarruseles() {
     const carruselTrack = wrapper.querySelector('.carrusel-track'); // acotado a ESTE wrapper
     const btnPrev = wrapper.querySelector('.btn-previous');
     const btnNext = wrapper.querySelector('.btn-next');
-    const distancia = 628;
+    const distancia = 455;
     let posicion = 1; // propia de este carrusel, no compartida
-
+  
     function scrollAtras() {
-      if (posicion == 1) return;
       posicion--;
-      carruselTrack.style.transform = `translateX(-${(posicion - 1) * distancia}px)`;
+      carruselTrack.style.transform = `translateX(-${(posicion - 1) * distancia +2700}px )`;
+      console.log(posicion);
+      if(posicion== -5){
+        carruselTrack.style.transform = `translateX(-2700px)`;
+        posicion=1;
+        return;
+      }
     }
 
     function scrollAdelante() {
-      if (posicion == 5) {
+      if (posicion == 6) {
         posicion = 1;
         carruselTrack.style.transition = 'none';
-        carruselTrack.style.transform = `translateX(0px)`;
+        carruselTrack.style.transform = `translateX(-2700px)`;
         carruselTrack.offsetHeight;
-        carruselTrack.style.transition = 'transform 0.4s ease';
+        //carruselTrack.style.transition = 'transform 0.4s ease';
         return;
       }
       posicion++;
-      carruselTrack.style.transform = `translateX(-${(posicion - 1) * distancia}px)`;
+      carruselTrack.style.transform = `translateX(-${(posicion - 1) * distancia+2700}px)`;
     }
 
     btnPrev.addEventListener('click', scrollAtras);
@@ -97,13 +108,13 @@ async function initTodo() {
 initTodo();
 
 
- async function formarCarruselGrande(){
-  let zombieRoad= await(obtenerJuegos(null,null,'Zombie road'));
-  let moonSol=await(obtenerJuegos(null,null,'Moon solitairie'));
-  let findCow=await(obtenerJuegos(null,null,'Find the cow'));
-  let papa=await(obtenerJuegos(null,null,"Papa's bakeria"));
+async function formarCarruselGrande(){
+  let zombieRoad= await(obtenerJuegos(null,null,null,'Zombie road'));
+  let moonSol=await(obtenerJuegos(null,null,null,'Moon solitairie'));
+  let findCow=await(obtenerJuegos(null,null,null,'Find the cow'));
+  let papa=await(obtenerJuegos(null,null,null,"Papa's bakeria"));
   console.log(zombieRoad)
-  document.getElementById('carrusel-grande').innerHTML= 
+  document.querySelector('.carrusel-grande-track').innerHTML =  
   `<div class="img-chica">
       <img src="${zombieRoad[0].img}" class="img1">
       <h2> ${zombieRoad[0].nombre}
@@ -125,6 +136,8 @@ initTodo();
 }
 
 formarCarruselGrande();
+
+
 
 
 

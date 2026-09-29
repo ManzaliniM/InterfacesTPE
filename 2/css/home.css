@@ -62,7 +62,6 @@
     display: flex;
     flex-direction: row;
     gap: 14px;
-    transition: transform 0.4s ease;
 }
 
 .tagPremium{
@@ -82,12 +81,16 @@ h3{
     margin-left:20px;
 }
 
-#carrusel-grande{
-    display: flex;
+.carrusel-grande-viewport {
+    overflow: hidden; /* en este div escondemos lo que sobra al ancho de la pantalla*/
+    width: 100%;
     margin-top: 90px;
+}
+
+.carrusel-grande-track {
+    display: flex;
     gap: 40px;
-    transform: translate(-84px);
-    overflow: hidden;
+    transform: translate(-80px); /*en este div hacemos los movimientos*/
 }
 
  .img1, .img3, .img4, .img-chica h2{
@@ -100,6 +103,34 @@ h3{
     width: 600px;
     height: 404px;
 }
+
+.carrusel-principal{
+    height: 400px;
+    position: relative;
+}
+
+.btn-next-principal, .btn-previous-principal{
+    width: 40px;
+    height: 50px;
+    position: absolute;
+    top:180px;
+    z-index: 1;
+    background: none;
+    border-style: none;
+}
+
+.btn-previous-principal {
+    left: 40px;
+}
+
+.btn-next-principal {
+    right: 40px;
+}
+
+.carrusel-principal img{
+    border-radius: 12px;
+}
+
 
 
 

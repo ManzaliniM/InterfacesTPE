@@ -148,6 +148,9 @@
 
 .mostrar {
     display: block;
+    position: fixed;
+    top:80px;
+    z-index: 2;
 }
 
 
