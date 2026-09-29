@@ -18,6 +18,11 @@
 </head>
 
 <body id="top">
+    <div id="loading-screen">
+        <div class="loader-spinner"></div>
+        <p class="loader-percent"><span id="loader-percent-value">0</span>%</p>
+    </div>
+
     <div id="nav-placeholder"></div>
 
     <!-- Carrusel grande-->
@@ -32,18 +37,18 @@
 </section>
 
     <!-- CONTENIDO -->
-    
-    <section id="juegos-recomendados" >
+
+    <section id="juegos-recomendados">
         <h3>Juegos recomendados</h3>
         <div class="carrusel-wrapper">
             <button class="btn-previous"><img src="assets/icons/ArrowPrevious.svg" alt=""></button>
             <div id="carrusel-recomendado" class="carrusel"></div>
             <button class="btn-next"><img src="assets/icons/ArrowNext.svg" alt=""></button>
         </div>
-   </section>
+    </section>
 
 
-    <section >
+    <section>
         <h3>Juegos de accion</h3>
         <div class="carrusel-wrapper">
             <button class="btn-previous"><img src="assets/icons/ArrowPrevious.svg" alt=""></button>
@@ -52,7 +57,7 @@
         </div>
     </section>
 
-    <section> 
+    <section>
         <h3>Juegos de puzzle</h3>
         <div class="carrusel-wrapper">
             <button class="btn-previous"><img src="assets/icons/ArrowPrevious.svg" alt=""></button>
@@ -62,7 +67,7 @@
     </section>
 
 
-     <section>
+    <section>
         <h3>Juegos de cocinar</h3>
         <div class="carrusel-wrapper">
             <button class="btn-previous"><img src="assets/icons/ArrowPrevious.svg" alt=""></button>
@@ -74,6 +79,7 @@
 
     <div id="footer-placeholder"></div>
 
+    <script src="js/loading.js"></script>
     <script src="js/navbar.js"></script>
     <script src="js/main.js"></script>
     <script src="js/home.js"></script>

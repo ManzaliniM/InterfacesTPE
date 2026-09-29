@@ -39,6 +39,17 @@ document.addEventListener('DOMContentLoaded', () => {
         toShow.classList.add('active');
     }
 
+    function showAuthSuccess(message) {
+        loginView.classList.add('hidden');
+        registerView.classList.add('hidden');
+        document.getElementById('auth-success-message').textContent = message;
+        document.getElementById('auth-success').classList.remove('hidden');
+
+        setTimeout(() => {
+            window.location.href = 'home.html';
+        }, 1600);
+    }
+
     // ---- Validación ----
     setupPasswordToggles();
     setupPasswordChecklist('reg-password', 'password-checklist');
@@ -48,12 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         if (!validateRequiredFields(loginForm)) return;
 
-        // TODO: ANIMACIÓN
-        console.log('Login OK (placeholder):', {
-            email: document.getElementById('login-email').value,
-        });
-
-        window.location.href = 'home.html';
+        showAuthSuccess('¡Bienvenidx de nuevo!');
     });
 
     // ---- Submit: registro ----
@@ -72,12 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!requiredOk || !passwordsOk || !strongOk) return;
 
-        // creo que backend no va a hacer falta en ninguna entrega?
-        console.log('Registro OK (placeholder):', {
-            firstname: document.getElementById('reg-firstname').value,
-            email: document.getElementById('reg-email').value,
-        });
-
-        window.location.href = 'home.html';
+        showAuthSuccess('¡Cuenta creada con éxito!');
     });
 });

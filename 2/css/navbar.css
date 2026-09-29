@@ -26,37 +26,47 @@
     padding-right: 95px;
 }
 
-.usuario-menu{
+.usuario-menu {
     position: fixed;
-    top: 80px; 
+    top: 80px;
     right: 0;
     width: 272px;
     min-height: 228px;
     background-color: #2B2A2F;
 }
 
-.usuario-menu ul{
+.usuario-menu ul {
     list-style: none;
     padding-inline-start: 0%;
     padding-left: 20px;
 }
 
-.usuario-menu li{
+.usuario-menu li {
     padding: 10px;
     display: flex;
     align-items: center;
 }
 
-.usuario-menu img{
+.usuario-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: inherit;
+    text-decoration: none;
+    width: 100%;
+}
+
+.usuario-menu img {
     padding-right: 8px;
     width: 20px;
     height: 20px;
 }
 
-.usuario-menu h3{
+.usuario-menu h3 {
     display: flex;
     justify-content: center;
 }
+
 .logo {
     width: 152px;
     height: 40px;
@@ -78,10 +88,15 @@
 }
 
 /* BOTONES (reset) */
-.usuario button{
+.usuario button {
     border: none;
     outline: none;
     background-color: #2B2A2F;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
 }
 
 /* BUSCADOR */
@@ -108,6 +123,10 @@
     border-radius: 8px;
 }
 
+.buscador img {
+    padding: 10px;
+}
+
 /* Ícono de lupa solo visible en mobile */
 .lupa-btn {
     display: none;
@@ -115,6 +134,12 @@
 
 /* CATEGORÍAS */
 .menu {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    z-index: 2;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
     background-color: #2B2A2F;
     padding: 20px;
     width: 260px;
