@@ -20,6 +20,10 @@
     --color-success: #35d488;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 html {
     scroll-behavior: smooth;
 }
