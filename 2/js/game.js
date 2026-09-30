@@ -24,6 +24,7 @@ function renderJuego(juego) {
 
     setText("[data-bind='titulo']", juego.titulo);
     setText("[data-bind='titulo-breadcrumb']", juego.titulo);
+    setText("[data-bind='titulo-inline']", juego.titulo);
     setText("[data-bind='categoria-link']", juego.categoria);
 
     setParagraphs("[data-bind='descripcion']", juego.descripcion);
@@ -34,10 +35,20 @@ function renderJuego(juego) {
     if (portada) {
         portada.src = juego.imagenPortada;
         portada.alt = `Captura de ${juego.titulo}`;
+        portada.onerror = () => portada.remove();
     }
 
     renderGaleriaControles(juego.galeria);
     renderTutorial(juego);
+
+    // los juegos sin esos datos no muestran secciones vacías
+    toggleSection("controles", juego.controlesTexto || juego.galeria?.length);
+    toggleSection("tutorial", juego.tutorialUrl);
+}
+
+function toggleSection(nombre, tieneDatos) {
+    const el = document.querySelector(`[data-section='${nombre}']`);
+    if (el) el.hidden = !tieneDatos;
 }
 
 function renderGaleriaControles(galeria) {
@@ -85,7 +96,7 @@ function renderCarrusel(games, currentId) {
         .map(
             (g) => `
       <a class="carrusel-item" href="game.html?id=${g.id}">
-        <img src="${g.imagenPortada}" alt="" loading="lazy">
+        <img src="${g.imagenPortada}" alt="" loading="lazy" onerror="this.parentElement.remove()">
         <span>${g.titulo}</span>
       </a>`
         )
@@ -99,6 +110,7 @@ function setText(selector, value) {
 
 function setParagraphs(selector, paragraphs) {
     const el = document.querySelector(selector);
-    if (!el || !Array.isArray(paragraphs)) return;
-    el.innerHTML = paragraphs.map((p) => `<p>${p}</p>`).join("");
+    if (!el || paragraphs == null) return;
+    const lista = Array.isArray(paragraphs) ? paragraphs : [paragraphs];
+    el.innerHTML = lista.map((p) => `<p>${p}</p>`).join("");
 }

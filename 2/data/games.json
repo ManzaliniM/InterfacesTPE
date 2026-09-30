@@ -2,7 +2,7 @@
     {
         "id": "moon-solitaire",
         "titulo": "Moon Solitaire",
-        "categoria": "puzzle",
+        "categoria": "Puzzle",
         "descripcion": [
             "Moon Solitaire lleva el clásico juego de solitario al espacio. Enfréntate a un desafiante tablero lunar lleno de fichas brillantes y pon a prueba tu capacidad para pensar varios movimientos por adelantado.",
             "Salta sobre las fichas para eliminarlas, despeja el tablero y trata de conseguir el resultado perfecto: ¡que quede una sola ficha! Pero cuidado: un movimiento mal calculado puede dejarte sin opciones.",
@@ -39,30 +39,21 @@
         ]
     },
     {
-        "id": "fireboy-watergirl",
-        "titulo": "Fireboy & Watergirl in The Forest Temple",
-        "categoria": "Aventura",
-        "descripcion": "Controlá a Fireboy y Watergirl al mismo tiempo para resolver puzzles cooperativos dentro de un templo en ruinas, evitando el agua y el fuego según corresponda a cada personaje.",
-        "comoJugar": "Guiá a ambos personajes hasta sus respectivas puertas de salida sin que toquen el elemento que los destruye.",
-        "imagenPortada": "assets/images/juegos/fireboy-watergirl-portada.png",
+        "id": "10-minutes-till-dawn",
+        "titulo": "10 Minutes Till Dawn",
+        "categoria": "Supervivencia",
+        "descripcion": "Sobrevive a hordas infinitas de criaturas de la noche durante 10 minutos armándote con diferentes poderes y habilidades.",
+        "comoJugar": "Mueve a tu personaje con las teclas de dirección y apunta/dispara con el ratón para eliminar enemigos.",
+        "imagenPortada": "assets/juegos/10MinutesTillDawn.png",
         "galeria": []
     },
     {
-        "id": "happy-wheels",
-        "titulo": "Happy Wheels",
-        "categoria": "Arcade",
-        "descripcion": "Un juego de físicas caótico donde tenés que llevar a tu personaje lo más lejos posible por un recorrido lleno de obstáculos peligrosos.",
-        "comoJugar": "Usá las flechas del teclado para acelerar, frenar e inclinar tu vehículo.",
-        "imagenPortada": "assets/images/juegos/happy-wheels-portada.png",
-        "galeria": []
-    },
-    {
-        "id": "frizzle-fraz",
-        "titulo": "Frizzle Fraz",
-        "categoria": "Habilidad",
-        "descripcion": "Dibujá el camino para guiar a tu personaje a través de niveles con física de gravedad, esquivando obstáculos y llegando a la meta.",
-        "comoJugar": "Hacé clic y arrastrá para dibujar líneas que sirvan de camino o rampa.",
-        "imagenPortada": "assets/images/juegos/frizzle-fraz-portada.png",
+        "id": "papas-pancakeria",
+        "titulo": "Papa's Pancakeria",
+        "categoria": "Simulación",
+        "descripcion": "Gestiona el restaurante de panqueques de Papa Louie: toma pedidos, cocina los panqueques al punto justo y decóralos según el gusto del cliente.",
+        "comoJugar": "Utiliza el ratón para seleccionar ingredientes, cocinar en la plancha y servir los pedidos.",
+        "imagenPortada": "assets/juegos/papasPancakeria.jpg",
         "galeria": []
     },
     {
@@ -71,7 +62,7 @@
         "categoria": "Puzzle",
         "descripcion": "Sacá todas las flechas del tablero deslizándolas en la dirección en la que apuntan, sin que choquen entre sí.",
         "comoJugar": "Tocá una flecha para deslizarla hasta el borde del tablero en la dirección indicada.",
-        "imagenPortada": "assets/images/juegos/arrow-escape-portada.png",
+        "imagenPortada": "assets/juegos/arrowEscape.png",
         "galeria": []
     },
     {
@@ -80,7 +71,88 @@
         "categoria": "Relax",
         "descripcion": "Ordená cristales de colores por tubos hasta que cada uno quede agrupado por su propio color.",
         "comoJugar": "Hacé clic en un tubo de origen y luego en un tubo de destino para verter el cristal superior.",
-        "imagenPortada": "assets/images/juegos/jewel-coloring-portada.png",
+        "imagenPortada": "assets/juegos/jewelColoring.png",
+        "galeria": []
+    },
+    {
+        "id": "cooking-festival",
+        "titulo": "Cooking Festival",
+        "categoria": "Simulación",
+        "descripcion": "Prepárate para atender a clientes exigentes cocinando deliciosos platillos a toda velocidad en este festival gastronómico.",
+        "comoJugar": "Usa el ratón para seleccionar los ingredientes, cocinar e integrar los pedidos a tiempo.",
+        "imagenPortada": "assets/juegos/cookingFestival.png",
+        "galeria": []
+    },
+    {
+        "id": "idle-farming-business",
+        "titulo": "Idle Farming Business",
+        "categoria": "Estrategia",
+        "descripcion": "Crea y administra tu propia granja automatizada, cosechando cultivos y expandiendo tus parcelas de tierra.",
+        "comoJugar": "Haz clic en los cultivos para cosechar y compra mejoras para automatizar tus ganancias.",
+        "imagenPortada": "assets/juegos/idleFarmingBusiness.png",
+        "galeria": []
+    },
+    {
+        "id": "logo-quiz",
+        "titulo": "Logo Quiz",
+        "categoria": "Trivia",
+        "descripcion": "Demuestra cuánto sabes sobre marcas globales adivinando los nombres detrás de los logos más famosos.",
+        "comoJugar": "Escribe o selecciona las letras correctas para completar el nombre de la marca mostrada.",
+        "imagenPortada": "assets/juegos/logoQuiz.png",
+        "galeria": []
+    },
+    {
+        "id": "papas-bakeria",
+        "titulo": "Papa's Bakeria",
+        "categoria": "Simulación",
+        "descripcion": "Hornea y hornea deliciosos pies y tartas de frutas en la popular pastelería de Papa Louie.",
+        "comoJugar": "Prepara la masa, añade el relleno, hornea al punto e integra las coberturas exactas.",
+        "imagenPortada": "assets/juegos/papasBakeria.jpg",
+        "galeria": []
+    },
+    {
+        "id": "papas-freezeria",
+        "titulo": "Papa's Freezeria",
+        "categoria": "Simulación",
+        "descripcion": "Prepara batidos y helados personalizados en una isla tropical para mantener satisfechos a los veraneantes.",
+        "comoJugar": "Mezcla la leche, añade los jarabes, bate la mezcla y sirve con siropes y aderezos.",
+        "imagenPortada": "assets/juegos/papasFreezeria.jpg",
+        "galeria": []
+    },
+    {
+        "id": "penguin-diner",
+        "titulo": "Penguin Diner",
+        "categoria": "Gestión",
+        "descripcion": "Ayuda a la pingüina Penny a atender a los clientes en su restaurante antártico para conseguir el dinero suficiente y volver a casa.",
+        "comoJugar": "Haz clic en los clientes para sentarlos, tomar su pedido, servir la comida y cobrar.",
+        "imagenPortada": "assets/juegos/penguinDiner.jpg",
+        "galeria": []
+    },
+    {
+        "id": "sara-cocina-bolognesa",
+        "titulo": "Cocina con Sara: Pasta Bolognesa",
+        "categoria": "Cocina",
+        "descripcion": "Sigue los pasos y la receta del Chef Sara para preparar una riquísima pasta con salsa boloñesa casera.",
+        "comoJugar": "Interactúa con los utensilios e ingredientes en la cocina siguiendo los pasos indicados.",
+        "imagenPortada": "assets/juegos/saraCocinaBolognesa.jpg",
+        "galeria": []
+    },
+    {
+        "id": "wordl",
+        "titulo": "Wordl",
+        "categoria": "Palabras",
+        "descripcion": "Adivina la palabra oculta de 5 letras en 6 intentos usando las pistas de colores en cada letra.",
+        "comoJugar": "Ingresa una palabra con el teclado y revisa los colores: verde (correcta), amarillo (posición incorrecta), gris (no está).",
+        "imagenPortada": "assets/juegos/wordl.png",
+        "galeria": []
+    },
+    {
+        "id": "zombier-road",
+        "titulo": "Zombier Road",
+        "categoria": "Acción",
+        "descripcion": "Conduce un vehículo blindado a través de una autopista atestada de hordas zombis sin perder el control.",
+        "comoJugar": "Usa A/D o las flechas para girar y atropellar a los infectados mientras esquivas obstáculos.",
+        "imagenPortada": "assets/juegos/zombierRoad.png",
         "galeria": []
     }
 ]

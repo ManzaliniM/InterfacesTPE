@@ -126,7 +126,8 @@ h1 {
     margin-bottom: 0px;
 }
 
-#info-juego h3+p {
+#info-juego h3+p,
+#info-juego h3+div>p:first-child {
     margin-top: 0;
 }
 

@@ -24,8 +24,8 @@
     <nav aria-label="breadcrumb" id="breadcrumbs">
         <ol>
             <li><a href="home.html">Juegos</a></li>
-            <li><a href="#">Puzzle</a></li>
-            <li aria-current="page"><a href="game.html">Moon Solitaire</a></li>
+            <li><a href="#" data-bind="categoria-link">Puzzle</a></li>
+            <li aria-current="page"><a href="game.html" data-bind="titulo-breadcrumb">Moon Solitaire</a></li>
         </ol>
     </nav>
 
@@ -35,7 +35,7 @@
         <main id="juego">
 
             <div class="portada-wrapper">
-                <img id="juego-portada" src="assets/juegos/moon-solitaire/portada.png"
+                <img id="juego-portada" data-bind="imagen-principal" src="assets/juegos/moon-solitaire/portada.png"
                     alt="Tablero de Moon Solitaire con fichas azules sobre una luna, ambientado en un pinball espacial">
 
                 <div class="portada-compartir">
@@ -54,81 +54,30 @@
                 </div>
             </div>
 
-            <h1>Moon Solitaire</h1>
+            <h1 data-bind="titulo">Moon Solitaire</h1>
 
             <section id="info-juego" aria-labelledby="info-juego-heading">
 
                 <article>
-                    <h3>¿Que es Moon Solitaire?</h3>
-                    <p>
-                        Moon Solitaire lleva el clásico juego de solitario al espacio. Enfréntate a un desafiante
-                        tablero lunar lleno de fichas brillantes y pon a prueba tu capacidad para pensar varios
-                        movimientos por adelantado.
-                    </p>
-                    <p>
-                        Salta sobre las fichas para eliminarlas, despeja el tablero y trata de conseguir el resultado
-                        perfecto: ¡que quede una sola ficha! Pero cuidado: un movimiento mal calculado puede dejarte
-                        sin opciones.
-                    </p>
-                    <p>
-                        Con una estética arcade inspirada en el pinball y el espacio, cada partida combina estrategia
-                        clásica con una experiencia visual vibrante. ¿Serás capaz de resolver el tablero lunar?
-                    </p>
+                    <h3>¿Qué es <span data-bind="titulo-inline">Moon Solitaire</span>?</h3>
+                    <div data-bind="descripcion"></div>
                 </article>
 
                 <article>
                     <h3>¿Cómo jugar?</h3>
-                    <p>
-                        Tu objetivo es eliminar todas las fichas posibles hasta dejar solamente una. Haz clic en una
-                        ficha y salta sobre otra ficha adyacente hacia un espacio vacío. Al realizar el movimiento, la
-                        ficha saltada desaparece y la ficha que moviste ocupa su lugar.
-                    </p>
-                    <p>
-                        Planifica tus movimientos con cuidado y busca la mejor combinación para despejar el tablero.
-                        Cada movimiento cuenta, así que piensa antes de saltar. ¿Puedes completar el desafío y dejar
-                        una única ficha en el centro?
-                    </p>
+                    <div data-bind="como-jugar"></div>
                 </article>
 
-                <article>
+                <article data-section="controles">
                     <h3>Controles</h3>
-                    <p>Ratón: haz clic en una ficha para realizar un movimiento.</p>
-
-                    <div class="galeria-controles">
-                        <figure>
-                            <img src="assets/juegos/moon-solitaire/tablero-inicial.png"
-                                alt="Tablero inicial de Moon Solitaire, con todas las fichas colocadas">
-                            <figcaption>Tablero inicial</figcaption>
-                        </figure>
-                        <figure>
-                            <img src="assets/juegos/moon-solitaire/seleccion-salto.png"
-                                alt="Tablero luego de realizar el primer salto, con una ficha eliminada">
-                            <figcaption>Selección y salto de una ficha</figcaption>
-                        </figure>
-                        <figure>
-                            <img src="assets/juegos/moon-solitaire/avance-juego.png"
-                                alt="Tablero a mitad de partida, con varias fichas ya eliminadas">
-                            <figcaption>Avance del juego</figcaption>
-                        </figure>
-                        <figure>
-                            <img src="assets/juegos/moon-solitaire/estado-final.png"
-                                alt="Tablero casi vacío, en el estado final del juego">
-                            <figcaption>Estado final del juego</figcaption>
-                        </figure>
-                    </div>
+                    <p data-bind="controles-texto"></p>
+                    <div class="galeria-controles" data-bind="galeria-controles"></div>
                 </article>
 
-                <article>
+                <article data-section="tutorial">
                     <h3>Tutorial</h3>
-                    <p class="tutorial-subtitulo">
-                        Moon Solitaire en acción!
-                        <a href="https://youtu.be/ZEcqHA7dbwM" target="_blank" rel="noopener">Tutorial</a>
-                    </p>
-                    <a class="tutorial-video" href="https://youtu.be/ZEcqHA7dbwM" target="_blank" rel="noopener"
-                        aria-label="Ver tutorial de Moon Solitaire en YouTube (se abre en una pestaña nueva)">
-                        <img src="assets/juegos/moon-solitaire/portada.png" alt="">
-                        <span class="play-button" aria-hidden="true"></span>
-                    </a>
+                    <p class="tutorial-subtitulo" data-bind="tutorial-subtitulo"></p>
+                    <div data-bind="tutorial"></div>
                 </article>
             </section>
 
@@ -227,47 +176,7 @@
 
         <!-- carrusel de juegos aside -->
         <aside id="carrusel-vertical" aria-label="Otros juegos">
-            <!-- Reemplazar cada href/img/span cuando tengan los datos reales -->
-            <a class="carrusel-item" href="#">
-                <img src="assets/juegos/fantasyOnline.png" alt="">
-                <span>Fantasy Online II</span>
-            </a>
-            <a class="carrusel-item" href="#">
-                <img src="assets/juegos/arrowEscape.png" alt="">
-                <span>Arrow Escape</span>
-            </a>
-            <a class="carrusel-item" href="#">
-                <img src="assets/juegos/jewelColoring.png" alt="">
-                <span>Jewel Coloring</span>
-            </a>
-            <a class="carrusel-item" href="#">
-                <img src="assets/juegos/crabCove.png" alt="">
-                <span>Crab Cove</span>
-            </a>
-            <a class="carrusel-item" href="#">
-                <img src="assets/juegos/mansionTale.png" alt="">
-                <span>Mansion Tale</span>
-            </a>
-            <a class="carrusel-item" href="#">
-                <img src="assets/juegos/fantasyOnline.png" alt="">
-                <span>Fantasy Online II</span>
-            </a>
-            <a class="carrusel-item" href="#">
-                <img src="assets/juegos/arrowEscape.png" alt="">
-                <span>Arrow Escape</span>
-            </a>
-            <a class="carrusel-item" href="#">
-                <img src="assets/juegos/jewelColoring.png" alt="">
-                <span>Jewel Coloring</span>
-            </a>
-            <a class="carrusel-item" href="#">
-                <img src="assets/juegos/crabCove.png" alt="">
-                <span>Crab Cove</span>
-            </a>
-            <a class="carrusel-item" href="#">
-                <img src="assets/juegos/mansionTale.png" alt="">
-                <span>Mansion Tale</span>
-            </a>
+            <!-- items inyectados desde js/game.js -->
         </aside>
 
     </div>
@@ -277,6 +186,7 @@
 
     <script src="js/main.js"></script>
     <script src="js/navbar.js"></script>
+    <script src="js/game.js"></script>
     <script src="js/comentarios.js"></script>
 </body>
 

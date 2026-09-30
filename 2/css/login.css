@@ -441,3 +441,26 @@ input.error {
         transform: translateY(0);
     }
 }
+
+.btn-start {
+    box-shadow: 0 8px 0 rgba(0, 0, 0, .35);
+    transition: transform .1s steps(2), box-shadow .1s steps(2);
+}
+
+.btn-start:hover,
+.btn-start:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 0 rgba(0, 0, 0, .35);
+    animation: start-blink .8s steps(2) infinite;
+}
+
+.btn-start:active {
+    transform: translateY(6px);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, .35);
+}
+
+@keyframes start-blink {
+    50% {
+        color: var(--color-accent);
+    }
+}
