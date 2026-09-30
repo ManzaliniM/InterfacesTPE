@@ -100,6 +100,10 @@
     }
 }
 
+.avatar-wrap:hover .user-avatar.is-premium {
+    box-shadow: 0 0 0 2px var(--color-accent), 0 0 14px var(--color-accent);
+}
+
 @media (prefers-reduced-motion: reduce) {
 
     .user-avatar.premium-unlock,
