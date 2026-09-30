@@ -10,7 +10,7 @@
 }
 
 .card p {
-    margin: 6px;
+    margin-left: 6px;
     width: 200px;
     white-space: nowrap;
     overflow: hidden;
@@ -69,8 +69,10 @@
     width: 62px;
     height: 16px;
     position: absolute;
-    z-index: 1;
-    margin: 5px;
+    z-index: 1;    
+    top:6px;   /* ajustá estos valores a lo que tenías antes, */
+    right: 140px;  /* relativos ahora al borde de la imagen, no de toda la card */
+
 }
 
 .premium-card {
@@ -192,6 +194,55 @@ body.is-loading {
     font-family: 'Press Start 2P', monospace;
     font-size: 14px;
     color: var(--color-primary-light);
+}
+
+
+/* hoover cards*/
+.card-img-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px; /* si tu .carrusel-peque ya tenía el border-radius, pasalo acá */
+}
+
+.card-img-wrap::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    0deg,
+    transparent,
+    transparent 30%,
+    rgba(217, 217, 217, 0.3) /* gris para cards normales */
+  );
+  transform: rotate(-45deg);
+  transition: all 0.5s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card:hover .card-img-wrap::before {
+  opacity: 1;
+  transform: rotate(-45deg) translateY(100%);
+}
+
+.card-premium .card-img-wrap::before {
+  background: linear-gradient(
+    0deg,
+    transparent,
+    transparent 30%,
+    rgba(255, 191, 54, 0.35) /* #FFBF36 en rgba, para el fade premium */
+  );
+}
+
+.card:hover .card-img-wrap {
+  box-shadow: 0 0 20px rgba(217, 217, 217, 0.5);
+}
+
+.card-premium:hover .card-img-wrap {
+  box-shadow: 0 0 20px rgba(255, 191, 54, 0.5);
 }
 
 

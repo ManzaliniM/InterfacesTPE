@@ -1,23 +1,22 @@
-const API_URL = 'https://6aad4daea2413bf0ec1191a0.mockapi.io/juego'; // o la URL de tu mock API
-
-async function obtenerJuegos(categoria= null, limite= null, page=null, nombre=null) {  //url dinamica 
-  let url= API_URL
-  if(categoria!=null){ // evaluamos que existan los parametros de busqueda, si existen se los agregamos a la url
-    url+='?categoria='+categoria;
-    if(limite & page){
-      url+= '&page='+page+'&limit='+limite;
+const API_URL = 'https://6aad4daea2413bf0ec1191a0.mockapi.io/juego';
+ 
+async function obtenerJuegos(categoria = null, limite = null, page = null, nombre = null) { // url dinámica
+  let url = API_URL;
+  if (categoria != null) { // si existen los parámetros de búsqueda, se los agregamos a la url
+    url += '?categoria=' + categoria;
+    if (limite & page) {
+      url += '&page=' + page + '&limit=' + limite;
     }
   }
-  if(nombre!=null){
-    url+='?nombre='+ nombre;
+  if (nombre != null) {
+    url += '?nombre=' + nombre;
   }
-  const res = await fetch(url); // traemos el contenido del url, el await nos frena el recorrido del codigo hasta que esta accion se complete
-  if (!res.ok) throw new Error('No se pudieron cargar los juegos'); //si no hay respuesta tira error
+  const res = await fetch(url); // el await frena el código hasta que se complete el fetch
+  if (!res.ok) throw new Error('No se pudieron cargar los juegos');
   return res.json();
 }
 
-
-
+ 
 const MOBILE_MAX = 600; // tiene que coincidir con el @media del CSS
  
 function esMobile() {
@@ -38,7 +37,7 @@ function saltar(track, x) {
   track.offsetHeight; // fuerza reflow
   track.style.transition = ''; // vuelve al transition del CSS
 }
-
+ 
  
 async function mostrarJuegos(categoria, elementoId) {
   let juegos = await obtenerJuegos(categoria, 4, 2);
@@ -48,16 +47,18 @@ async function mostrarJuegos(categoria, elementoId) {
   juegos.push(...await obtenerJuegos(categoria, 7, 1));
  
   const cardsHTML = juegos.map(juego => `
-    <div class="card">
-      ${juego.premium
-        ? `
-          <img class="carrusel-peque premium-card " src="${juego.img}">
-          <img class="tagPremium" src="assets/icons/premiumTag.svg">
-          `
-        : `
-          <img class="carrusel-peque" src="${juego.img}">
-          `
-      }
+    <div class="card${juego.premium ? ' card-premium' : ''}">
+      <div class="card-img-wrap">
+        ${juego.premium
+          ? `
+            <img class="carrusel-peque premium-card " src="${juego.img}">
+            <img class="tagPremium" src="assets/icons/premiumTag.svg">
+            `
+          : `
+            <img class="carrusel-peque" src="${juego.img}">
+            `
+        }
+      </div>
     <p>${juego.nombre}</p>
     </div>`
   ).join('');
@@ -116,7 +117,7 @@ async function initTodo() {
 }
  
 initTodo();
-
+ 
  
 async function obetenerJuegosCarruselGrande() {
   let zombieRoad = await obtenerJuegos(null, null, null, 'Zombie road');
@@ -155,11 +156,13 @@ function armarCarruselGrande(juegos) {
 obetenerJuegosCarruselGrande();
 
  
-let indiceMobile = 0;
+let indiceMobile = 3;
  
 // Offset que deja la card i centrada en el viewport (se mide, no está hardcodeado)
 function offsetMobile(track, i) {
   const card = track.children[0];
+  if (!card) return 0; // todavía no hay cards
+ 
   const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
   const paso = card.offsetWidth + gap;
   const centrado = (track.parentElement.offsetWidth - card.offsetWidth) / 2;
@@ -168,12 +171,13 @@ function offsetMobile(track, i) {
  
 function iniciarMobile() {
   const track = document.querySelector('.carrusel-grande-track');
-  indiceMobile = 0;
-  saltar(track, offsetMobile(track, 0));
+  if (!track || !track.children.length) return; // nada que posicionar aún
+  saltar(track, offsetMobile(track, indiceMobile)); // mantiene la card actual
 }
  
 function moverMobile(direccion) {
   const track = document.querySelector('.carrusel-grande-track');
+  if (!track || !track.children.length) return;
   const total = track.children.length / 2; // 4 únicas, el resto son copias
  
   if (direccion === 1) {
@@ -212,7 +216,7 @@ function moverMobile(direccion) {
     track.style.transform = `translateX(${offsetMobile(track, indiceMobile)}px)`;
   }
 }
-
+ 
  
 const btnPrev = document.querySelector('.btn-previous-principal');
 const btnNext = document.querySelector('.btn-next-principal');
@@ -273,10 +277,14 @@ btnNext.addEventListener('click', () => mover(1));
  
  
 let eraMobile = esMobile();
+let anchoPrevio = window.innerWidth;
  
 window.addEventListener('resize', () => {
+  if (window.innerWidth === anchoPrevio) return; // cambió solo el alto (barra del navegador, teclado)
+  anchoPrevio = window.innerWidth;
+ 
   if (esMobile() !== eraMobile) {
-    location.reload(); // cambió de desktop a mobile (o al revés): reinicia todo limpio
+    location.reload(); // cambió de desktop a mobile o al revés
     return;
   }
   if (esMobile()) iniciarMobile(); // rotación / cambio de ancho dentro de mobile
