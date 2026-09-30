@@ -1,19 +1,7 @@
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
 #breadcrumbs {
-    max-width: 1440px;
+    max-width: 1550px;
     margin: 0 auto;
-    padding: 100px 2rem 0;
+    padding: 100px 0 0;
 }
 
 #breadcrumbs ol {
@@ -54,8 +42,7 @@
     grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
     align-items: start;
     gap: 56px;
-    max-width: 1440px;
-    /* y si la width no es 1440 y es porcentual? */
+    max-width: 85%;
     margin: 0 auto;
     padding: 0 2rem;
 }
@@ -127,6 +114,22 @@
     display: block;
 }
 
+/*  */
+
+h1 {
+    color: var(--color-primary);
+    margin: 0px;
+}
+
+#info-juego h3 {
+    font-size: 22px;
+    margin-bottom: 0px;
+}
+
+#info-juego h3+p {
+    margin-top: 0;
+}
+
 /* Carrusel lateral: sticky */
 #carrusel-vertical {
     position: sticky;
@@ -167,7 +170,6 @@
 #info-juego {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem 3rem;
 }
 
 #info-juego>article:nth-of-type(3),
@@ -176,7 +178,7 @@
 }
 
 #info-juego p {
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 .galeria-controles {
@@ -212,6 +214,7 @@
     display: block;
     border-radius: 12px;
     overflow: hidden;
+    width: 50%;
 }
 
 .tutorial-video img {
@@ -219,6 +222,7 @@
     display: block;
 }
 
+/* BOTÓN PLAY, ACOMODAR */
 .tutorial-video .play-button {
     position: absolute;
     top: 50%;
