@@ -193,3 +193,82 @@ body.is-loading {
     font-size: 14px;
     color: var(--color-primary-light);
 }
+
+
+
+@media (max-width: 600px) {
+ 
+    .carrusel {
+        max-width: calc((200px * 3) + (14px * 2));
+        margin-left: auto;
+        margin-right: auto;
+        overflow: hidden;
+    }
+ 
+    .btn-previous {
+        left: 5px;
+    }
+ 
+    .btn-next {
+        right: 5px;
+    }
+ 
+    /* Carrusel grande */
+    .carrusel-principal {
+        margin-top: 90px;
+        height: 320px;
+        overflow: hidden;
+    }
+ 
+    .carrusel-grande-viewport {
+        width: 100%;
+        margin-top: 40px;
+    }
+ 
+    .carrusel-grande-track {
+        gap: 20px;
+        transform: none; /* el JS lo posiciona */
+    }
+ 
+    /* TODAS las cards iguales, ninguna oculta */
+    .card-chica,
+    .card-grande {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 0 0 min(320px, 85vw);
+        width: min(320px, 85vw);
+    }
+ 
+    .card-chica img,
+    .card-grande img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        transform: none; /* saca el translate de 75px */
+    }
+ 
+    .card-chica h2,
+    .card-grande h2 {
+        font-size: 14px;
+        text-align: center;
+        margin-top: 10px;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transform: none;
+    }
+ 
+    .btn-previous-principal {
+        left: 10px;
+        top: 130px;
+    }
+ 
+    .btn-next-principal {
+        right: 10px;
+        top: 130px;
+    }
+
+   
+}

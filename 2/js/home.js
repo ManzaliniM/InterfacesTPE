@@ -17,30 +17,38 @@ async function obtenerJuegos(categoria= null, limite= null, page=null, nombre=nu
 }
 
 
-// Salto instantáneo (sin animación) para los reinicios del loop
+
+const MOBILE_MAX = 600; // tiene que coincidir con el @media del CSS
+ 
+function esMobile() {
+  return window.innerWidth <= MOBILE_MAX;
+}
+ 
+// Dispara la animación de "achicar" (se reinicia en cada click)
+function achicar(track) {
+  track.classList.remove('moviendo');
+  track.offsetWidth; // fuerza reflow para reiniciar la animación
+  track.classList.add('moviendo');
+}
+ 
+// Salto instantáneo (sin animación), para posiciones iniciales y reinicios del loop
 function saltar(track, x) {
   track.style.transition = 'none';
   track.style.transform = `translateX(${x}px)`;
-  track.offsetHeight;              // fuerza reflow
-  track.style.transition = '';     // vuelve al transition del CSS
+  track.offsetHeight; // fuerza reflow
+  track.style.transition = ''; // vuelve al transition del CSS
 }
 
+ 
 async function mostrarJuegos(categoria, elementoId) {
-  let juegos = await obtenerJuegos(categoria,4,2);
+  let juegos = await obtenerJuegos(categoria, 4, 2);
   const contenedor = document.getElementById(elementoId);
-  juegos.push(
-    ...await obtenerJuegos(categoria,4,3)
-  ); 
-  juegos.push(
-    ...await obtenerJuegos(categoria)
-  );  
-  juegos.push(
-    ...await obtenerJuegos(categoria, 7,1)
-  );
-
-
+  juegos.push(...await obtenerJuegos(categoria, 4, 3));
+  juegos.push(...await obtenerJuegos(categoria));
+  juegos.push(...await obtenerJuegos(categoria, 7, 1));
+ 
   const cardsHTML = juegos.map(juego => `
-    <div class="card"> 
+    <div class="card">
       ${juego.premium
         ? `
           <img class="carrusel-peque premium-card " src="${juego.img}">
@@ -53,35 +61,33 @@ async function mostrarJuegos(categoria, elementoId) {
     <p>${juego.nombre}</p>
     </div>`
   ).join('');
-
+ 
   contenedor.innerHTML = `<div class="carrusel-track">${cardsHTML}</div>`;
 }
-
-
-
-
-let posicion=1;
-
+ 
 function initCarruseles() {
   const wrappers = document.querySelectorAll('.carrusel-wrapper');
-
+ 
   wrappers.forEach(wrapper => {
-    const carruselTrack = wrapper.querySelector('.carrusel-track'); // acotado a ESTE wrapper
+    const carruselTrack = wrapper.querySelector('.carrusel-track');
     const btnPrev = wrapper.querySelector('.btn-previous');
     const btnNext = wrapper.querySelector('.btn-next');
     const distancia = 455;
-    let posicion = 1; // propia de este carrusel, no compartida
-    saltar(carruselTrack, -2700)
+    let posicion = 1; // propia de este carrusel
+ 
+    saltar(carruselTrack, -2700); // posición inicial real
+ 
     function scrollAtras() {
       posicion--;
-      carruselTrack.style.transform = `translateX(-${(posicion - 1) * distancia +2700}px )`;
       if (posicion == -5) {
         saltar(carruselTrack, -2700);
         posicion = 1;
         return;
       }
+      achicar(carruselTrack);
+      carruselTrack.style.transform = `translateX(-${(posicion - 1) * distancia + 2700}px)`;
     }
-
+ 
     function scrollAdelante() {
       if (posicion == 6) {
         saltar(carruselTrack, -2700);
@@ -89,14 +95,15 @@ function initCarruseles() {
         return;
       }
       posicion++;
-      carruselTrack.style.transform = `translateX(-${(posicion - 1) * distancia+2700}px)`;
+      achicar(carruselTrack);
+      carruselTrack.style.transform = `translateX(-${(posicion - 1) * distancia + 2700}px)`;
     }
-
+ 
     btnPrev.addEventListener('click', scrollAtras);
     btnNext.addEventListener('click', scrollAdelante);
   });
 }
-
+ 
 async function initTodo() {
   await Promise.all([
     mostrarJuegos('cocina', 'carrusel-cocina'),
@@ -104,110 +111,176 @@ async function initTodo() {
     mostrarJuegos('accion', 'carrusel-accion'),
     mostrarJuegos('recomendados', 'carrusel-recomendado'),
   ]);
-
+ 
   initCarruseles(); // recién ahora existen los .carrusel-track en el DOM
 }
-
+ 
 initTodo();
 
-
-async function obetenerJuegosCarruselGrande(){
-  let zombieRoad= await(obtenerJuegos(null,null,null,'Zombie road'));
-  let moonSol=await(obtenerJuegos(null,null,null,'Moon solitairie'));
-  let findCow=await(obtenerJuegos(null,null,null,'Find the cow'));
-  let papa=await(obtenerJuegos(null,null,null,"Papa's bakeria"));
-
-  let juegos=[]
-  juegos.push(findCow, papa, zombieRoad,moonSol,findCow,papa,zombieRoad,moonSol);
-  //console.log(juegos);
+ 
+async function obetenerJuegosCarruselGrande() {
+  let zombieRoad = await obtenerJuegos(null, null, null, 'Zombie road');
+  let moonSol = await obtenerJuegos(null, null, null, 'Moon solitairie');
+  let findCow = await obtenerJuegos(null, null, null, 'Find the cow');
+  let papa = await obtenerJuegos(null, null, null, "Papa's bakeria");
+ 
+  let juegos = [];
+  juegos.push(findCow, papa, zombieRoad, moonSol, findCow, papa, zombieRoad, moonSol);
   armarCarruselGrande(juegos);
-
+ 
+  if (esMobile()) iniciarMobile(); // tiene que ir después de armar las cards
 }
-
-function armarCarruselGrande(juegos){
+ 
+function armarCarruselGrande(juegos) {
   const track = document.querySelector('.carrusel-grande-track');
-
-
+ 
   track.innerHTML = juegos.map((juego, i) => {
     let clase;
-    if (i==3) {
+    if (i == 3) {
       clase = 'card-grande';
-      console.log(clase);
-    } else{
-      clase= 'card-chica';
-      console.log(clase);
+    } else if (i == 4) {
+      clase = 'card-chica prox-grande';
+    } else {
+      clase = 'card-chica';
     }
-
-     return `<div class="${clase}">
+ 
+    return `<div class="${clase}">
         <img src="${juego[0].img}">
         <h2>${juego[0].nombre}</h2>
       </div>
     `;
   }).join('');
 }
-
-
+ 
 obetenerJuegosCarruselGrande();
 
+ 
+let indiceMobile = 0;
+ 
+// Offset que deja la card i centrada en el viewport (se mide, no está hardcodeado)
+function offsetMobile(track, i) {
+  const card = track.children[0];
+  const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+  const paso = card.offsetWidth + gap;
+  const centrado = (track.parentElement.offsetWidth - card.offsetWidth) / 2;
+  return -(i * paso - centrado);
+}
+ 
+function iniciarMobile() {
+  const track = document.querySelector('.carrusel-grande-track');
+  indiceMobile = 0;
+  saltar(track, offsetMobile(track, 0));
+}
+ 
+function moverMobile(direccion) {
+  const track = document.querySelector('.carrusel-grande-track');
+  const total = track.children.length / 2; // 4 únicas, el resto son copias
+ 
+  if (direccion === 1) {
+    // si quedó en la copia del final, volvemos al inicio sin animación
+    if (indiceMobile >= total) {
+      indiceMobile = 0;
+      saltar(track, offsetMobile(track, 0));
+    }
+    indiceMobile++;
+    achicar(track);
+    track.style.transform = `translateX(${offsetMobile(track, indiceMobile)}px)`;
+ 
+    // al llegar a la copia, esperamos que termine la animación y saltamos al inicio real
+    if (indiceMobile === total) {
+      const fin = (e) => {
+        if (e.target !== track) return;
+        track.removeEventListener('transitionend', fin);
+        if (indiceMobile === total) {
+          indiceMobile = 0;
+          saltar(track, offsetMobile(track, 0));
+        }
+      };
+      track.addEventListener('transitionend', fin);
+    }
+    return;
+  }
+ 
+  if (direccion === -1) {
+    // desde el inicio, saltamos a la copia del final y retrocedemos animado
+    if (indiceMobile <= 0) {
+      indiceMobile = total;
+      saltar(track, offsetMobile(track, total));
+    }
+    indiceMobile--;
+    achicar(track);
+    track.style.transform = `translateX(${offsetMobile(track, indiceMobile)}px)`;
+  }
+}
+
+ 
 const btnPrev = document.querySelector('.btn-previous-principal');
 const btnNext = document.querySelector('.btn-next-principal');
- let posicion2 = 2;
-  
-
+let posicion2 = 2;
+ 
 function mover(direccion) {
+  if (esMobile()) return moverMobile(direccion);
+ 
   const track = document.querySelector('.carrusel-grande-track');
-  const cards = track.querySelectorAll('div'); // las 8, en orden, una sola vez
+  const cards = track.querySelectorAll('div');
   const distancia = 500;
-    console.log(posicion2);
-
-  if(direccion===1){
-  
-    if(posicion2== 5){
-      saltar(track, -1074);   
-      posicion2=2;
-      cards[posicion2+1].classList.remove('card-chica');
-      cards[posicion2+1].classList.add('card-grande'); //cambiamos los tamaños de las cards
-
-      cards[posicion2+4].classList.remove('card-grande');
-      cards[posicion2+4].classList.add('card-chica');
+ 
+  if (direccion === 1) {
+    if (posicion2 == 5) {
+      saltar(track, -1074);
+      posicion2 = 2;
+      cards[posicion2 + 1].classList.remove('card-chica');
+      cards[posicion2 + 1].classList.add('card-grande');
+      cards[posicion2 + 4].classList.remove('card-grande');
+      cards[posicion2 + 4].classList.add('card-chica');
       return;
     }
-
-    track.style.transform = `translateX(-${(posicion2- 1) * distancia+1074}px)`;
-    cards[posicion2+1].classList.remove('card-grande');
-    cards[posicion2+1].classList.add('card-chica'); //cambiamos los tamaños de las cards
-
-    cards[posicion2+2].classList.remove('card-chica');
-    cards[posicion2+2].classList.add('card-grande');
+ 
+    achicar(track);
+    track.style.transform = `translateX(-${(posicion2 - 1) * distancia + 1074}px)`;
+    cards[posicion2 + 1].classList.remove('card-grande');
+    cards[posicion2 + 1].classList.add('card-chica');
+    cards[posicion2 + 2].classList.remove('card-chica');
+    cards[posicion2 + 2].classList.add('card-grande');
     posicion2++;
     return;
   }
-
-  if(direccion===-1){
-    if(posicion2==2){
+ 
+  if (direccion === -1) {
+    if (posicion2 == 2) {
       saltar(track, -((5 - 2) * distancia + 1074));
-      posicion2=5;
-      cards[posicion2+1].classList.remove('card-chica');
-      cards[posicion2+1].classList.add('card-grande');
-
-      cards[posicion2-2].classList.remove('card-grande');
-      cards[posicion2-2].classList.add('card-chica');
+      posicion2 = 5;
+      cards[posicion2 + 1].classList.remove('card-chica');
+      cards[posicion2 + 1].classList.add('card-grande');
+      cards[posicion2 - 2].classList.remove('card-grande');
+      cards[posicion2 - 2].classList.add('card-chica');
       return;
     }
-
-    track.style.transform = `translateX(-${(posicion2-3) * distancia+1074}px)`;
-    cards[posicion2+1].classList.remove('card-grande');
-    cards[posicion2+1].classList.add('card-chica');
-
+ 
+    achicar(track);
+    track.style.transform = `translateX(-${(posicion2 - 3) * distancia + 1074}px)`;
+    cards[posicion2 + 1].classList.remove('card-grande');
+    cards[posicion2 + 1].classList.add('card-chica');
     cards[posicion2].classList.remove('card-chica');
     cards[posicion2].classList.add('card-grande');
     posicion2--;
     return;
+  }
 }
-}
-
+ 
 btnPrev.addEventListener('click', () => mover(-1));
 btnNext.addEventListener('click', () => mover(1));
+ 
+ 
+let eraMobile = esMobile();
+ 
+window.addEventListener('resize', () => {
+  if (esMobile() !== eraMobile) {
+    location.reload(); // cambió de desktop a mobile (o al revés): reinicia todo limpio
+    return;
+  }
+  if (esMobile()) iniciarMobile(); // rotación / cambio de ancho dentro de mobile
+});
 
 
 
