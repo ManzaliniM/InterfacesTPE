@@ -13,4 +13,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     // inicializar listeners que dependen de nav/footer, como el menú hamburguesa
     initNavbar();
     initMenuUsuario();
+    initPremium();
 });

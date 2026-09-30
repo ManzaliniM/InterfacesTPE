@@ -17,19 +17,23 @@
     </div>
 
     <div class="usuario">
-        <!-- meter la img de usuario tambien en el btn usuario asi al clickear se abre tambien. minimo edit en css -->
         <button aria-label="Más opciones" id="btn-usuario">
-            <img src="assets/icons/Usuario.svg" alt="">
+            <span class="avatar-wrap">
+                <img src="assets/icons/Usuario.svg" alt="" class="user-avatar">
+                <img src="assets/icons/Corona.svg" alt="" class="premium-badge">
+            </span>
             <img src="assets/icons/desplazar.svg" alt="">
         </button>
 
         <div class="usuario-menu menu-oculto" id="usuario-menu">
             <h3>UserName</h3>
             <ul>
-                <li class="premium"><img src="assets/icons/Corona.svg" alt=""> Mejorar a plan premium</li>
+                <li class="premium" id="btn-premium">
+                    <img src="assets/icons/Corona.svg" alt="">
+                    <span id="premium-label">Mejorar a premium</span>
+                </li>
                 <li><img src="assets/icons/Configuracion.svg" alt=""> Configuaracion</li>
                 <li><img src="assets/icons/Editar.svg" alt="">Editar usuario</li>
-                <!-- agregué que al clickear cerrar sesión te lleve al index -->
                 <li><a href="index.html" class="logout-link"><img src="assets/icons/CerrarSesion.svg" alt="">Cerrar
                         sesion</a></li>
             </ul>
