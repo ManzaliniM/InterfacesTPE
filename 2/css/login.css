@@ -36,7 +36,7 @@ body {
     gap: 200px;
     max-width: 100%;
     margin: 0 auto;
-    margin-bottom: 90px;
+    margin-bottom: 120px;
 }
 
 /* #welcome-screen > div para que agarre solo el hijo directo */
@@ -99,6 +99,8 @@ body {
 
     width: 100%;
     border-radius: 24px;
+
+    margin-top: 5%;
 }
 
 .social-buttons {
