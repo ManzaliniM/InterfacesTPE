@@ -241,7 +241,7 @@ function mover(direccion) {
       cards[posicion2 + 4].classList.add('card-chica');
       return;
     }
- 
+
     achicar(track);
     track.style.transform = `translateX(-${(posicion2 - 1) * distancia + 1074}px)`;
     cards[posicion2 + 1].classList.remove('card-grande');
@@ -251,7 +251,7 @@ function mover(direccion) {
     posicion2++;
     return;
   }
- 
+
   if (direccion === -1) {
     if (posicion2 == 2) {
       saltar(track, -((5 - 2) * distancia + 1074));
@@ -262,7 +262,7 @@ function mover(direccion) {
       cards[posicion2 - 2].classList.add('card-chica');
       return;
     }
- 
+
     achicar(track);
     track.style.transform = `translateX(-${(posicion2 - 3) * distancia + 1074}px)`;
     cards[posicion2 + 1].classList.remove('card-grande');
@@ -276,11 +276,10 @@ function mover(direccion) {
  
 btnPrev.addEventListener('click', () => mover(-1));
 btnNext.addEventListener('click', () => mover(1));
- 
- 
+
 let eraMobile = esMobile();
 let anchoPrevio = window.innerWidth;
- 
+
 window.addEventListener('resize', () => {
   if (window.innerWidth === anchoPrevio) return; // cambió solo el alto (barra del navegador, teclado)
   anchoPrevio = window.innerWidth;
@@ -292,9 +291,6 @@ window.addEventListener('resize', () => {
   if (esMobile()) iniciarMobile(); // rotación / cambio de ancho dentro de mobile
 });
 
-
-
-
 function inicializarClickCarruselGrande(track) {
   track.addEventListener('click', (e) => {
     const card = e.target.closest('[data-link]');
@@ -302,7 +298,3 @@ function inicializarClickCarruselGrande(track) {
     window.location.href = 'game.html';
   });
 }
-
-
-
-

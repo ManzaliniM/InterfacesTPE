@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/home.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,23 +17,41 @@
 </head>
 
 <body id="top">
+    <!-- PANTALLA DE CARGA -->
     <div id="loading-screen">
-        <div class="loader-spinner"></div>
-        <p class="loader-percent"><span id="loader-percent-value">0</span>%</p>
+        <!-- Fondo -->
+        <div class="stars-layer"></div>
+
+        <!-- animación -->
+        <div class="loader-scene">
+            <!-- Cohete -->
+            <div class="pixel-rocket">
+                <div class="rocket-flame"></div>
+            </div>
+
+            <!-- Barra de progreso -->
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progress-bar-fill"></div>
+            </div>
+
+            <!-- Porcentaje -->
+            <p class="loader-percent"><span id="loader-percent-value">0</span>%</p>
+            <p class="loading-text">Cargando...</p>
+        </div>
     </div>
 
     <div id="nav-placeholder"></div>
 
     <!-- Carrusel grande-->
     <section class="carrusel-principal">
-    <button class="btn-previous-principal"><img src="assets/icons/ArrowPrevious.svg" alt=""></button>
-    <div class="carrusel-grande-viewport">
-        <div class="carrusel-grande-track">
-            <!-- importante el track para separar la logica de el transalete del overflow -->
+        <button class="btn-previous-principal"><img src="assets/icons/ArrowPrevious.svg" alt=""></button>
+        <div class="carrusel-grande-viewport">
+            <div class="carrusel-grande-track">
+                <!-- importante el track para separar la logica de el transalete del overflow -->
+            </div>
         </div>
-    </div>
-    <button class="btn-next-principal"><img src="assets/icons/ArrowNext.svg" alt=""></button>
-</section>
+        <button class="btn-next-principal"><img src="assets/icons/ArrowNext.svg" alt=""></button>
+    </section>
 
     <!-- CONTENIDO -->
 
