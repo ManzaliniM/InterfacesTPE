@@ -11,10 +11,18 @@ async function obtenerJuegos(categoria= null, limite= null, page=null, nombre=nu
   if(nombre!=null){
     url+='?nombre='+ nombre;
   }
-  console.log(url);
   const res = await fetch(url); // traemos el contenido del url, el await nos frena el recorrido del codigo hasta que esta accion se complete
   if (!res.ok) throw new Error('No se pudieron cargar los juegos'); //si no hay respuesta tira error
   return res.json();
+}
+
+
+// Salto instantáneo (sin animación) para los reinicios del loop
+function saltar(track, x) {
+  track.style.transition = 'none';
+  track.style.transform = `translateX(${x}px)`;
+  track.offsetHeight;              // fuerza reflow
+  track.style.transition = '';     // vuelve al transition del CSS
 }
 
 async function mostrarJuegos(categoria, elementoId) {
@@ -30,7 +38,6 @@ async function mostrarJuegos(categoria, elementoId) {
     ...await obtenerJuegos(categoria, 7,1)
   );
 
-  console.log(juegos)
 
   const cardsHTML = juegos.map(juego => `
     <div class="card"> 
@@ -64,25 +71,21 @@ function initCarruseles() {
     const btnNext = wrapper.querySelector('.btn-next');
     const distancia = 455;
     let posicion = 1; // propia de este carrusel, no compartida
-  
+    saltar(carruselTrack, -2700)
     function scrollAtras() {
       posicion--;
       carruselTrack.style.transform = `translateX(-${(posicion - 1) * distancia +2700}px )`;
-      console.log(posicion);
-      if(posicion== -5){
-        carruselTrack.style.transform = `translateX(-2700px)`;
-        posicion=1;
+      if (posicion == -5) {
+        saltar(carruselTrack, -2700);
+        posicion = 1;
         return;
       }
     }
 
     function scrollAdelante() {
       if (posicion == 6) {
+        saltar(carruselTrack, -2700);
         posicion = 1;
-        carruselTrack.style.transition = 'none';
-        carruselTrack.style.transform = `translateX(-2700px)`;
-        carruselTrack.offsetHeight;
-        //carruselTrack.style.transition = 'transform 0.4s ease';
         return;
       }
       posicion++;
@@ -108,35 +111,103 @@ async function initTodo() {
 initTodo();
 
 
-async function formarCarruselGrande(){
+async function obetenerJuegosCarruselGrande(){
   let zombieRoad= await(obtenerJuegos(null,null,null,'Zombie road'));
   let moonSol=await(obtenerJuegos(null,null,null,'Moon solitairie'));
   let findCow=await(obtenerJuegos(null,null,null,'Find the cow'));
   let papa=await(obtenerJuegos(null,null,null,"Papa's bakeria"));
-  console.log(zombieRoad)
-  document.querySelector('.carrusel-grande-track').innerHTML =  
-  `<div class="img-chica">
-      <img src="${zombieRoad[0].img}" class="img1">
-      <h2> ${zombieRoad[0].nombre}
-    </div>
-    <div>
-      <img src="${moonSol[0].img}" class="img2">
-      <h2> ${moonSol[0].nombre}
-    </div>
-    <div class="img-chica">
-      <img src="${findCow[0].img}" class="img3">
-      <h2> ${findCow[0].nombre}
-    </div>
-    <div class="img-chica">
-      <img src="${papa[0].img}" class="img4">
-      <h2> ${papa[0].nombre}
-    </div>`
 
- 
+  let juegos=[]
+  juegos.push(findCow, papa, zombieRoad,moonSol,findCow,papa,zombieRoad,moonSol);
+  //console.log(juegos);
+  armarCarruselGrande(juegos);
+
 }
 
-formarCarruselGrande();
+function armarCarruselGrande(juegos){
+  const track = document.querySelector('.carrusel-grande-track');
 
+
+  track.innerHTML = juegos.map((juego, i) => {
+    let clase;
+    if (i==3) {
+      clase = 'card-grande';
+      console.log(clase);
+    } else{
+      clase= 'card-chica';
+      console.log(clase);
+    }
+
+     return `<div class="${clase}">
+        <img src="${juego[0].img}">
+        <h2>${juego[0].nombre}</h2>
+      </div>
+    `;
+  }).join('');
+}
+
+
+obetenerJuegosCarruselGrande();
+
+const btnPrev = document.querySelector('.btn-previous-principal');
+const btnNext = document.querySelector('.btn-next-principal');
+ let posicion2 = 2;
+  
+
+function mover(direccion) {
+  const track = document.querySelector('.carrusel-grande-track');
+  const cards = track.querySelectorAll('div'); // las 8, en orden, una sola vez
+  const distancia = 500;
+    console.log(posicion2);
+
+  if(direccion===1){
+  
+    if(posicion2== 5){
+      saltar(track, -1074);   
+      posicion2=2;
+      cards[posicion2+1].classList.remove('card-chica');
+      cards[posicion2+1].classList.add('card-grande'); //cambiamos los tamaños de las cards
+
+      cards[posicion2+4].classList.remove('card-grande');
+      cards[posicion2+4].classList.add('card-chica');
+      return;
+    }
+
+    track.style.transform = `translateX(-${(posicion2- 1) * distancia+1074}px)`;
+    cards[posicion2+1].classList.remove('card-grande');
+    cards[posicion2+1].classList.add('card-chica'); //cambiamos los tamaños de las cards
+
+    cards[posicion2+2].classList.remove('card-chica');
+    cards[posicion2+2].classList.add('card-grande');
+    posicion2++;
+    return;
+  }
+
+  if(direccion===-1){
+    if(posicion2==2){
+      saltar(track, -((5 - 2) * distancia + 1074));
+      posicion2=5;
+      cards[posicion2+1].classList.remove('card-chica');
+      cards[posicion2+1].classList.add('card-grande');
+
+      cards[posicion2-2].classList.remove('card-grande');
+      cards[posicion2-2].classList.add('card-chica');
+      return;
+    }
+
+    track.style.transform = `translateX(-${(posicion2-3) * distancia+1074}px)`;
+    cards[posicion2+1].classList.remove('card-grande');
+    cards[posicion2+1].classList.add('card-chica');
+
+    cards[posicion2].classList.remove('card-chica');
+    cards[posicion2].classList.add('card-grande');
+    posicion2--;
+    return;
+}
+}
+
+btnPrev.addEventListener('click', () => mover(-1));
+btnNext.addEventListener('click', () => mover(1));
 
 
 

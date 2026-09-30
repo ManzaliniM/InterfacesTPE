@@ -91,19 +91,15 @@ h3 {
 .carrusel-grande-track {
     display: flex;
     gap: 40px;
-    transform: translate(-80px); /*en este div hacemos los movimientos*/
+    transform: translate(-1074px); /*en este div hacemos los movimientos*/
 }
-
-.img1,
-.img3,
-.img4,
-.img-chica h2 {
+.card-chica img,.card-chica h2 {
     width: 472px;
     height: 290px;
     transform: translate(0, 75px);
 }
 
-.img2 {
+.card-grande img {
     width: 600px;
     height: 404px;
 }
@@ -136,7 +132,23 @@ h3 {
 }
 
 
+/* Movimiento suave de los tracks */
+.carrusel-track,
+.carrusel-grande-track {
+    transition: transform 0.4s ease;
+}
 
+/* Las cards vuelven a 0deg suavemente cuando se quita .moviendo */
+.carrusel-track > .card,
+.carrusel-grande-track > div {
+    transition: transform 0.3s ease;
+}
+
+
+
+.card-chica img, .card-grande img {
+  transition: width 0.4s ease, height 0.4s ease;
+}
 
 
 body.is-loading {
