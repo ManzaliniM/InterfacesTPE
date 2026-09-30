@@ -46,8 +46,6 @@ footer {
     max-width: 200px;
     width: 100%;
     background: var(--color-primary-shadow);
-    color: #FFFFFF;
-    font-family: inherit;
     font-weight: 700;
     font-size: 16px;
     border-radius: 24px;

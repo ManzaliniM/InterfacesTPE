@@ -10,12 +10,12 @@
     border: 0;
 }
 
-/* tiene que haber una mejor manera de hacer esto para que no se esconda el contenido atras de la nav */
 #breadcrumbs {
-    margin: 100px 280px 0px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 100px 2rem 0;
 }
 
-/* que carajo era un rem me olvide. relativo? */
 #breadcrumbs ol {
     display: flex;
     gap: 0.5rem;
@@ -23,14 +23,29 @@
     padding: 0;
     margin: 0 0 1.5rem;
     font-size: 18px;
+    font-weight: 600;
+}
+
+#breadcrumbs a,
+#breadcrumbs a:visited {
+    color: var(--color-secondary-shadow);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+#breadcrumbs a:hover,
+#breadcrumbs a:active {
     color: var(--color-secondary);
-    /* solo deberia ser el color del ultimo o de los otros idk */
+}
+
+#breadcrumbs li:last-child a {
+    color: var(--color-secondary);
 }
 
 #breadcrumbs li:not(:last-child)::after {
     content: "/";
     margin-left: 0.5rem;
-    opacity: 0.5;
+    color: var(--color-font-muted);
 }
 
 /* main + aside en grid de dos columnas */
@@ -38,7 +53,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
     align-items: start;
-    gap: 2rem;
+    gap: 56px;
     max-width: 1440px;
     /* y si la width no es 1440 y es porcentual? */
     margin: 0 auto;
@@ -54,36 +69,89 @@
     border-radius: 16px;
 }
 
+.portada-wrapper {
+    position: relative;
+}
+
+.portada-compartir {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: right;
+    gap: 1.5rem;
+    padding: 1rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5));
+    border-radius: 0 0 16px 16px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+}
+
+.portada-wrapper:hover .portada-compartir,
+.portada-wrapper:focus-within .portada-compartir {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.portada-compartir button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.portada-compartir img {
+    width: 24px;
+    height: 24px;
+}
+
+.portada-compartir .icon-hover {
+    display: none;
+}
+
+.portada-compartir button:hover .icon-default,
+.portada-compartir button:focus-visible .icon-default {
+    display: none;
+}
+
+.portada-compartir button:hover .icon-hover,
+.portada-compartir button:focus-visible .icon-hover {
+    display: block;
+}
+
 /* Carrusel lateral: sticky */
 #carrusel-vertical {
     position: sticky;
     top: 1.5rem;
-    max-height: calc(100vh - 3rem);
-    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 20px;
     padding-right: 0.25rem;
-}
-
-#carrusel-vertical::-webkit-scrollbar {
-    width: 4px;
 }
 
 #carrusel-vertical .carrusel-item {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    flex-direction: column;
+    align-items: left;
+    gap: 4px;
     text-decoration: none;
     color: inherit;
 }
 
 #carrusel-vertical .carrusel-item img {
-    width: 56px;
-    height: 56px;
+    width: 80%;
+    height: auto;
+    aspect-ratio: 16 / 9;
     object-fit: cover;
-    border-radius: 8px;
-    flex-shrink: 0;
+    border-radius: 18px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -96,12 +164,15 @@
     }
 }
 
-/* Info juego */
 #info-juego {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin: 2rem 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem 3rem;
+}
+
+#info-juego>article:nth-of-type(3),
+#info-juego>article:nth-of-type(4) {
+    grid-column: 1 / -1;
 }
 
 #info-juego p {

@@ -23,9 +23,9 @@
 
     <nav aria-label="breadcrumb" id="breadcrumbs">
         <ol>
-            <li><a href="index.html">Juegos</a></li>
+            <li><a href="home.html">Juegos</a></li>
             <li><a href="#">Puzzle</a></li>
-            <li aria-current="page">Moon Solitaire</li>
+            <li aria-current="page"><a href="game.html">Moon Solitaire</a></li>
         </ol>
     </nav>
 
@@ -34,9 +34,26 @@
         <!-- TODO hardcodeado -->
         <main id="juego">
 
-            <!-- TODO: HOVER SOBRE LA PORTADA/JUEGO EN EJECUCION -->
-            <img id="juego-portada" src="assets/juegos/moon-solitaire/portada.png"
-                alt="Tablero de Moon Solitaire con fichas azules sobre una luna, ambientado en un pinball espacial">
+            <div class="portada-wrapper">
+                <img id="juego-portada" src="assets/juegos/moon-solitaire/portada.png"
+                    alt="Tablero de Moon Solitaire con fichas azules sobre una luna, ambientado en un pinball espacial">
+
+                <div class="portada-compartir">
+                    <button type="button" aria-label="Compartir">
+                        <img src="assets/icons/share.svg" alt="" class="icon-default">
+                        <img src="assets/icons/share-hover.svg" alt="" class="icon-hover">
+                    </button>
+                    <button type="button" aria-label="Compartir por correo">
+                        <img src="assets/icons/email.svg" alt="" class="icon-default">
+                        <img src="assets/icons/email-hover.svg" alt="" class="icon-hover">
+                    </button>
+                    <button type="button" aria-label="Compartir por WhatsApp">
+                        <img src="assets/icons/whatsapp.svg" alt="" class="icon-default">
+                        <img src="assets/icons/whatsapp-hover.svg" alt="" class="icon-hover">
+                    </button>
+                </div>
+            </div>
+
             <h1>Moon Solitaire</h1>
 
             <section id="info-juego" aria-labelledby="info-juego-heading">
@@ -215,7 +232,27 @@
             <!-- Reemplazar cada href/img/span cuando tengan los datos reales -->
             <a class="carrusel-item" href="#">
                 <img src="assets/juegos/fantasyOnline.png" alt="">
-                <span>Otro juego</span>
+                <span>Fantasy Online II</span>
+            </a>
+            <a class="carrusel-item" href="#">
+                <img src="assets/juegos/arrowEscape.png" alt="">
+                <span>Arrow Escape</span>
+            </a>
+            <a class="carrusel-item" href="#">
+                <img src="assets/juegos/jewelColoring.png" alt="">
+                <span>Jewel Coloring</span>
+            </a>
+            <a class="carrusel-item" href="#">
+                <img src="assets/juegos/crabCove.png" alt="">
+                <span>Crab Cove</span>
+            </a>
+            <a class="carrusel-item" href="#">
+                <img src="assets/juegos/mansionTale.png" alt="">
+                <span>Mansion Tale</span>
+            </a>
+            <a class="carrusel-item" href="#">
+                <img src="assets/juegos/fantasyOnline.png" alt="">
+                <span>Fantasy Online II</span>
             </a>
             <a class="carrusel-item" href="#">
                 <img src="assets/juegos/arrowEscape.png" alt="">
