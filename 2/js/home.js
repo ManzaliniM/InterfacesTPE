@@ -144,13 +144,15 @@ function armarCarruselGrande(juegos) {
     } else {
       clase = 'card-chica';
     }
- 
-    return `<div class="${clase}">
-        <img src="${juego[0].img}">
-        <h2>${juego[0].nombre}</h2>
-      </div>
+    //${i == 3 ? 'data-link="true"' : ''} si i=3 quiere decir que es moonsolitairie por lo tanto el data-link es true y queda asi <div class="card-grande" data-link="true">
+    return `<div class="${clase}" ${i == 3 ? 'data-link="true"' : ''}> 
+    <img src="${juego[0].img}">
+    <h2>${juego[0].nombre}</h2>
+    </div>
     `;
   }).join('');
+
+   inicializarClickCarruselGrande(track);
 }
  
 obetenerJuegosCarruselGrande();
@@ -289,6 +291,17 @@ window.addEventListener('resize', () => {
   }
   if (esMobile()) iniciarMobile(); // rotación / cambio de ancho dentro de mobile
 });
+
+
+
+
+function inicializarClickCarruselGrande(track) {
+  track.addEventListener('click', (e) => {
+    const card = e.target.closest('[data-link]');
+    if (!card) return;
+    window.location.href = 'game.html';
+  });
+}
 
 
 
