@@ -1,7 +1,7 @@
 /* HEADER */
 .navbar {
     position: fixed;
-    z-index: 2;
+    z-index: 100;
     top: 0;
     display: flex;
     align-items: center;
@@ -34,6 +34,7 @@
 
 .usuario-menu {
     position: fixed;
+    z-index: 99;
     top: 80px;
     right: 0;
     width: 272px;
@@ -156,7 +157,7 @@
     position: fixed;
     top: 80px;
     left: 0;
-    z-index: 2;
+    z-index: 99;
     max-height: calc(100vh - 80px);
     overflow-y: auto;
     background-color: #2B2A2F;
@@ -194,34 +195,21 @@
     display: block;
     position: fixed;
     top: 80px;
-    z-index: 2;
+    z-index: 99;
 }
 
 .btn-buscar {
     display: none;
 }
 
-
+/* MOBILE */
 /* MOBILE */
 @media (max-width: 600px) {
+
+    /* --- Buscador --- */
     .buscador {
         display: none;
     }
-
-    .lupa-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-    }
-
-    .menu-oculto,
-    .usuario {
-        width: 100%;
-    }
-
-
 
     .btn-buscar {
         display: block;
@@ -231,6 +219,8 @@
         width: 40px;
         height: 40px;
         border-radius: 12px;
+        position: relative;
+        left: 30px;
     }
 
     .btn-buscar img {
@@ -238,11 +228,23 @@
         height: 90%;
     }
 
-    .btn-buscar,
+    /* --- Menús --- */
+    .menu-oculto {
+        width: 100%;
+    }
+
+    /* --- Usuario --- */
+    .usuario {
+        width: 100%;
+        padding-right: 0;
+    }
+
     #btn-usuario {
         position: relative;
         left: 30px;
     }
 
-
+    .chevron-usuario {
+        display: none;
+    }
 }

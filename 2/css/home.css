@@ -1,20 +1,20 @@
-#juegos-recomendados {
-    margin-top: 80px;
-}
+/* carruseles chicos + loading screen */
 
-.card {
+/* ---------- carruseles chicos ---------- */
+.carrusel-track .card {
     display: flex;
     flex-direction: column;
     flex: 0 0 auto;
     position: relative;
 }
 
-.card p {
+.carrusel-track .card p {
     margin-left: 6px;
     width: 200px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: var(--color-font);
 }
 
 .carrusel-peque {
@@ -22,8 +22,10 @@
     height: 110px;
     object-fit: cover;
     border-radius: 8px;
+    background: var(--color-input-bg);
 }
 
+/* ---------- wrapper ---------- */
 .carrusel {
     display: flex;
     flex-direction: row;
@@ -38,30 +40,13 @@
     position: relative;
 }
 
-.btn-previous,
-.btn-next {
-    position: absolute;
-    transform: translateY(-50%);
-    z-index: 1;
-    border-radius: 8px;
-    background: none;
-    border-style: none;
-}
-
-.btn-previous {
-    left: 42px;
-}
-
-.btn-next {
-    right: 42px;
-}
-
 .carrusel-track {
     display: flex;
     flex-direction: row;
     gap: 14px;
 }
 
+/* ---------- tags y premium ---------- */
 .tagPremium {
     width: 62px;
     height: 16px;
@@ -78,78 +63,25 @@
 
 h3 {
     margin-left: 20px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 700;
+    color: var(--color-font);
 }
 
-.carrusel-grande-viewport {
-    overflow: hidden;
-    width: 100%;
-    margin-top: 90px;
-}
+/* ---------- Movimiento suave de los tracks ---------- */
 
-.carrusel-grande-track {
-    display: flex;
-    gap: 40px;
-    transform: translate(-1074px);
-}
-
-.card-chica img,
-.card-chica h2 {
-    width: 472px;
-    height: 290px;
-    transform: translate(0, 75px);
-}
-
-.card-grande img {
-    width: 600px;
-    height: 404px;
-}
-
-.carrusel-principal {
-    height: 400px;
-    position: relative;
-}
-
-.btn-next-principal,
-.btn-previous-principal {
-    width: 40px;
-    height: 50px;
-    position: absolute;
-    top: 180px;
-    z-index: 1;
-    background: none;
-    border-style: none;
-}
-
-.btn-previous-principal {
-    left: 40px;
-}
-
-.btn-next-principal {
-    right: 40px;
-}
-
-.carrusel-principal img {
-    border-radius: 12px;
-}
-
-/* Movimiento suave de los tracks */
-.carrusel-track,
-.carrusel-grande-track {
+.carrusel-track {
     transition: transform 0.4s ease;
 }
 
-/* Las cards vuelven a 0deg suavemente cuando se quita .moviendo */
-.carrusel-track>.card,
-.carrusel-grande-track>div {
+.carrusel-track>.card {
     transition: transform 0.3s ease;
 }
 
-.card-chica img,
-.card-grande img {
-    transition: width 0.4s ease, height 0.4s ease;
-}
+/* =========================================================
+   LOADING SCREEN
+   ========================================================= */
 
-/* LOADING SCREEN */
 body.is-loading {
     overflow: hidden;
 }
@@ -172,7 +104,7 @@ body.is-loading {
     pointer-events: none;
 }
 
-/* --- ESTRELLAS --- */
+/* --- Estrellas --- */
 .stars-layer {
     position: absolute;
     inset: 0;
@@ -207,7 +139,7 @@ body.is-loading {
     position: relative;
 }
 
-/* --- COHETE --- */
+/* --- Cohete --- */
 .pixel-rocket {
     width: 8px;
     height: 8px;
@@ -215,24 +147,15 @@ body.is-loading {
     margin-bottom: 60px;
     animation: float 1.5s ease-in-out infinite alternate;
     box-shadow:
-        /* Cuerpo principal */
         0 -8px 0 0 #fff, 0 -16px 0 0 #fff, 0 -24px 0 0 #fff,
         -8px -8px 0 0 #fff, -8px -16px 0 0 #fff,
         8px -8px 0 0 #fff, 8px -16px 0 0 #fff,
-
-        /* Punta */
         0 -32px 0 0 var(--color-primary),
         -8px -24px 0 0 var(--color-primary),
         8px -24px 0 0 var(--color-primary),
-
-        /* Ventana */
         0 -16px 0 0 #00ffff,
-
-        /* Aletas */
         -16px 0 0 0 #cc4d7a, -16px -8px 0 0 #cc4d7a,
         16px 0 0 0 #cc4d7a, 16px -8px 0 0 #cc4d7a,
-
-        /* Fuego */
         0 0 0 0 #ffaa00, -8px 0 0 0 #ffaa00, 8px 0 0 0 #ffaa00,
         0 8px 0 0 #ff4400, -8px 8px 0 0 #ff4400, 8px 8px 0 0 #ff4400,
         0 16px 0 0 #ff0000, -8px 16px 0 0 #ff0000, 8px 16px 0 0 #ff0000;
@@ -271,7 +194,7 @@ body.is-loading {
     }
 }
 
-/* --- Barra de Progreso --- */
+/* --- Barra de progreso --- */
 .progress-bar-container {
     width: 250px;
     height: 16px;
@@ -290,7 +213,7 @@ body.is-loading {
     box-shadow: 0 0 10px var(--color-primary);
 }
 
-/* --- Textos de Carga --- */
+/* --- Textos de carga --- */
 .loader-percent {
     font-family: 'Press Start 2P', monospace;
     font-size: 18px;
@@ -313,10 +236,9 @@ body.is-loading {
     }
 }
 
-
-/* =========================================
-   EFECTOS HOVER EN LAS CARDS
-   ========================================= */
+/* =========================================================
+   EFECTOS HOVER EN LAS CARDS CHICAS
+   ========================================================= */
 
 .card-img-wrap {
     position: relative;
@@ -341,7 +263,7 @@ body.is-loading {
     pointer-events: none;
 }
 
-.card:hover .card-img-wrap::before {
+.carrusel-track .card:hover .card-img-wrap::before {
     opacity: 1;
     transform: rotate(-45deg) translateY(100%);
 }
@@ -353,90 +275,23 @@ body.is-loading {
             rgba(255, 191, 54, 0.35));
 }
 
-.card:hover .card-img-wrap {
+.carrusel-track .card:hover .card-img-wrap {
     box-shadow: 0 0 20px rgba(217, 217, 217, 0.5);
 }
 
-.card-premium:hover .card-img-wrap {
+.carrusel-track .card-premium:hover .card-img-wrap {
     box-shadow: 0 0 20px rgba(255, 191, 54, 0.5);
 }
 
-
-/* =========================================
-   RESPONSIVE (MEDIA QUERIES)
-   ========================================= */
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 
 @media (max-width: 600px) {
-
     .carrusel {
         max-width: calc((200px * 3) + (14px * 2));
         margin-left: auto;
         margin-right: auto;
         overflow: hidden;
-    }
-
-    .btn-previous {
-        left: 5px;
-    }
-
-    .btn-next {
-        right: 5px;
-    }
-
-    /* Carrusel grande */
-    .carrusel-principal {
-        margin-top: 90px;
-        height: 320px;
-        overflow: hidden;
-    }
-
-    .carrusel-grande-viewport {
-        width: 100%;
-        margin-top: 40px;
-    }
-
-    .carrusel-grande-track {
-        gap: 20px;
-        transform: none;
-    }
-
-    /* TODAS las cards iguales, ninguna oculta */
-    .card-chica,
-    .card-grande {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        flex: 0 0 min(320px, 85vw);
-        width: min(320px, 85vw);
-    }
-
-    .card-chica img,
-    .card-grande img {
-        width: 100%;
-        height: 220px;
-        object-fit: cover;
-        transform: none;
-    }
-
-    .card-chica h2,
-    .card-grande h2 {
-        font-size: 14px;
-        text-align: center;
-        margin-top: 10px;
-        width: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        transform: none;
-    }
-
-    .btn-previous-principal {
-        left: 10px;
-        top: 130px;
-    }
-
-    .btn-next-principal {
-        right: 10px;
-        top: 130px;
     }
 }

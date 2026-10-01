@@ -1,4 +1,6 @@
+<!DOCTYPE html>
 <!-- HOMEPAGE -->
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -10,6 +12,7 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/carousel.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,22 +22,17 @@
 <body id="top">
     <!-- PANTALLA DE CARGA -->
     <div id="loading-screen">
-        <!-- Fondo -->
         <div class="stars-layer"></div>
 
-        <!-- animación -->
         <div class="loader-scene">
-            <!-- Cohete -->
             <div class="pixel-rocket">
                 <div class="rocket-flame"></div>
             </div>
 
-            <!-- Barra de progreso -->
             <div class="progress-bar-container">
                 <div class="progress-bar-fill" id="progress-bar-fill"></div>
             </div>
 
-            <!-- Porcentaje -->
             <p class="loader-percent"><span id="loader-percent-value">0</span>%</p>
             <p class="loading-text">Cargando...</p>
         </div>
@@ -42,62 +40,120 @@
 
     <div id="nav-placeholder"></div>
 
-    <!-- Carrusel grande-->
-    <section class="carrusel-principal">
-        <button class="btn-previous-principal"><img src="assets/icons/ArrowPrevious.svg" alt=""></button>
-        <div class="carrusel-grande-viewport">
-            <div class="carrusel-grande-track">
-                <!-- importante el track para separar la logica de el transalete del overflow -->
-            </div>
+    <!-- =========================================================
+         CARRUSEL DE JUEGOS DESTACADOS
+         ========================================================= -->
+    <section class="featured" aria-labelledby="featured-title">
+        <div class="carousel" id="featured-carousel" data-loading="true">
+            <div class="carousel__stage" id="carousel-stage" aria-live="polite"></div>
+
+            <button class="carousel__arrow carousel__arrow--prev" type="button" aria-label="Juego anterior"
+                data-action="prev">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M15 4 7 12l8 8" />
+                </svg>
+            </button>
+            <button class="carousel__arrow carousel__arrow--next" type="button" aria-label="Juego siguiente"
+                data-action="next">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m9 4 8 8-8 8" />
+                </svg>
+            </button>
+
+            <div class="carousel__dots" id="carousel-dots" role="group" aria-label="Elegir juego destacado"></div>
         </div>
-        <button class="btn-next-principal"><img src="assets/icons/ArrowNext.svg" alt=""></button>
     </section>
 
-    <!-- CONTENIDO -->
+    <!-- =========================================================
+         CARRUSELES CHICOS
+         ========================================================= -->
 
     <section id="juegos-recomendados">
         <h3>Juegos recomendados</h3>
         <div class="carrusel-wrapper">
-            <button class="btn-previous"><img src="assets/icons/ArrowPrevious.svg" alt=""></button>
+            <button class="carousel__arrow carousel__arrow--prev btn-previous" type="button" aria-label="Anterior">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M15 4 7 12l8 8" />
+                </svg>
+            </button>
+
             <div id="carrusel-recomendado" class="carrusel"></div>
-            <button class="btn-next"><img src="assets/icons/ArrowNext.svg" alt=""></button>
+
+            <button class="carousel__arrow carousel__arrow--next btn-next" type="button" aria-label="Siguiente">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m9 4 8 8-8 8" />
+                </svg>
+            </button>
         </div>
     </section>
-
 
     <section>
         <h3>Juegos de accion</h3>
         <div class="carrusel-wrapper">
-            <button class="btn-previous"><img src="assets/icons/ArrowPrevious.svg" alt=""></button>
+            <button class="carousel__arrow carousel__arrow--prev btn-previous" type="button" aria-label="Anterior">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M15 4 7 12l8 8" />
+                </svg>
+            </button>
+
             <div id="carrusel-accion" class="carrusel"></div>
-            <button class="btn-next"><img src="assets/icons/ArrowNext.svg" alt=""></button>
+
+            <button class="carousel__arrow carousel__arrow--next btn-next" type="button" aria-label="Siguiente">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m9 4 8 8-8 8" />
+                </svg>
+            </button>
         </div>
     </section>
 
     <section>
         <h3>Juegos de puzzle</h3>
         <div class="carrusel-wrapper">
-            <button class="btn-previous"><img src="assets/icons/ArrowPrevious.svg" alt=""></button>
-            <div id="carrusel-puzzle" class="carrusel"> </div>
-            <button class="btn-next"><img src="assets/icons/ArrowNext.svg" alt=""></button>
+            <button class="carousel__arrow carousel__arrow--prev btn-previous" type="button" aria-label="Anterior">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M15 4 7 12l8 8" />
+                </svg>
+            </button>
+
+            <div id="carrusel-puzzle" class="carrusel"></div>
+
+            <button class="carousel__arrow carousel__arrow--next btn-next" type="button" aria-label="Siguiente">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m9 4 8 8-8 8" />
+                </svg>
+            </button>
         </div>
     </section>
-
 
     <section>
         <h3>Juegos de cocinar</h3>
         <div class="carrusel-wrapper">
-            <button class="btn-previous"><img src="assets/icons/ArrowPrevious.svg" alt=""></button>
+            <button class="carousel__arrow carousel__arrow--prev btn-previous" type="button" aria-label="Anterior">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M15 4 7 12l8 8" />
+                </svg>
+            </button>
+
             <div id="carrusel-cocina" class="carrusel"></div>
-            <button class="btn-next"><img src="assets/icons/ArrowNext.svg" alt=""></button>
+
+            <button class="carousel__arrow carousel__arrow--next btn-next" type="button" aria-label="Siguiente">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m9 4 8 8-8 8" />
+                </svg>
+            </button>
         </div>
     </section>
-
 
     <div id="footer-placeholder"></div>
 
     <script src="js/loading.js"></script>
     <script src="js/navbar.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    
+    <script src="js/carousel-fila.js"></script>
+    <script src="js/carousel-destacado.js"></script>
     <script src="js/home.js"></script>
 </body>
+
+</html>

@@ -1,35 +1,42 @@
 // game.js — lógica específica de game.html
-// Depende de que main.js ya haya inyectado nav.html / footer.html
+// Usa la API compartida (js/api.js)
 
 document.addEventListener("DOMContentLoaded", async () => {
     const params = new URLSearchParams(window.location.search);
     const gameId = params.get("id");
 
     try {
-        const response = await fetch("data/games.json");
-        const games = await response.json();
+        // Si no hay ID en la URL, mostramos Moon Solitaire por defecto
+        const idFinal = gameId || 'moon-solitaire';
 
-        const juego = games.find(g => g.id === gameId) ?? games[0];
+        const juego = await obtenerJuegoPorId(idFinal)
+            ?? (await obtenerJuegosMoon())[0];
+
         if (!juego) return;
 
         renderJuego(juego);
-        renderCarrusel(games, juego.id);
+
+        const todos = await obtenerJuegosMoon();
+        renderCarrusel(todos, juego.id);
     } catch (error) {
         console.error("No se pudieron cargar los datos del juego:", error);
     }
 });
 
 function renderJuego(juego) {
+    // raw tiene el objeto original (enriquecido con el JSON local)
+    const raw = juego.raw || {};
+
     document.title = `Moon Arcade — ${juego.titulo}`;
 
     setText("[data-bind='titulo']", juego.titulo);
     setText("[data-bind='titulo-breadcrumb']", juego.titulo);
     setText("[data-bind='titulo-inline']", juego.titulo);
-    setText("[data-bind='categoria-link']", juego.categoria);
+    setText("[data-bind='categoria-link']", raw.categoria ?? juego.categoria);
 
-    setParagraphs("[data-bind='descripcion']", juego.descripcion);
-    setParagraphs("[data-bind='como-jugar']", juego.comoJugar);
-    setText("[data-bind='controles-texto']", juego.controlesTexto);
+    setParagraphs("[data-bind='descripcion']", raw.descripcion ?? "");
+    setParagraphs("[data-bind='como-jugar']", raw.comoJugar ?? "");
+    setText("[data-bind='controles-texto']", raw.controlesTexto ?? "");
 
     const portada = document.querySelector("[data-bind='imagen-principal']");
     if (portada) {
@@ -38,12 +45,11 @@ function renderJuego(juego) {
         portada.onerror = () => portada.remove();
     }
 
-    renderGaleriaControles(juego.galeria);
-    renderTutorial(juego);
+    renderGaleriaControles(raw.galeria);
+    renderTutorial(juego, raw);
 
-    // los juegos sin esos datos no muestran secciones vacías
-    toggleSection("controles", juego.controlesTexto || juego.galeria?.length);
-    toggleSection("tutorial", juego.tutorialUrl);
+    toggleSection("controles", raw.controlesTexto || (raw.galeria && raw.galeria.length));
+    toggleSection("tutorial", raw.tutorialUrl);
 }
 
 function toggleSection(nombre, tieneDatos) {
@@ -56,32 +62,30 @@ function renderGaleriaControles(galeria) {
     if (!galeriaEl || !Array.isArray(galeria)) return;
 
     galeriaEl.innerHTML = galeria
-        .map(
-            (item) => `
-      <figure>
-        <img src="${item.src}" alt="${item.alt ?? ""}">
-        <figcaption>${item.caption ?? ""}</figcaption>
-      </figure>`
-        )
+        .map(item => `
+            <figure>
+                <img src="${item.src}" alt="${item.alt ?? ""}">
+                <figcaption>${item.caption ?? ""}</figcaption>
+            </figure>`)
         .join("");
 }
 
-function renderTutorial(juego) {
+function renderTutorial(juego, raw) {
     const subtitulo = document.querySelector("[data-bind='tutorial-subtitulo']");
     const contenedor = document.querySelector("[data-bind='tutorial']");
-    if (!juego.tutorialUrl) return;
+    if (!raw.tutorialUrl) return;
 
     if (subtitulo) {
-        subtitulo.innerHTML = `${juego.titulo} en acción! <a href="${juego.tutorialUrl}" target="_blank" rel="noopener">Tutorial</a>`;
+        subtitulo.innerHTML = `${juego.titulo} en acción! <a href="${raw.tutorialUrl}" target="_blank" rel="noopener">Tutorial</a>`;
     }
 
     if (contenedor) {
         contenedor.innerHTML = `
-      <a class="tutorial-video" href="${juego.tutorialUrl}" target="_blank" rel="noopener"
-        aria-label="Ver tutorial de ${juego.titulo} en YouTube (se abre en una pestaña nueva)">
-        <img src="${juego.imagenPortada}" alt="">
-        <span class="play-button" aria-hidden="true"></span>
-      </a>`;
+            <a class="tutorial-video" href="${raw.tutorialUrl}" target="_blank" rel="noopener"
+               aria-label="Ver tutorial de ${juego.titulo} en YouTube (se abre en una pestaña nueva)">
+                <img src="${juego.imagenPortada}" alt="">
+                <span class="play-button" aria-hidden="true"></span>
+            </a>`;
     }
 }
 
@@ -89,19 +93,23 @@ function renderCarrusel(games, currentId) {
     const contenedor = document.querySelector("#carrusel-vertical");
     if (!contenedor) return;
 
-    // "sin categoria fija": mezcla de otros juegos, excluyendo el actual
-    const otros = games.filter((g) => g.id !== currentId);
+    // Excluimos el juego actual y limitamos a NUM
+    const num = 7;
+    const otros = games
+        .filter(g => String(g.id) !== String(currentId))
+        .slice(0, num);
 
     contenedor.innerHTML = otros
-        .map(
-            (g) => `
-      <a class="carrusel-item" href="game.html?id=${g.id}">
-        <img src="${g.imagenPortada}" alt="" loading="lazy" onerror="this.parentElement.remove()">
-        <span>${g.titulo}</span>
-      </a>`
-        )
+        .map(g => `
+            <a class="carrusel-item" href="game.html?id=${encodeURIComponent(g.id)}">
+                <img src="${g.imagenPortada}" alt="" loading="lazy"
+                     onerror="this.parentElement.remove()">
+                <span>${g.titulo}</span>
+            </a>`)
         .join("");
 }
+
+/* ---------- Helpers ---------- */
 
 function setText(selector, value) {
     const el = document.querySelector(selector);
@@ -112,5 +120,5 @@ function setParagraphs(selector, paragraphs) {
     const el = document.querySelector(selector);
     if (!el || paragraphs == null) return;
     const lista = Array.isArray(paragraphs) ? paragraphs : [paragraphs];
-    el.innerHTML = lista.map((p) => `<p>${p}</p>`).join("");
+    el.innerHTML = lista.filter(Boolean).map(p => `<p>${p}</p>`).join("");
 }
