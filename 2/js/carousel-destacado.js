@@ -11,24 +11,24 @@ const AUTOPLAY_MS = 5000;
 const VISIBLE_POSITIONS = [-2, -1, 0, 1, 2];
 
 
-/* ---------- Creación de un slot ---------- */
+function armarCarruselGrande() {
+  const track = document.querySelector('.carrusel-grande-track');
 
-function createSlot(pos) {
-    const slot = document.createElement("div");
-    slot.className = "slot";
-    slot.dataset.pos = pos;
-    slot.setAttribute("role", "group");
-    slot.setAttribute("aria-roledescription", "diapositiva");
-    slot.innerHTML = `
-        <a class="card" href="#">
-            <span class="card__media">
-                <img alt="" loading="eager" decoding="async">
-            </span>
-            <h3 class="card__title"></h3>
-        </a>`;
-    return slot;
+
+  // Si la API trae pocas cards, se repiten para poder rotar sin huecos
+  let lista = juegos;
+  while (lista.length < MIN_CARDS) lista = lista.concat(juegos);
+
+  track.innerHTML = lista.map((juego) => {
+    return `<div class="card-grande">
+        <img src="${juego[0].img}" alt="${juego[0].nombre}" draggable="false">
+        <h2>${juego[0].nombre}</h2>
+      </div>
+    `;
+  }).join('');
+
+  iniciarCarrusel(track);
 }
-
 
 /* ---------- Inicialización ----------
    root: el div #featured-carousel

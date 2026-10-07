@@ -142,7 +142,7 @@
 
 /* ---------- Pop de la card central (más fluido) ---------- */
 
-.slot[data-pos="0"] .card__media.is-popping {
+/*.slot[data-pos="0"] .card__media.is-popping {
     animation: pop-center 700ms var(--pop-ease) both;
 }
 
@@ -158,9 +158,15 @@
     100% {
         transform: scale(1);
     }
-}
+}*/
+
+
+
+
 
 /* Título: entra con delay, coincide con el pico del pop */
+
+
 .slot[data-pos="0"] .card__title {
     animation: title-rise 900ms var(--move-ease) both;
 }

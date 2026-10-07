@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
-/* ELEGIR LOS 5 DESTACADOS: Moon Solitaire va primero */
+/* ELEGIR LOS 7 DESTACADOS: Moon Solitaire va primero + 6 aleatorios */
 function elegirDestacados(todos) {
   if (!todos.length) return [];
 
@@ -53,8 +53,10 @@ function elegirDestacados(todos) {
 
   const resto = todos.filter(j => j !== moon);
   const shuffled = [...resto].sort(() => Math.random() - 0.5);
-  const otros = shuffled.slice(0, 4);
+  
+  // Cambiamos a 6 para que, sumado al Moon Solitaire, queden 7 en total
+  const otros = shuffled.slice(0, 6);
 
   const resultado = moon ? [moon, ...otros] : otros;
-  return resultado.slice(0, 5);
+  return resultado.slice(0, 7);
 }
