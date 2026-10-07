@@ -40,6 +40,33 @@
     position: relative;
 }
 
+.carrusel-wrapper .carousel__arrow {
+    top: 55px;
+    z-index: var(--z-carousel-controls);
+    width: 42px;
+    height: 42px;
+    border-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(43, 42, 47, 0.85);
+}
+
+.carrusel-wrapper .carousel__arrow:hover {
+    border-color: #fff;
+    background-color: rgba(43, 42, 47, 0.98);
+}
+
+.carrusel-wrapper .carousel__arrow img {
+    width: 24px;
+    height: 24px;
+}
+
+.carrusel-wrapper .carousel__arrow--prev {
+    left: 8px;
+}
+
+.carrusel-wrapper .carousel__arrow--next {
+    right: 8px;
+}
+
 .carrusel-track {
     display: flex;
     flex-direction: row;
@@ -89,7 +116,7 @@ body.is-loading {
 #loading-screen {
     position: fixed;
     inset: 0;
-    z-index: 999;
+    z-index: var(--z-loading);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -159,6 +186,20 @@ body.is-loading {
         0 0 0 0 #ffaa00, -8px 0 0 0 #ffaa00, 8px 0 0 0 #ffaa00,
         0 8px 0 0 #ff4400, -8px 8px 0 0 #ff4400, 8px 8px 0 0 #ff4400,
         0 16px 0 0 #ff0000, -8px 16px 0 0 #ff0000, 8px 16px 0 0 #ff0000;
+}
+
+/* activa rocket-launch al agregar la clase. */
+.pixel-rocket.launching {
+    animation: rocket-launch 0.8s ease-in forwards;
+    /*  easing ease-in animacion empieza lenta y termine rapida */
+}
+
+/* -110vh es 110% de la altura del viewport */
+@keyframes rocket-launch {
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
 }
 
 .rocket-flame {

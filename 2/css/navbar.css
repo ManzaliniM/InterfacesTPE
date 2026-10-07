@@ -1,7 +1,7 @@
 /* HEADER */
 .navbar {
     position: fixed;
-    z-index: 100;
+    z-index: var(--z-navbar);
     top: 0;
     display: flex;
     align-items: center;
@@ -34,7 +34,7 @@
 
 .usuario-menu {
     position: fixed;
-    z-index: 99;
+    z-index: var(--z-dropdown);
     top: 80px;
     right: 0;
     width: 272px;
@@ -157,7 +157,7 @@
     position: fixed;
     top: 80px;
     left: 0;
-    z-index: 99;
+    z-index: var(--z-dropdown);
     max-height: calc(100vh - 80px);
     overflow-y: auto;
     background-color: #2B2A2F;
@@ -195,7 +195,7 @@
     display: block;
     position: fixed;
     top: 80px;
-    z-index: 99;
+    z-index: var(--z-dropdown);
 }
 
 .btn-buscar {
