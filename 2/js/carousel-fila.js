@@ -100,6 +100,31 @@ function initControlesCarruselesFila() {
             track.style.transform = `translateX(-${(posicion - 1) * CARRUSEL_DISTANCIA + 2700}px)`;
         }
 
+        let swipeStartX = null;
+
+        wrapper.addEventListener('pointerdown', event => {
+            if (event.pointerType !== 'touch') return;
+            swipeStartX = event.clientX;
+        });
+
+        wrapper.addEventListener('pointerup', event => {
+            if (event.pointerType !== 'touch' || swipeStartX === null) return;
+
+            const deltaX = event.clientX - swipeStartX;
+            swipeStartX = null;
+
+            if (Math.abs(deltaX) < 48) return;
+            if (deltaX < 0) {
+                scrollAdelante();
+            } else {
+                scrollAtras();
+            }
+        });
+
+        wrapper.addEventListener('pointercancel', () => {
+            swipeStartX = null;
+        });
+
         btnPrev?.addEventListener('click', scrollAtras);
         btnNext?.addEventListener('click', scrollAdelante);
     });

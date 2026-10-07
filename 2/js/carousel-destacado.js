@@ -22,13 +22,7 @@ function initCarouselDestacado(rootContainer, juegosDestacados) {
             <img src="${juego.imagenPortada}" alt="Portada de ${juego.titulo}" draggable="false" />
             <div class="card-title">${juego.titulo}</div>
         `;
-
-        // Enlace clickeable restringido exclusivamente a la tarjeta del frente destacado
-        cardElement.addEventListener('click', () => {
-            if (cardElement.style.pointerEvents !== "none" && cardElement.dataset.isFront === "true") {
-                window.location.href = `game.html?id=${juego.id}`;
-            }
-        });
+        cardElement.dataset.gameId = juego.id;
 
         track.appendChild(cardElement);
     });
@@ -88,6 +82,45 @@ function initCarouselDestacado(rootContainer, juegosDestacados) {
     prevBtn.addEventListener('click', () => {
         rotationAngle += angleStep; // Rotación fluida manual hacia la izquierda
         arrangeCarousel();
+    });
+
+    // 4) Desplazamiento táctil para mover el carrusel en móviles
+    let swipeStartX = null;
+    let swipeTriggered = false;
+
+    track.addEventListener('pointerdown', event => {
+        if (event.pointerType !== 'touch') return;
+        swipeStartX = event.clientX;
+    });
+
+    track.addEventListener('pointerup', event => {
+        if (event.pointerType !== 'touch' || swipeStartX === null) return;
+
+        const deltaX = event.clientX - swipeStartX;
+        swipeStartX = null;
+
+        if (Math.abs(deltaX) < 48) return;
+
+        swipeTriggered = true;
+        if (deltaX < 0) {
+            nextBtn.click();
+        } else {
+            prevBtn.click();
+        }
+
+        setTimeout(() => {
+            swipeTriggered = false;
+        }, 0);
+    });
+
+    track.addEventListener('pointercancel', () => {
+        swipeStartX = null;
+    });
+
+    track.addEventListener('click', event => {
+        const card = event.target.closest('.card');
+        if (!card || swipeTriggered || card.dataset.isFront !== "true") return;
+        window.location.href = `game.html?id=${card.dataset.gameId}`;
     });
 
     // Inicializar render inicial

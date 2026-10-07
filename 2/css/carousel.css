@@ -10,6 +10,8 @@
     margin-top: 90px;
     /* Suficiente espacio respecto al Navbar */
     padding: 0;
+    overflow: hidden;
+    isolation: isolate;
 }
 
 .carousel {
@@ -20,12 +22,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 .carousel__track {
     width: 100%;
     height: 100%;
     position: relative;
+    touch-action: pan-y;
 }
 
 /* Tarjetas individuales en órbita */
@@ -118,6 +122,13 @@
 
 .carousel__arrow--next {
     right: 55px;
+}
+
+/* Ocultar las flechas en pantallas móviles */
+@media (max-width: 600px) {
+    .carousel__arrow {
+        display: none;
+    }
 }
 
 /* Ocultar textos de tarjetas en costados invisibles */
