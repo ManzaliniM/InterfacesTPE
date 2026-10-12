@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 1) Cargamos TODOS los juegos (esto internamente hace 1 sola request)
     const todos = await obtenerJuegosMoon();
 
-    // 2) Elegimos los 5 destacados (Moon Solitaire primero)
+    // 2) Elegimos los destacados (Moon Solitaire primero)
     const destacados = elegirDestacados(todos);
 
     // 3) Carrusel destacado
@@ -38,11 +38,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-
-/* ELEGIR LOS 7 DESTACADOS: Moon Solitaire va primero + 6 aleatorios */
+/* ELEGIR DESTACADOS: Moon Solitaire va primero */
 function elegirDestacados(todos) {
   if (!todos.length) return [];
 
+  const cantidadDestacados = 7;
   const moon = todos.find(j => {
     const s = j.titulo.toLowerCase()
       .normalize('NFD')
@@ -53,10 +53,8 @@ function elegirDestacados(todos) {
 
   const resto = todos.filter(j => j !== moon);
   const shuffled = [...resto].sort(() => Math.random() - 0.5);
-  
-  // Cambiamos a 6 para que, sumado al Moon Solitaire, queden 7 en total
-  const otros = shuffled.slice(0, 6);
+  const otros = shuffled.slice(0, cantidadDestacados - 1);
 
   const resultado = moon ? [moon, ...otros] : otros;
-  return resultado.slice(0, 7);
+  return resultado.slice(0, cantidadDestacados);
 }

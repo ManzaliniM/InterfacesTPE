@@ -14,7 +14,6 @@ let moonCacheJuegos = null;
 let moonCachePromesa = null;
 
 /* ---------- Fetch con timeout ---------- */
-
 async function moonFetchJson(url, timeoutMs = MOON_TIMEOUT_MS) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
@@ -28,7 +27,6 @@ async function moonFetchJson(url, timeoutMs = MOON_TIMEOUT_MS) {
 }
 
 /* ---------- Normalización ---------- */
-
 function moonNormalizarJuego(j) {
     return {
         id: j.id ?? j.titulo ?? j.nombre ?? '',

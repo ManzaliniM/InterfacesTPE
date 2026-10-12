@@ -1,194 +1,131 @@
-/* =========================================================
-   CARRUSEL DESTACADO (coverflow)
-   - 5 slots fijos: posiciones -2 a 2
-   - La card central es la protagonista
-   - Autoplay, dots, teclado, pop
-   - NO carga datos: los recibe desde home.js
-   ========================================================= */
+/**
+ * Inicializador del Carrusel Circular Destacado
+ * Conectado con el flujo de home.js y api.js de Moon Arcade
+ * @param {HTMLElement} rootContainer - El elemento contenedor (#featured-carousel)
+ * @param {Array} juegosDestacados - Lista de objetos de juegos filtrados por la API
+ */
+function initCarouselDestacado(rootContainer, juegosDestacados) {
+    const track = rootContainer.querySelector('#carousel-track');
+    const prevBtn = rootContainer.querySelector('#prev');
+    const nextBtn = rootContainer.querySelector('#next');
 
-const FEATURED_COUNT = 5;
-const AUTOPLAY_MS = 5000;
-const VISIBLE_POSITIONS = [-2, -1, 0, 1, 2];
+    if (!track || !juegosDestacados || juegosDestacados.length === 0) return;
 
+    // 1) Renderizar dinámicamente las tarjetas del carrusel destacado
+    track.innerHTML = '';
 
-function armarCarruselGrande() {
-  const track = document.querySelector('.carrusel-grande-track');
+    juegosDestacados.forEach(juego => {
+        const cardElement = document.createElement('div');
+        cardElement.classList.add('card');
 
+        cardElement.innerHTML = `
+            <img src="${juego.imagenPortada}" alt="Portada de ${juego.titulo}" draggable="false" />
+            <div class="card-title">${juego.titulo}</div>
+        `;
+        cardElement.dataset.gameId = juego.id;
 
-  // Si la API trae pocas cards, se repiten para poder rotar sin huecos
-  let lista = juegos;
-  while (lista.length < MIN_CARDS) lista = lista.concat(juegos);
-
-  track.innerHTML = lista.map((juego) => {
-    return `<div class="card-grande">
-        <img src="${juego[0].img}" alt="${juego[0].nombre}" draggable="false">
-        <h2>${juego[0].nombre}</h2>
-      </div>
-    `;
-  }).join('');
-
-  iniciarCarrusel(track);
-}
-
-/* ---------- Inicialización ----------
-   root: el div #featured-carousel
-   games: array de juegos ya normalizados
------------------------------------- */
-
-function initCarouselDestacado(root, games) {
-    if (!root || !games || !games.length) return;
-
-    const stage = root.querySelector("#carousel-stage");
-    const dotsEl = root.querySelector("#carousel-dots");
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const total = games.length;
-
-    let active = 0;
-    let autoplayId = null;
-
-    const slots = VISIBLE_POSITIONS.map((pos) => {
-        const slot = createSlot(pos);
-        stage.appendChild(slot);
-        return slot;
+        track.appendChild(cardElement);
     });
 
-    const dots = games.map((game, i) => {
-        const dot = document.createElement("button");
-        dot.type = "button";
-        dot.className = "carousel__dot";
-        dot.setAttribute("aria-label", `Ir a ${game.titulo}`);
-        dot.addEventListener("click", () => goTo(i));
-        dotsEl.appendChild(dot);
-        return dot;
-    });
+    // 2) Configuración de la física trigonométrica orbital (Foco central aumentado)
+    const cards = track.querySelectorAll('.card');
+    const totalCards = cards.length;
+    const angleStep = (2 * Math.PI) / totalCards;
+    let rotationAngle = 0;
 
-    const wrap = (i) => ((i % total) + total) % total;
+    function arrangeCarousel() {
+        cards.forEach((card, index) => {
+            const cardAngle = (angleStep * index) + rotationAngle;
 
-    /* ---------- Render ---------- */
+            // Fórmulas matemáticas para proyectar la elipse espacial
+            const x = Math.sin(cardAngle) * 140; // Separación horizontal elíptica calibrada
+            const z = Math.cos(cardAngle);        // Coordenada Z virtual (-1 al fondo, 1 al frente)
 
-    function render() {
-        slots.forEach((slot) => {
-            const pos = Number(slot.dataset.pos);
-            const index = wrap(active + pos);
-            const game = games[index];
+            // ARREGLADO: Curva de escalado potenciada. 
+            // La tarjeta del frente destaca masivamente escalando a 1.15x; los costados bajan armónicamente.
+            const scale = 0.60 + (z + 1) * 0.275;
 
-            const link = slot.querySelector(".card");
-            const img = slot.querySelector("img");
-            const title = slot.querySelector(".card__title");
+            // Manejo de capas de superposición (Z-Index dinámico)
+            const zIndex = Math.round(((z + 1) / 2) * 20);
 
-            link.href = `game.html?id=${encodeURIComponent(game.id)}`;
-            link.dataset.index = index;
-            link.tabIndex = Math.abs(pos) <= 1 ? 0 : -1;
-
-            if (img.getAttribute("src") !== game.imagenPortada) {
-                img.src = game.imagenPortada;
+            // Detección e interactividad selectiva según posición orbital
+            if (z < -0.1) {
+                card.style.opacity = "0";
+                card.style.pointerEvents = "none";
+                card.style.cursor = "default";
+                card.dataset.isFront = "false";
+            } else {
+                // Si la tarjeta está firmemente al frente, se habilita su puntero de acción
+                if (z > 0.9) {
+                    card.dataset.isFront = "true";
+                    card.style.cursor = "pointer";
+                } else {
+                    card.dataset.isFront = "false";
+                    card.style.cursor = "default";
+                }
+                card.style.opacity = "1";
+                card.style.pointerEvents = "auto";
             }
-            img.alt = game.titulo;
-            title.textContent = game.titulo;
 
-            slot.setAttribute("aria-label", `${index + 1} de ${total}: ${game.titulo}`);
-            slot.setAttribute("aria-hidden", Math.abs(pos) > 1 ? "true" : "false");
+            // Aplicamos los valores en los estilos en línea CSS
+            card.style.zIndex = zIndex;
+            card.style.transform = `translate(-50%, -50%) translate(${x}%) scale(${scale})`;
         });
-
-        dots.forEach((dot, i) =>
-            dot.setAttribute("aria-current", i === active ? "true" : "false")
-        );
     }
 
-    /* ---------- Pop de la card central ---------- */
-
-    function animarPop() {
-        if (reduceMotion.matches) return;
-
-        const centerSlot = slots.find(s => Number(s.dataset.pos) === 0);
-        if (!centerSlot) return;
-
-        const media = centerSlot.querySelector(".card__media");
-        if (!media) return;
-
-        media.classList.remove("is-popping");
-        void media.offsetWidth;
-        media.classList.add("is-popping");
-
-        media.addEventListener("animationend", () => {
-            media.classList.remove("is-popping");
-        }, { once: true });
-    }
-
-    /* ---------- Movimiento ---------- */
-
-    function move(step) {
-        if (step === 0) return;
-        active = wrap(active + step);
-        render();
-        animarPop();
-    }
-
-    function goTo(index) {
-        const forward = wrap(index - active);
-        const step = forward <= total / 2 ? forward : forward - total;
-        move(step);
-        restartAutoplay();
-    }
-
-    /* ---------- Controles ---------- */
-
-    root.querySelector('[data-action="prev"]').addEventListener("click", () => {
-        move(-1);
-        restartAutoplay();
-    });
-    root.querySelector('[data-action="next"]').addEventListener("click", () => {
-        move(1);
-        restartAutoplay();
+    // 3) Eventos nativos de las flechas del bloque principal
+    nextBtn.addEventListener('click', () => {
+        rotationAngle -= angleStep; // Rotación fluida manual hacia la derecha
+        arrangeCarousel();
     });
 
-    stage.addEventListener("click", (e) => {
-        const slot = e.target.closest(".slot");
-        if (!slot) return;
-        const pos = Number(slot.dataset.pos);
-        if (pos !== 0) {
-            e.preventDefault();
-            move(pos);
-            restartAutoplay();
+    prevBtn.addEventListener('click', () => {
+        rotationAngle += angleStep; // Rotación fluida manual hacia la izquierda
+        arrangeCarousel();
+    });
+
+    // 4) Desplazamiento táctil para mover el carrusel en móviles
+    let swipeStartX = null;
+    let swipeTriggered = false;
+
+    track.addEventListener('pointerdown', event => {
+        if (event.pointerType !== 'touch') return;
+        swipeStartX = event.clientX;
+    });
+
+    track.addEventListener('pointerup', event => {
+        if (event.pointerType !== 'touch' || swipeStartX === null) return;
+
+        const deltaX = event.clientX - swipeStartX;
+        swipeStartX = null;
+
+        if (Math.abs(deltaX) < 48) return;
+
+        swipeTriggered = true;
+        if (deltaX < 0) {
+            nextBtn.click();
+        } else {
+            prevBtn.click();
         }
+
+        setTimeout(() => {
+            swipeTriggered = false;
+        }, 0);
     });
 
-    root.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowLeft") { move(-1); restartAutoplay(); }
-        if (e.key === "ArrowRight") { move(1); restartAutoplay(); }
+    track.addEventListener('pointercancel', () => {
+        swipeStartX = null;
     });
 
-    /* ---------- Autoplay ---------- */
-
-    function startAutoplay() {
-        if (reduceMotion.matches || autoplayId) return;
-        stage.setAttribute("aria-live", "off");
-        autoplayId = setInterval(() => move(1), AUTOPLAY_MS);
-    }
-    function stopAutoplay() {
-        clearInterval(autoplayId);
-        autoplayId = null;
-        stage.setAttribute("aria-live", "polite");
-    }
-    function restartAutoplay() {
-        stopAutoplay();
-        if (!root.matches(":hover, :focus-within")) startAutoplay();
-    }
-
-    root.addEventListener("mouseenter", stopAutoplay);
-    root.addEventListener("mouseleave", startAutoplay);
-    root.addEventListener("focusin", stopAutoplay);
-    root.addEventListener("focusout", (e) => {
-        if (!root.contains(e.relatedTarget)) startAutoplay();
-    });
-    document.addEventListener("visibilitychange", () => {
-        document.hidden ? stopAutoplay() : startAutoplay();
+    track.addEventListener('click', event => {
+        const card = event.target.closest('.card');
+        if (!card || swipeTriggered || card.dataset.isFront !== "true") return;
+        window.location.href = `game.html?id=${card.dataset.gameId}`;
     });
 
-    /* ---------- Arranque ---------- */
-
-    render();
-    root.dataset.loading = "false";
-    startAutoplay();
-    animarPop();
+    // Inicializar render inicial
+    arrangeCarousel();
 }
+
+// Globalización de la función constructora para home.js
+window.initCarouselDestacado = initCarouselDestacado;
