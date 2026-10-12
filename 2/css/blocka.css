@@ -1,0 +1,10 @@
+.contenedor-canvas {
+    width: 100%;
+}
+
+#blocka {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+}
