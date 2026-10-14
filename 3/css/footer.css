@@ -1,0 +1,259 @@
+footer {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 80px;
+    box-sizing: border-box;
+    background-image: url('../assets/images/background.png');
+    background-size: cover;
+}
+
+.footer-main {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.brand-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.brand-block p {
+    font-weight: 400;
+    font-style: italic;
+    margin: 0 40px 16px;
+}
+
+.brand-block .logo {
+    display: block;
+    width: 200px;
+    height: auto;
+}
+
+.btn-random {
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 32px;
+    gap: 10px;
+    max-width: 200px;
+    width: 100%;
+    background: var(--color-primary-shadow);
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: 24px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-random:visited {
+    color: #fff;
+}
+
+.btn-random.hvr-grow {
+    display: flex;
+}
+
+.socials {
+    display: flex;
+    width: 100%;
+    max-width: 200px;
+    justify-content: space-between;
+    padding: 16px 0;
+}
+
+.socials .icon-hover {
+    display: none;
+}
+
+.socials a:hover .icon-default,
+.socials a:focus-visible .icon-default {
+    display: none;
+}
+
+.socials a:hover .icon-hover,
+.socials a:focus-visible .icon-hover {
+    display: block;
+}
+
+/* columnas de links */
+nav {
+    display: grid;
+    column-gap: 150px;
+    grid-template-columns: repeat(4, fit-content(100%));
+}
+
+.footer-col h3 {
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0 0 16px 0;
+}
+
+.footer-col ul {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 16px;
+}
+
+.footer-col li {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-font);
+}
+
+.footer-col a {
+    text-decoration: none;
+    color: var(--color-font);
+}
+
+.footer-col a:hover,
+.footer-col a:focus-visible {
+    color: var(--color-primary-light);
+}
+
+.footer-col a.ver-mas {
+    color: var(--color-primary);
+}
+
+.arcade-deco {
+    width: 140px;
+    height: 240px;
+}
+
+.separador {
+    width: 95%;
+    border: none;
+    height: 2px;
+    background: var(--color-secondary-shadow);
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    padding: 0 5.5% 0 3.67%;
+    color: var(--color-primary);
+}
+
+.btn-back-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-primary-light);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-back-top .circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--color-primary-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-back-top:hover .circle,
+.btn-back-top:focus-visible .circle {
+    background: var(--color-primary);
+}
+
+.btn-back-top .arrow-up {
+    display: block;
+}
+
+/* Grow hover cortesía de https://ianlunn.github.io/Hover/ */
+.hvr-grow {
+    display: inline-block;
+    vertical-align: middle;
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+
+.hvr-grow:hover,
+.hvr-grow:focus,
+.hvr-grow:active {
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    footer {
+        padding: 48px 24px;
+        gap: 40px;
+    }
+
+    .footer-main {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+
+    .brand-block {
+        align-items: center;
+        text-align: center;
+    }
+
+    .brand-block p {
+        margin: 0 0 16px;
+    }
+
+    nav {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 40px;
+        row-gap: 32px;
+        width: 100%;
+    }
+
+    .arcade-deco {
+        display: none;
+        /* decorativo, no aporta en mobile y come espacio */
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 24px;
+        text-align: center;
+        padding: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-col {
+        align-items: center;
+    }
+
+    .footer-col ul {
+        align-items: center;
+    }
+}

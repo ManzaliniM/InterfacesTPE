@@ -1,0 +1,137 @@
+/* ==========================================================================
+   CARRUSEL CIRCULAR DESTACADO (MOON ARCADE - AJUSTE DE PROPORCIONES)
+   ========================================================================== */
+
+.featured {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 90px;
+    /* Suficiente espacio respecto al Navbar */
+    padding: 0;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.carousel {
+    width: 100%;
+    /* AUMENTADO: Da el espacio vertical necesario para que las portadas no se corten horizontales */
+    height: 52vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.carousel__track {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    touch-action: pan-y;
+}
+
+/* Tarjetas individuales en órbita */
+.carousel__track .card {
+    position: absolute;
+    /* PROPORCIÓN VERTICAL: Bajamos el ancho al 32% y subimos el alto al 88% para imitar el original */
+    width: 32%;
+    height: 88%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 16px;
+    overflow: visible;
+    user-select: none;
+    background: none;
+    box-shadow: none;
+
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+        opacity 0.6s ease,
+        z-index 0.6s ease;
+}
+
+/* Imagen de portada del juego destacado */
+.carousel__track .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Ahora llenará la tarjeta de forma armoniosa y vertical */
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+}
+
+/* TÍTULO MEJORADO: Más grande, con mejor tipografía y espaciado limpio */
+.carousel__track .card .card-title {
+    margin-top: 16px;
+    font-size: 1.35rem;
+    /* Fuente notablemente más grande */
+    font-weight: 700;
+    /* Mayor grosor (Bold) */
+    color: var(--color-font);
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: -0.02em;
+    /* Acerca un poco las letras al estilo gaming moderno */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    /* Sutil sombra para desatacar sobre el fondo */
+    transition: opacity 0.4s ease;
+}
+
+/* Flechas de navegación (Overlay flotante) */
+.carousel__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 70px;
+    height: 70px;
+    border-radius: 40%;
+    border: 1px solid var(--color-input-border);
+    background-color: rgba(43, 42, 47, 0.85);
+    color: var(--color-font);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: var(--z-carousel-controls);
+    transition: background-color 0.3s, border-color 0.3s, transform 0.2s;
+}
+
+.carousel__arrow img {
+    width: 44px;
+    height: 44px;
+    pointer-events: none;
+}
+
+.carousel__arrow:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.carousel__arrow--prev {
+    left: 55px;
+}
+
+.carousel__arrow--next {
+    right: 55px;
+}
+
+/* Ocultar las flechas en pantallas móviles */
+@media (max-width: 600px) {
+    .carousel__arrow {
+        display: none;
+    }
+}
+
+/* Ocultar textos de tarjetas en costados invisibles */
+.carousel__track .card[style*="opacity: 0"] .card-title {
+    opacity: 0;
+}
