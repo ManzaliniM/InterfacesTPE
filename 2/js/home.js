@@ -38,7 +38,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-/* ELEGIR DESTACADOS: Moon Solitaire va primero */
+/* ELEGIR DESTACADOS
+   Orden: 1) Moon Solitaire, 2) juegos con "destacado": true en el JSON (ej: Blocka),
+   3) el resto se completa al azar hasta llegar a 7. */
 function elegirDestacados(todos) {
   if (!todos.length) return [];
 
@@ -51,10 +53,12 @@ function elegirDestacados(todos) {
     return s.includes('moonsolitaire') || s.includes('moonsolitarie');
   });
 
-  const resto = todos.filter(j => j !== moon);
-  const shuffled = [...resto].sort(() => Math.random() - 0.5);
-  const otros = shuffled.slice(0, cantidadDestacados - 1);
+  // Juegos fijos: los marcados con "destacado": true en el JSON (sin contar Moon Solitaire)
+  const fijos = todos.filter(j => j !== moon && j.raw && j.raw.destacado);
 
-  const resultado = moon ? [moon, ...otros] : otros;
+  const resto = todos.filter(j => j !== moon && !fijos.includes(j));
+  const shuffled = [...resto].sort(() => Math.random() - 0.5);
+
+  const resultado = [...(moon ? [moon] : []), ...fijos, ...shuffled];
   return resultado.slice(0, cantidadDestacados);
 }

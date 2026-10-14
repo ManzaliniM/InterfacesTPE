@@ -45,11 +45,54 @@ function renderJuego(juego) {
         portada.onerror = () => portada.remove();
     }
 
+    // Si el juego es jugable en la página (ej: Blocka), reemplaza la portada por su canvas
+    montarJuegoJugable(raw);
+
     renderGaleriaControles(raw.galeria);
     renderTutorial(juego, raw);
 
     toggleSection("controles", raw.controlesTexto || (raw.galeria && raw.galeria.length));
     toggleSection("tutorial", raw.tutorialUrl);
+}
+
+// Un juego del JSON es "jugable en la página" si define estos campos:
+//   "script": "js/blocka.js"                          -> código del juego
+//   "canvas": { "id": "blocka", "width": 1100, "height": 600 }
+//   "css":    "css/blocka.css"                        -> (opcional) estilos propios
+// Los juegos que no los tienen no se ven afectados.
+function montarJuegoJugable(raw) {
+    if (!raw.script || !raw.canvas) return;
+
+    if (raw.css) {
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = raw.css;
+        document.head.appendChild(link);
+    }
+
+    const canvas = document.createElement("canvas");
+    canvas.id = raw.canvas.id;
+    canvas.width = raw.canvas.width;
+    canvas.height = raw.canvas.height;
+
+    // marca el contenedor para poder darle estilos distintos a los juegos con canvas
+    document.querySelector(".portada-wrapper")?.classList.add("con-canvas");
+
+    const contenedor = document.createElement("div");
+    contenedor.className = "contenedor-canvas";
+    contenedor.appendChild(canvas);
+
+    const portada = document.querySelector("[data-bind='imagen-principal']");
+    if (portada) {
+        portada.replaceWith(contenedor);
+    } else {
+        document.querySelector(".portada-wrapper")?.prepend(contenedor);
+    }
+
+    // El canvas tiene que existir ANTES de ejecutar el script del juego
+    const script = document.createElement("script");
+    script.src = raw.script;
+    document.body.appendChild(script);
 }
 
 function toggleSection(nombre, tieneDatos) {

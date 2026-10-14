@@ -60,6 +60,17 @@
     position: relative;
 }
 
+.contenedor-canvas {
+    width: 100%;
+}
+
+.contenedor-canvas canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+}
+
 .portada-compartir {
     position: absolute;
     left: 0;

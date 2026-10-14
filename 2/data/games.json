@@ -39,6 +39,41 @@
         ]
     },
     {
+        "id": "blocka",
+        "titulo": "Blocka Lunar",
+        "categoria": "Puzzle",
+        "destacado": true,
+        "descripcion": [
+            "Blocka Lunar es un rompecabezas de imágenes: una foto se descompone en piezas que aparecen rotadas y filtradas, y tu misión es devolverlas a su lugar.",
+            "Cada nivel aplica filtros distintos y, en los más avanzados, cada pieza puede tener el suyo. ¡Y en el último nivel el tiempo corre en tu contra!"
+        ],
+        "comoJugar": [
+            "Elige la cantidad de piezas y pulsa «Comenzar». Gira cada pieza hasta que las imágenes encajen y formen la foto original.",
+            "Si te cuesta, pide una «Ayudita»: deja una pieza bien puesta y fija, pero suma 5 segundos a tu tiempo. Ojo: en los niveles avanzados hay un tiempo máximo y, si se agota, pierdes el nivel.",
+            "Cuando completes la imagen, los filtros desaparecen y podrás ver la foto original. Intenta superar tu récord en cada nivel."
+        ],
+        "controlesTexto": "Ratón: clic izquierdo gira la pieza hacia la izquierda y clic derecho la gira hacia la derecha. Botones en pantalla: «Ayudita», «?» (instrucciones) y «← Menú».",
+        "imagenPortada": "assets/juegos/blocka/portada.png",
+        "script": "js/blocka.js",
+        "canvas": {
+            "id": "blocka",
+            "width": 1100,
+            "height": 600
+        },
+        "galeria": [
+            {
+                "src": "assets/juegos/blocka/nivel-filtro.png",
+                "alt": "Tablero de Blocka con piezas rotadas y un filtro en escala de grises",
+                "caption": "Piezas rotadas con filtro"
+            },
+            {
+                "src": "assets/juegos/blocka/imagen-resuelta.png",
+                "alt": "Tablero de Blocka con la imagen original armada y sin filtros",
+                "caption": "Imagen resuelta"
+            }
+        ]
+    },
+    {
         "id": "10-minutes-till-dawn",
         "titulo": "10 Minutes Till Dawn",
         "categoria": "Supervivencia",
