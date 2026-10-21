@@ -30,7 +30,7 @@ let inicioPausa = 0;              // momento en que se abrieron las instruccione
 //  - modo 'porPieza': cada pieza recibe un filtro distinto de la lista
 //  - tiempoMax:       en milisegundos, o null si el nivel no tiene límite
 const NIVELES = [
-    { nombre: 'Nivel 1', filtros: ['gris'], modo: 'global', tiempoMax: null },
+    { nombre: 'Nivel 1', filtros: ['filtroBlur'], modo: 'global', tiempoMax: null },
     { nombre: 'Nivel 2', filtros: ['negativo'], modo: 'global', tiempoMax: null },
     { nombre: 'Nivel 3', filtros: ['gris', 'brillo', 'negativo'], modo: 'porPieza', tiempoMax: 90000 }
 ];
@@ -59,14 +59,49 @@ const FILTROS = {
             d[i + 1] = 255 - d[i + 1];
             d[i + 2] = 255 - d[i + 2];
         }
+    },
+    filtroBlur(d, ancho, alto) {
+        const K = 20; // radio
+        const src = new Uint8ClampedArray(d);
+        const pasadas = 3;
+
+        for (let p = 0; p < pasadas; p++) {
+            for (let y = 0; y < alto; y++) {
+                for (let x = 0; x < ancho; x++) {
+
+                    let r = 0, g = 0, b = 0, count = 0;
+                    // (2K+1)x(2K+1) pixeles alrededor del pixel actual
+                    for (let dy = -K; dy <= K; dy++) {
+                        for (let dx = -K; dx <= K; dx++) {
+                            const px = x + dx;
+                            const py = y + dy;
+                            if (px >= 0 && px < ancho && py >= 0 && py < alto) {
+                                const idx = (py * ancho + px) * 4;
+                                r += src[idx];
+                                g += src[idx + 1];
+                                b += src[idx + 2];
+                                count++;
+                            }
+                        }
+                    }
+                    const idx = (y * ancho + x) * 4;
+                    d[idx] = r / count;
+                    d[idx + 1] = g / count;
+                    d[idx + 2] = b / count;
+                }
+                // aplicarFiltro(canvasPieza, nombre) se encarga de ctx.putImageData(datos, 0, 0)
+                // para dibujar el resultado copia en el canvas
+            }
+        }
     }
 };
 
 function aplicarFiltro(canvasPieza, nombre) {
     const c = canvasPieza.getContext('2d');
     const datos = c.getImageData(0, 0, canvasPieza.width, canvasPieza.height);
-    FILTROS[nombre](datos.data);
+    FILTROS[nombre](datos.data, canvasPieza.width, canvasPieza.height);
     c.putImageData(datos, 0, 0);
+    // este putImageData es el que hace que la pieza quede con el filtro aplicado, devuelve el canvas modificado
 }
 
 // ---- BOTÓN JUGAR ----
@@ -103,7 +138,7 @@ function inicializarJuego() {
     ctx.fillStyle = "#D4D4D4";
     ctx.textBaseline = "middle";
     ctx.fillText("Jugar", xBtn + anchoBoton / 2, yBtn + altoBoton / 2);
-    
+
     dibujarBotonInstrucciones();
 }
 
@@ -183,7 +218,7 @@ const btnInstrucciones = { x: canvas.width - 70, y: 20, ancho: 50, alto: 50, tex
 // debajo de la barra de compartir de la página, que tapa la parte inferior del canvas.
 const btnAyudita = { x: 8, y: margenY + lado / 2 - 35, ancho: 134, alto: 70, texto: 'Ayudita' };
 const btnMenu = { x: 20, y: 20, ancho: 110, alto: 50, texto: '← Menú' };
-const btnCerrarInstrucciones = { x: (canvas.width / 2) - 100, y: 510, ancho: 200, alto: 55, texto: 'Entendido' };
+const btnCerrarInstrucciones = { x: (canvas.width / 2) - 100, y: 450, ancho: 200, alto: 55, texto: 'Entendido' };
 
 // pantallas desde las que se puede abrir el "?"
 const ESTADOS_CON_INSTRUCCIONES = ['menu', 'seleccion', 'listo', 'jugando'];
