@@ -19,7 +19,7 @@
 |:-|-|
 |[TP1](1)| Diseño de una plataforma de Juegos Online, prototipo interactivo con Figma. |
 |[TP2](2)| Continuar con el trabajo anterior e implementarlo utilizando HTML5, JavaScript y CSS3. |
-|[TP3](2)| BLOCKA LUNAR - juego de rompecabezas basado en imágenes. |
+|[TP3](3)| BLOCKA LUNAR: juego de rompecabezas basado en imágenes. |
 |[TP4](4)| MOON SOLITAIRE |
 |[TP5](5)| TBD |
 
