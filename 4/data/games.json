@@ -1,0 +1,193 @@
+[
+    {
+        "id": "moon-solitaire",
+        "titulo": "Moon Solitaire",
+        "categoria": "Puzzle",
+        "descripcion": [
+            "Moon Solitaire lleva el clásico juego de solitario al espacio. Enfréntate a un desafiante tablero lunar lleno de fichas brillantes y pon a prueba tu capacidad para pensar varios movimientos por adelantado.",
+            "Salta sobre las fichas para eliminarlas, despeja el tablero y trata de conseguir el resultado perfecto: ¡que quede una sola ficha! Pero cuidado: un movimiento mal calculado puede dejarte sin opciones.",
+            "Con una estética arcade inspirada en el pinball y el espacio, cada partida combina estrategia clásica con una experiencia visual vibrante. ¿Serás capaz de resolver el tablero lunar?"
+        ],
+        "comoJugar": [
+            "Tu objetivo es eliminar todas las fichas posibles hasta dejar solamente una. Haz clic en una ficha y salta sobre otra ficha adyacente hacia un espacio vacío. Al realizar el movimiento, la ficha saltada desaparece y la ficha que moviste ocupa su lugar.",
+            "Planifica tus movimientos con cuidado y busca la mejor combinación para despejar el tablero. Cada movimiento cuenta, así que piensa antes de saltar. ¿Puedes completar el desafío y dejar una única ficha en el centro?"
+        ],
+        "controlesTexto": "Ratón: haz clic en una ficha para realizar un movimiento.",
+        "tutorialUrl": "https://youtu.be/ZEcqHA7dbwM",
+        "imagenPortada": "assets/juegos/moon-solitaire/portada.png",
+        "galeria": [
+            {
+                "src": "assets/juegos/moon-solitaire/tablero-inicial.png",
+                "alt": "Tablero inicial de Moon Solitaire, con todas las fichas colocadas",
+                "caption": "Tablero inicial"
+            },
+            {
+                "src": "assets/juegos/moon-solitaire/seleccion-salto.png",
+                "alt": "Tablero luego de realizar el primer salto, con una ficha eliminada",
+                "caption": "Selección y salto de una ficha"
+            },
+            {
+                "src": "assets/juegos/moon-solitaire/avance-juego.png",
+                "alt": "Tablero a mitad de partida, con varias fichas ya eliminadas",
+                "caption": "Avance del juego"
+            },
+            {
+                "src": "assets/juegos/moon-solitaire/estado-final.png",
+                "alt": "Tablero casi vacío, en el estado final del juego",
+                "caption": "Estado final del juego"
+            }
+        ]
+    },
+    {
+        "id": "blocka",
+        "titulo": "Blocka Lunar",
+        "categoria": "Puzzle",
+        "destacado": true,
+        "descripcion": [
+            "Blocka Lunar es un rompecabezas de imágenes: una foto se descompone en piezas que aparecen rotadas y filtradas, y tu misión es devolverlas a su lugar.",
+            "Cada nivel aplica filtros distintos y, en los más avanzados, cada pieza puede tener el suyo. ¡Y en el último nivel el tiempo corre en tu contra!"
+        ],
+        "comoJugar": [
+            "Elige la cantidad de piezas y pulsa «Comenzar». Gira cada pieza hasta que las imágenes encajen y formen la foto original.",
+            "Si te cuesta, pide una «Ayudita»: deja una pieza bien puesta y fija, pero suma 5 segundos a tu tiempo. Ojo: en los niveles avanzados hay un tiempo máximo y, si se agota, pierdes el nivel.",
+            "Cuando completes la imagen, los filtros desaparecen y podrás ver la foto original. Intenta superar tu récord en cada nivel."
+        ],
+        "controlesTexto": "Ratón: clic izquierdo gira la pieza hacia la izquierda y clic derecho la gira hacia la derecha. Botones en pantalla: «Ayudita», «?» (instrucciones) y «← Menú».",
+        "imagenPortada": "assets/juegos/blocka/portada.png",
+        "script": "js/blocka.js",
+        "canvas": {
+            "id": "blocka",
+            "width": 1100,
+            "height": 600
+        },
+        "galeria": [
+            {
+                "src": "assets/juegos/blocka/nivel-filtro.png",
+                "alt": "Tablero de Blocka con piezas rotadas y un filtro en escala de grises",
+                "caption": "Piezas rotadas con filtro"
+            },
+            {
+                "src": "assets/juegos/blocka/imagen-resuelta.png",
+                "alt": "Tablero de Blocka con la imagen original armada y sin filtros",
+                "caption": "Imagen resuelta"
+            }
+        ]
+    },
+    {
+        "id": "10-minutes-till-dawn",
+        "titulo": "10 Minutes Till Dawn",
+        "categoria": "Supervivencia",
+        "descripcion": "Sobrevive a hordas infinitas de criaturas de la noche durante 10 minutos armándote con diferentes poderes y habilidades.",
+        "comoJugar": "Mueve a tu personaje con las teclas de dirección y apunta/dispara con el ratón para eliminar enemigos.",
+        "imagenPortada": "assets/juegos/10MinutesTillDawn.png",
+        "galeria": []
+    },
+    {
+        "id": "papas-pancakeria",
+        "titulo": "Papa's Pancakeria",
+        "categoria": "Simulación",
+        "descripcion": "Gestiona el restaurante de panqueques de Papa Louie: toma pedidos, cocina los panqueques al punto justo y decóralos según el gusto del cliente.",
+        "comoJugar": "Utiliza el ratón para seleccionar ingredientes, cocinar en la plancha y servir los pedidos.",
+        "imagenPortada": "assets/juegos/papasPancakeria.jpg",
+        "galeria": []
+    },
+    {
+        "id": "arrow-escape",
+        "titulo": "Arrow Escape",
+        "categoria": "Puzzle",
+        "descripcion": "Sacá todas las flechas del tablero deslizándolas en la dirección en la que apuntan, sin que choquen entre sí.",
+        "comoJugar": "Tocá una flecha para deslizarla hasta el borde del tablero en la dirección indicada.",
+        "imagenPortada": "assets/juegos/arrowEscape.png",
+        "galeria": []
+    },
+    {
+        "id": "jewel-coloring",
+        "titulo": "Jewel Coloring Crystal Sort",
+        "categoria": "Relax",
+        "descripcion": "Ordená cristales de colores por tubos hasta que cada uno quede agrupado por su propio color.",
+        "comoJugar": "Hacé clic en un tubo de origen y luego en un tubo de destino para verter el cristal superior.",
+        "imagenPortada": "assets/juegos/jewelColoring.png",
+        "galeria": []
+    },
+    {
+        "id": "cooking-festival",
+        "titulo": "Cooking Festival",
+        "categoria": "Simulación",
+        "descripcion": "Prepárate para atender a clientes exigentes cocinando deliciosos platillos a toda velocidad en este festival gastronómico.",
+        "comoJugar": "Usa el ratón para seleccionar los ingredientes, cocinar e integrar los pedidos a tiempo.",
+        "imagenPortada": "assets/juegos/cookingFestival.png",
+        "galeria": []
+    },
+    {
+        "id": "idle-farming-business",
+        "titulo": "Idle Farming Business",
+        "categoria": "Estrategia",
+        "descripcion": "Crea y administra tu propia granja automatizada, cosechando cultivos y expandiendo tus parcelas de tierra.",
+        "comoJugar": "Haz clic en los cultivos para cosechar y compra mejoras para automatizar tus ganancias.",
+        "imagenPortada": "assets/juegos/idleFarmingBusiness.png",
+        "galeria": []
+    },
+    {
+        "id": "logo-quiz",
+        "titulo": "Logo Quiz",
+        "categoria": "Trivia",
+        "descripcion": "Demuestra cuánto sabes sobre marcas globales adivinando los nombres detrás de los logos más famosos.",
+        "comoJugar": "Escribe o selecciona las letras correctas para completar el nombre de la marca mostrada.",
+        "imagenPortada": "assets/juegos/logoQuiz.png",
+        "galeria": []
+    },
+    {
+        "id": "papas-bakeria",
+        "titulo": "Papa's Bakeria",
+        "categoria": "Simulación",
+        "descripcion": "Hornea y hornea deliciosos pies y tartas de frutas en la popular pastelería de Papa Louie.",
+        "comoJugar": "Prepara la masa, añade el relleno, hornea al punto e integra las coberturas exactas.",
+        "imagenPortada": "assets/juegos/papasBakeria.jpg",
+        "galeria": []
+    },
+    {
+        "id": "papas-freezeria",
+        "titulo": "Papa's Freezeria",
+        "categoria": "Simulación",
+        "descripcion": "Prepara batidos y helados personalizados en una isla tropical para mantener satisfechos a los veraneantes.",
+        "comoJugar": "Mezcla la leche, añade los jarabes, bate la mezcla y sirve con siropes y aderezos.",
+        "imagenPortada": "assets/juegos/papasFreezeria.jpg",
+        "galeria": []
+    },
+    {
+        "id": "penguin-diner",
+        "titulo": "Penguin Diner",
+        "categoria": "Gestión",
+        "descripcion": "Ayuda a la pingüina Penny a atender a los clientes en su restaurante antártico para conseguir el dinero suficiente y volver a casa.",
+        "comoJugar": "Haz clic en los clientes para sentarlos, tomar su pedido, servir la comida y cobrar.",
+        "imagenPortada": "assets/juegos/penguinDiner.jpg",
+        "galeria": []
+    },
+    {
+        "id": "sara-cocina-bolognesa",
+        "titulo": "Cocina con Sara: Pasta Bolognesa",
+        "categoria": "Cocina",
+        "descripcion": "Sigue los pasos y la receta del Chef Sara para preparar una riquísima pasta con salsa boloñesa casera.",
+        "comoJugar": "Interactúa con los utensilios e ingredientes en la cocina siguiendo los pasos indicados.",
+        "imagenPortada": "assets/juegos/saraCocinaBolognesa.jpg",
+        "galeria": []
+    },
+    {
+        "id": "wordl",
+        "titulo": "Wordl",
+        "categoria": "Palabras",
+        "descripcion": "Adivina la palabra oculta de 5 letras en 6 intentos usando las pistas de colores en cada letra.",
+        "comoJugar": "Ingresa una palabra con el teclado y revisa los colores: verde (correcta), amarillo (posición incorrecta), gris (no está).",
+        "imagenPortada": "assets/juegos/wordl.png",
+        "galeria": []
+    },
+    {
+        "id": "zombier-road",
+        "titulo": "Zombier Road",
+        "categoria": "Acción",
+        "descripcion": "Conduce un vehículo blindado a través de una autopista atestada de hordas zombis sin perder el control.",
+        "comoJugar": "Usa A/D o las flechas para girar y atropellar a los infectados mientras esquivas obstáculos.",
+        "imagenPortada": "assets/juegos/zombierRoad.png",
+        "galeria": []
+    }
+]
