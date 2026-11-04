@@ -8,12 +8,28 @@ const OCUPADA = 1;   // lugar válido con ficha
 const PLANTILLA = [
   [-1, -1, 1, 1, 1, -1, -1],
   [-1, -1, 1, 1, 1, -1, -1],
-  [ 1,  1, 1, 1, 1,  1,  1],
-  [ 1,  1, 1, 0, 1,  1,  1],
-  [ 1,  1, 1, 1, 1,  1,  1],
+  [1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 0, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1],
   [-1, -1, 1, 1, 1, -1, -1],
   [-1, -1, 1, 1, 1, -1, -1],
 ];
+
+/**
+ * Plantilla de DEMO (solo se usa con &demo en la URL): 3 fichas en la fila del medio.
+ * Se gana en 2 movimientos: la ficha de la columna 1 salta hasta la 3 y luego esa salta
+ * sobre la de la columna 4. Si en cambio la de la columna 2 salta a la izquierda, se pierde.
+ */
+const PLANTILLA_DEMO = [
+  [-1, -1, 0, 0, 0, -1, -1],
+  [-1, -1, 0, 0, 0, -1, -1],
+  [0, 0, 0, 0, 0, 0, 0],
+  [0, 1, 1, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0],
+  [-1, -1, 0, 0, 0, -1, -1],
+  [-1, -1, 0, 0, 0, -1, -1],
+];
+
 
 /** Direcciones de salto: [deltaFila, deltaCol]. Siempre de a 2 celdas. */
 const SALTOS = [[-2, 0], [2, 0], [0, -2], [0, 2]];
@@ -29,12 +45,15 @@ class Tablero {
    * @param {number} origenX  X del borde izquierdo del tablero en el canvas.
    * @param {number} origenY  Y del borde superior del tablero en el canvas.
    * @param {number} tiposDeFicha Cantidad de tipos de ficha distintos.
+   * @param {number[][]} plantilla Plantilla inicial del tablero.
    */
-  constructor(tamCelda, origenX, origenY, tiposDeFicha = 3) {
+  constructor(tamCelda, origenX, origenY, tiposDeFicha = 3, plantilla = PLANTILLA) {
     this.tamCelda = tamCelda;
     this.origenX = origenX;
     this.origenY = origenY;
     this.tiposDeFicha = tiposDeFicha;
+    this.plantilla = plantilla; // matriz inicial (la cruz completa, o la de demo)
+    this.estiloFicha = null;
     this.matriz = [];
     this.fichas = []; // todas las fichas (activas y desactivadas)
     this.reiniciar();
@@ -42,15 +61,16 @@ class Tablero {
 
   /** Vuelve el tablero al estado inicial: copia la plantilla y crea las fichas. */
   reiniciar() {
-    this.matriz = PLANTILLA.map((fila) => [...fila]);
+    this.matriz = this.plantilla.map((fila) => [...fila]);
     this.fichas = [];
-    this.grilla = PLANTILLA.map((fila) => fila.map(() => null)); // ficha por celda
+    this.grilla = this.plantilla.map((fila) => fila.map(() => null)); // ficha por celda
     let id = 0;
     for (let f = 0; f < this.matriz.length; f++) {
       for (let c = 0; c < this.matriz[f].length; c++) {
         if (this.matriz[f][c] === OCUPADA) {
           const { x, y } = this.celdaAPixeles(f, c);
-          const tipo = Math.floor(Math.random() * this.tiposDeFicha);
+          // const tipo = Math.floor(Math.random() * this.tiposDeFicha);
+          const tipo = this.estiloFicha ?? Math.floor(Math.random() * this.tiposDeFicha);
           const ficha = new Ficha(id++, f, c, tipo, x, y, this.tamCelda * 0.4);
           this.fichas.push(ficha);
           this.grilla[f][c] = ficha;
@@ -113,7 +133,9 @@ class Tablero {
       const df2 = fila + destFila;
       const dc2 = col + destCol;
       if (this.estaOcupada(medioFila, medioCol) && this.estaVacia(df2, dc2)) {
-        destinos.push({ fila: df2, col: dc2, medioFila: mf, medioCol: mc });
+        destinos.push({ fila: df2, col: dc2, medioFila, medioCol });
+        // destinos.push({ fila: df2, col: dc2, medioFila: mf, medioCol: mc });
+        // mf y mc no existian, daban referenceError
       }
     }
     return destinos;

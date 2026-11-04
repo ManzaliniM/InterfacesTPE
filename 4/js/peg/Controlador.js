@@ -14,6 +14,7 @@ class Controlador {
     this.vista = vista;
     this.html = elementosHTML;
     this.seleccionada = null; // ficha que se está arrastrando
+    this.pausado = false;     // true mientras se muestra la pantalla de elegir estilo
     this.hints = [];          // destinos válidos de la ficha seleccionada
     this.offsetX = 0;         // distancia click -> centro de la ficha
     this.offsetY = 0;
@@ -21,12 +22,14 @@ class Controlador {
     this.registrarEventos();
   }
 
-  /** Registra los listeners del mouse y del botón de reinicio. */
+  /**
+   * Registra los listeners. mousemove y mouseup van en window para que el
+   * arrastre no se corte si el mouse sale del canvas mientras se mueve la ficha.
+   */
   registrarEventos() {
-    const c = this.vista.canvas;
-    c.addEventListener("mousedown", (e) => this.alPresionar(e));
-    c.addEventListener("mousemove", (e) => this.alMover(e));
-    window.addEventListener("mouseup", (e) => this.alSoltar(e));
+    this.vista.canvas.addEventListener("mousedown", (e) => this.alPresionar(e));
+    window.addEventListener("mousemove", (e) => this.alMover(e));
+    window.addEventListener("mouseup", () => this.alSoltar());
     this.html.reiniciar.addEventListener("click", () => this.reiniciar());
   }
 
@@ -42,6 +45,7 @@ class Controlador {
   /** Click: selecciona la ficha bajo el mouse (si tiene movimientos) y calcula sus hints. */
   alPresionar(e) {
     if (!this.modelo.estaJugando()) return;
+    e.preventDefault(); // evita que el navegador seleccione texto o arrastre la imagen
     const { x, y } = this.posicionMouse(e);
     const ficha = this.modelo.tablero.fichas.find((f) => f.activa && f.contienePunto(x, y));
     if (!ficha) return;
@@ -83,12 +87,25 @@ class Controlador {
     this.hints = [];
   }
 
-  /** Loop principal: actualiza el timer, dibuja y vuelve a programarse. */
+  /** Cambia el estilo de las fichas (lo decide el modelo) y limpia la selección. */
+  elegirEstilo(tipo) {
+    this.modelo.elegirEstilo(tipo);
+    this.seleccionada = null;
+    this.hints = [];
+  }
+
+  /**
+   * Loop principal: actualiza el timer, dibuja y vuelve a programarse.
+   * Se reinicia la referencia de tiempo al arrancar (para no descontar el
+   * tiempo de carga de imágenes) y se limita dt (para que el timer no
+   * salte si el usuario cambia de pestaña).
+   */
   iniciar() {
+    this.ultimoTiempo = performance.now();
     const loop = (ahora) => {
-      const dt = (ahora - this.ultimoTiempo) / 1000;
+      const dt = Math.min(Math.max((ahora - this.ultimoTiempo) / 1000, 0), 0.1);
       this.ultimoTiempo = ahora;
-      this.modelo.actualizarTiempo(dt);
+      if (!this.pausado) this.modelo.actualizarTiempo(dt); // el timer no corre mientras se elige el estilo
       this.vista.render(this.seleccionada, this.hints, ahora);
       this.vista.actualizarHUD(this.html.timer, this.html.fichas);
       requestAnimationFrame(loop);

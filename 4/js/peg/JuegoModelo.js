@@ -16,8 +16,8 @@ class JuegoModelo {
   /**
    * @param {object} cfg Configuración: tamCelda, origenX, origenY, tiempoLimite (segundos).
    */
-  constructor({ tamCelda = 100, origenX = 50, origenY = 50, tiempoLimite = 300 } = {}) {
-    this.tablero = new Tablero(tamCelda, origenX, origenY);
+  constructor({ tamCelda = 100, origenX = 50, origenY = 50, tiempoLimite = 300, plantilla } = {}) {
+    this.tablero = new Tablero(tamCelda, origenX, origenY, undefined, plantilla);
     this.tiempoLimite = tiempoLimite;
     this.reiniciar();
   }
@@ -27,6 +27,12 @@ class JuegoModelo {
     this.tablero.reiniciar();
     this.estado = ESTADO.JUGANDO;
     this.tiempoRestante = this.tiempoLimite;
+  }
+
+  /** Elige el estilo (tipo) que usarán TODAS las fichas y reinicia la partida. */
+  elegirEstilo(tipo) {
+    this.tablero.estiloFicha = tipo;
+    this.reiniciar();
   }
 
   /** True mientras la partida sigue en curso. */

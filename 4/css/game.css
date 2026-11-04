@@ -95,6 +95,36 @@
     pointer-events: auto;
 }
 
+/*
+ * Juegos con canvas (game.js agrega la clase "con-canvas" al wrapper):
+ * la barra de compartir deja de flotar sobre el juego y queda en una franja
+ * propia debajo. Solo aparece al pasar el mouse por esa franja (o al enfocar
+ * un botón con el teclado), no al pasar por el juego.
+ * IMPORTANTE: estas reglas deben ir DESPUÉS de las generales de arriba.
+ */
+.portada-wrapper.con-canvas .portada-compartir {
+    position: static;
+    background: none;
+    border-radius: 0;
+    opacity: 0;
+    transform: none;
+    pointer-events: auto;
+    /* activa aunque esté invisible, para poder hacerle hover */
+}
+
+/* Anula la regla general: hover sobre el juego no muestra la barra */
+.portada-wrapper.con-canvas:hover .portada-compartir {
+    opacity: 0;
+    transform: none;
+    pointer-events: auto;
+}
+
+/* Hover sobre la propia franja (o foco por teclado): se muestra */
+.portada-wrapper.con-canvas .portada-compartir:hover,
+.portada-wrapper.con-canvas .portada-compartir:focus-within {
+    opacity: 1;
+}
+
 .portada-compartir button {
     background: none;
     border: none;

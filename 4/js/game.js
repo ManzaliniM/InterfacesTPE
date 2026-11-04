@@ -56,7 +56,7 @@ function renderJuego(juego) {
 }
 
 // Un juego del JSON es "jugable en la página" si define estos campos:
-//   "script": "js/blocka.js"                          -> código del juego
+//   "script": "js/blocka.js"  (o una lista: ["js/a.js", "js/b.js"], se cargan EN ORDEN)
 //   "canvas": { "id": "blocka", "width": 1100, "height": 600 }
 //   "css":    "css/blocka.css"                        -> (opcional) estilos propios
 // Los juegos que no los tienen no se ven afectados.
@@ -89,10 +89,15 @@ function montarJuegoJugable(raw) {
         document.querySelector(".portada-wrapper")?.prepend(contenedor);
     }
 
-    // El canvas tiene que existir ANTES de ejecutar el script del juego
-    const script = document.createElement("script");
-    script.src = raw.script;
-    document.body.appendChild(script);
+    // El canvas tiene que existir ANTES de ejecutar los scripts del juego.
+    // async = false hace que los scripts agregados dinámicamente se ejecuten en el orden en que se agregan.
+    const scripts = Array.isArray(raw.script) ? raw.script : [raw.script];
+    scripts.forEach(src => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.async = false;
+        document.body.appendChild(script);
+    });
 }
 
 function toggleSection(nombre, tieneDatos) {
