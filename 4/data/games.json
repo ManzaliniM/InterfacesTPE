@@ -38,18 +38,13 @@
             },
             {
                 "src": "assets/juegos/moon-solitaire/seleccion-salto.png",
-                "alt": "Tablero luego de realizar el primer salto, con una ficha eliminada",
-                "caption": "Selección y salto de una ficha"
+                "alt": "Tablero realizando el primer salto",
+                "caption": "Selección"
             },
             {
                 "src": "assets/juegos/moon-solitaire/avance-juego.png",
-                "alt": "Tablero a mitad de partida, con varias fichas ya eliminadas",
+                "alt": "Tablero a final de partida, con casi todas las fichas ya eliminadas",
                 "caption": "Avance del juego"
-            },
-            {
-                "src": "assets/juegos/moon-solitaire/estado-final.png",
-                "alt": "Tablero casi vacío, en el estado final del juego",
-                "caption": "Estado final del juego"
             }
         ]
     },
