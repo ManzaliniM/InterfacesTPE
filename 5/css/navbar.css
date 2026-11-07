@@ -1,0 +1,252 @@
+/* HEADER */
+.navbar {
+    position: fixed;
+    z-index: var(--z-navbar);
+    top: 0;
+    display: flex;
+    align-items: center;
+    height: 80px;
+    width: 100%;
+    max-width: 100vw;
+    padding: 0 20px;
+    box-sizing: border-box;
+    background-color: #2B2A2F;
+}
+
+.navbar-start {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.navbar-start a {
+    display: flex;
+    align-items: center;
+}
+
+.usuario {
+    position: relative;
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 95px;
+}
+
+.usuario-menu {
+    position: fixed;
+    z-index: var(--z-dropdown);
+    top: 80px;
+    right: 0;
+    width: 272px;
+    min-height: 228px;
+    background-color: var(--color-input-bg);
+}
+
+.usuario-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.usuario-menu li,
+.usuario-menu li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.usuario-menu li img {
+    padding-right: 8px;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.usuario-menu li.premium {
+    color: var(--color-accent);
+}
+
+.usuario-menu .logout-link {
+    font-weight: 700;
+}
+
+.usuario-menu h3 {
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    width: 185px;
+}
+
+.menu-hbg {
+    background-color: #2B2A2F;
+    border-style: none;
+    cursor: pointer;
+}
+
+.menu-hbg img {
+    height: 38px;
+    transform: translateY(3px);
+}
+
+.menu-hbg .icon-active {
+    display: none;
+}
+
+.menu-hbg.active .icon-default {
+    display: none;
+}
+
+.menu-hbg.active .icon-active {
+    display: inline-block;
+}
+
+/* BOTONES (reset) */
+.usuario button {
+    border: none;
+    outline: none;
+    background-color: #2B2A2F;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+}
+
+/* BUSCADOR */
+.buscador {
+    width: 100%;
+    max-width: 630px;
+    flex-shrink: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background-color: #3E3D42;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.buscador input {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    outline: none;
+    color: inherit;
+    background-color: inherit;
+    font-family: inherit;
+    font-size: 15px;
+}
+
+.buscador img {
+    padding: 10px;
+}
+
+/* Ícono de lupa solo visible en mobile */
+.lupa-btn {
+    display: none;
+}
+
+/* CATEGORÍAS */
+.menu {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    z-index: var(--z-dropdown);
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    background-color: #2B2A2F;
+    padding: 20px;
+    width: 260px;
+}
+
+.menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.item-menu {
+    margin: 0;
+}
+
+.item-menu a {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+    color: inherit;
+    text-decoration: none;
+}
+
+.item-menu img {
+    margin-right: 10px;
+}
+
+.menu-oculto {
+    display: none;
+}
+
+.mostrar {
+    display: block;
+    position: fixed;
+    top: 80px;
+    z-index: var(--z-dropdown);
+}
+
+.btn-buscar {
+    display: none;
+}
+
+/* MOBILE */
+/* MOBILE */
+@media (max-width: 600px) {
+
+    /* --- Buscador --- */
+    .buscador {
+        display: none;
+    }
+
+    .btn-buscar {
+        display: block;
+        background-color: #2B2A2F;
+        border-style: none;
+        outline: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        position: relative;
+        left: 30px;
+    }
+
+    .btn-buscar img {
+        width: 90%;
+        height: 90%;
+    }
+
+    /* --- Menús --- */
+    .menu-oculto {
+        width: 100%;
+    }
+
+    /* --- Usuario --- */
+    .usuario {
+        width: 100%;
+        padding-right: 0;
+    }
+
+    #btn-usuario {
+        position: relative;
+        left: 30px;
+    }
+
+    .chevron-usuario {
+        display: none;
+    }
+}

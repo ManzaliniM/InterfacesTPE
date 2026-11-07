@@ -20,7 +20,10 @@
 |[TP1](1)| Diseño de una plataforma de Juegos Online, prototipo interactivo con Figma. |
 |[TP2](2)| Continuar con el trabajo anterior e implementarlo utilizando HTML5, JavaScript y CSS3. |
 |[TP3](3)| BLOCKA LUNAR: juego de rompecabezas basado en imágenes. |
-|[TP4](4)| MOON SOLITAIRE |
-|[TP5](5)| TBD |
+|[TP4](4)| MOON SOLITAIRE: peg solitaire lunar. |
+|[TP5](5)| MOON RUNNER: nyan cat flappy bird thingy |
+
+<!-- TODO Moon Runner
+- [ ] Agregar portada.png, pantalla-inicio.png, obstaculos.png e items.png en assets/juegos/runner/ -->
 
 <img src="2/assets/images/sailor-moon.gif" width="300" height="300">

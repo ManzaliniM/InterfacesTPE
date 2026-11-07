@@ -1,0 +1,209 @@
+/* peg.css - Estilos propios de Moon Solitaire (panel, HUD y canvas) */
+
+/*
+ * Panel del juego: ocupa todo el ancho de la columna y tiene de fondo un cielo
+ * estrellado hecho solo con CSS (capas de puntitos que se repiten a distinto tamaño).
+ * --peg-lado es el lado del canvas: 640px, o menos si la ventana es baja, para que no haya scroll.
+ */
+
+/*
+ * CAMBIO: container-type: inline-size convierte al panel en un "contenedor de consultas".
+ * Gracias a eso, sus hijos pueden usar la unidad cqw (1cqw = 1% del ancho del panel)
+ * y así adaptarse al ancho real de la columna, no al de la ventana entera.
+ */
+.peg-juego {
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    background: #080a1c url("../assets/juegos/moon-solitaire/cielo.png") center / cover no-repeat;
+}
+ 
+/*
+ * CAMBIO: --peg-lado (lado del canvas) ahora se define en cada hijo directo del panel
+ * (HUD, pantalla de selección y canvas) para poder usar cqw.
+ * Es el MENOR de tres límites:
+ *   - 640px: tamaño máximo, nítido.
+ *   - 100vh - 330px: si la ventana es baja, para que no haya scroll vertical.
+ *   - 100cqw: el ancho disponible en el panel, para que nunca se salga por los costados.
+ */
+.peg-juego > * {
+    --peg-lado: min(640px, calc(100vh - 330px), 100cqw);
+}
+ 
+/*
+ * HUD: barra superior con tiempo, fichas y reinicio.
+ * CAMBIOS:
+ *  - width: nunca es menor a 520px (si hay lugar), para que el contenido entre sin aplastarse,
+ *    y nunca supera el ancho del panel (100%).
+ *  - flex-wrap + justify-content: center: si no entra todo en una línea, el botón baja
+ *    a una segunda línea en vez de salirse de la caja.
+ *  - line-height: la fuente pixelada necesita aire para que valores y etiquetas no se pisen.
+ */
+.peg-hud {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px 24px;
+    width: min(100%, max(var(--peg-lado), 520px));
+    padding: 12px 16px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.55);
+    border: 2px solid #ffd700;
+    border-radius: 8px;
+    color: #fff;
+    font-family: "Press Start 2P", monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    user-select: none;
+}
+ 
+/* CAMBIO: cada dato ("Tiempo: 03:27") se mantiene en una sola línea */
+.peg-hud span {
+    white-space: nowrap;
+}
+ 
+.peg-hud strong {
+    color: #ffd700;
+    display: inline-block;
+    min-width: 5ch; /* reserva lugar para "05:00" y evita que el HUD "baile" al cambiar el número */
+}
+ 
+.peg-btn {
+    padding: 8px 14px;
+    font-family: inherit;
+    font-size: 11px;
+    line-height: 1.4;
+    white-space: nowrap;
+    flex-shrink: 0; /* el botón nunca se achica ni se corta */
+    color: #14162b;
+    background: #ffd700;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+ 
+.peg-btn:hover {
+    filter: brightness(1.15);
+}
+ 
+/*
+ * Canvas: nítido a 640px. Sin fondo propio, para que el cielo se vea
+ * alrededor de la luna. !important para ganarle a las reglas genéricas de canvas del sitio.
+ * El alto sale de --peg-lado (que ya considera el ancho disponible) y el ancho se calcula
+ * solo con aspect-ratio, así siempre queda cuadrado.
+ */
+.peg-juego #peg {
+    display: block;
+    width: auto !important;
+    height: var(--peg-lado) !important;
+    aspect-ratio: 1 / 1;
+    max-width: 100%;
+    background: transparent;
+    cursor: grab;
+    user-select: none;
+}
+ 
+/* Botones del HUD agrupados */
+.peg-botones {
+    display: flex;
+    gap: 8px;
+}
+ 
+/*
+ * Pantalla de elección de estilo: mismo tamaño que el canvas.
+ * CAMBIO: overflow-y: auto, por si en una pantalla muy chica las opciones no entran.
+ */
+.peg-seleccion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    width: var(--peg-lado);
+    height: var(--peg-lado);
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 16px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #ffd700;
+    border-radius: 12px;
+    color: #fff;
+    font-family: "Press Start 2P", monospace;
+    text-align: center;
+    user-select: none;
+}
+ 
+/* sin esto, el display:flex de arriba pisaría al atributo "hidden" */
+.peg-seleccion[hidden] {
+    display: none;
+}
+ 
+.peg-seleccion p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+ 
+.peg-opciones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+ 
+.peg-opcion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 14px;
+    font-family: inherit;
+    font-size: 10px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+ 
+/* CAMBIO: las imágenes de las opciones se achican en paneles angostos (entre 56px y 96px) */
+.peg-opcion img {
+    width: clamp(56px, 14cqw, 96px);
+    height: clamp(56px, 14cqw, 96px);
+    object-fit: contain;
+}
+ 
+.peg-opcion:hover,
+.peg-opcion:focus-visible {
+    border-color: #ffd700;
+    transform: scale(1.06);
+}
+ 
+/* CAMBIO: en pantallas muy angostas se reduce el texto y el espacio del HUD y de la selección */
+@media (max-width: 600px) {
+    .peg-hud {
+        font-size: 10px;
+        gap: 8px 14px;
+    }
+ 
+    .peg-btn {
+        font-size: 9px;
+    }
+ 
+    .peg-seleccion p {
+        font-size: 11px;
+    }
+ 
+    .peg-opciones {
+        gap: 10px;
+    }
+}

@@ -1,0 +1,325 @@
+@import url("parallax.css");
+/* runner.css — jugador, obstáculos, ítems, HUD y pantallas.
+   Los colores planos son PLACEHOLDERS: reemplazar por sprites cuando estén los assets
+   (assets/juegos/runner/...). Los tamaños de jugador, obstáculos e ítems salen de config.js. */
+
+.runner-wrap {
+  /* Toma los colores del sitio (base.css); el segundo valor es el respaldo para runner-demo.html */
+  --rn-bg: var(--color-bg, #0d0a24);
+  --rn-pink: var(--color-primary, #ff4fd8);
+  --rn-violet: var(--color-secondary, #7a5cff);
+  --rn-gold: var(--color-accent, #ffd23f);
+  position: relative;
+  width: 960px;
+  /* ancho fijo con tope 100%: no se colapsa dentro de contenedores que se ajustan al contenido */
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 16px;
+  /* igual que los canvas de los otros juegos (game.css) */
+  image-rendering: pixelated;
+}
+
+.runner-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 960px;
+  height: 540px;
+  transform-origin: 0 0;
+  overflow: hidden;
+  user-select: none;
+  touch-action: manipulation;
+  background: linear-gradient(var(--rn-bg), #21134f);
+}
+
+.entities {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+}
+
+/* ---------- Sprites ----------
+   .sprite-strip es una hoja HORIZONTAL (frames en fila). Con la imagen real:
+     --frames: cantidad de frames;  background-image: url(...);  --dur: duración del ciclo
+   El frame actual avanza con steps(), sin JS. Con 1 frame (placeholder) no se mueve. */
+.sprite {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.sprite-strip {
+  width: calc(var(--frames, 1) * 100%);
+  height: 100%;
+  background-size: 100% 100%;
+  animation: strip-play var(--dur, 0.6s) steps(var(--frames, 1)) infinite;
+}
+
+@keyframes strip-play {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* ---------- Jugador ---------- */
+.player,
+.item,
+.obstacle-piece {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+}
+
+.player-sprite {
+  transform-origin: 50% 50%;
+  transition: transform 0.12s ease-out;
+}
+
+.player-sprite .sprite-strip {
+  /* background-color: var(--rn-pink); */
+  background-image: url(../assets/juegos/moon-runner/player/nyan-cat.png);
+  --frames: 6;
+}
+
+.player-sprite.is-fall {
+  transform: rotate(18deg);
+}
+
+.player-sprite.is-flap {
+  animation: cat-flap 0.25s ease-out;
+}
+
+.player-sprite.is-glow {
+  animation: cat-glow 0.5s ease-out;
+}
+
+.player-sprite.is-lowgrav {
+  filter: drop-shadow(0 0 8px var(--rn-violet));
+}
+
+.player-sprite.is-crash {
+  animation: cat-crash 0.6s ease-in forwards;
+}
+
+/* Explosión: en .is-crash .sprite-strip usar la hoja de explosión (mismo tamaño de frame),
+   --frames: N; animation-iteration-count: 1; animation-fill-mode: forwards */
+
+@keyframes cat-flap {
+  0% {
+    transform: rotate(0) scale(1);
+  }
+
+  40% {
+    transform: rotate(-22deg) scale(1.1, 0.9);
+  }
+
+  100% {
+    transform: rotate(0) scale(1);
+  }
+}
+
+@keyframes cat-glow {
+  0% {
+    filter: brightness(1);
+  }
+
+  30% {
+    filter: brightness(2) drop-shadow(0 0 12px var(--rn-gold));
+  }
+
+  100% {
+    filter: brightness(1);
+  }
+}
+
+@keyframes cat-crash {
+  0% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.6) rotate(200deg);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: scale(0.2) rotate(540deg);
+    opacity: 0;
+  }
+}
+
+/* ---------- Obstáculos ---------- */
+.obstacle-piece .cap {
+  position: absolute;
+  left: -8px;
+  right: -8px;
+  height: 20px;
+}
+
+.obstacle-piece.is-top .cap {
+  bottom: 0;
+}
+
+.obstacle-piece.is-bottom .cap {
+  top: 0;
+}
+
+/* Compuerta láser: rayo que parpadea, emisores como remate */
+.obstacle-laser {
+  background: linear-gradient(90deg, transparent 35%, var(--rn-pink) 35% 65%, transparent 65%);
+  animation: laser-flicker 0.18s steps(2) infinite;
+}
+
+.obstacle-laser .cap {
+  background: var(--rn-violet);
+  border-radius: 6px;
+}
+
+/* Estructura lunar: antena desde el piso, satélite defectuoso colgando de un cable */
+.obstacle-structure.is-bottom {
+  background: repeating-linear-gradient(0deg, #8f8ab8 0 12px, #6a6693 12px 16px);
+  -webkit-mask: linear-gradient(90deg, transparent 30%, #000 30% 70%, transparent 70%);
+  mask: linear-gradient(90deg, transparent 30%, #000 30% 70%, transparent 70%);
+}
+
+.obstacle-structure.is-top {
+  background: linear-gradient(90deg, transparent 46%, #8f8ab8 46% 54%, transparent 54%);
+}
+
+.obstacle-structure .cap {
+  background: var(--rn-gold);
+  border-radius: 4px;
+}
+
+.obstacle-structure.is-top .cap {
+  animation: sat-blink 1.2s steps(2) infinite;
+  /* luz del satélite defectuoso */
+}
+
+@keyframes laser-flicker {
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes sat-blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* ---------- Ítems ---------- */
+.item-sprite {
+  animation: item-bob 1s ease-in-out infinite;
+}
+
+.item-star .sprite-strip {
+  background-color: var(--rn-gold);
+  /* PLACEHOLDER */
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+.item-ufo .sprite-strip {
+  background-color: var(--rn-violet);
+  /* PLACEHOLDER */
+  border-radius: 50% 50% 30% 30%;
+}
+
+.item.is-collected .item-sprite {
+  animation: item-pop 0.3s ease-out forwards;
+}
+
+@keyframes item-bob {
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes item-pop {
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* ---------- HUD y pantallas ---------- */
+.hud {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  right: 16px;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 16px;
+  color: #fff;
+  text-shadow: 2px 2px 0 #000;
+  pointer-events: none;
+}
+
+.hud-best {
+  color: var(--rn-gold);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  text-align: center;
+  color: #fff;
+  background: rgba(13, 10, 36, 0.82);
+}
+
+.overlay[hidden] {
+  display: none;
+}
+
+.overlay h2 {
+  margin: 0;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 24px;
+  color: var(--rn-pink);
+}
+
+.overlay p {
+  margin: 0;
+  max-width: 46ch;
+  font-family: inherit;
+  /* usa la fuente de texto del sitio */
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.runner-btn {
+  padding: 14px 20px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 14px;
+  color: #fff;
+  background: var(--rn-violet);
+  border: 3px solid var(--rn-gold);
+  cursor: pointer;
+}
+
+.runner-btn:hover,
+.runner-btn:focus-visible {
+  background: var(--rn-pink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .obstacle-laser,
+  .obstacle-structure .cap,
+  .item-sprite {
+    animation: none;
+  }
+}
