@@ -120,32 +120,85 @@ class Tablero {
   }
 
   /**
-   * Calcula los destinos válidos de una ficha: saltar sobre una vecina
-   * ocupada hacia una celda vacía, en línea recta (sin diagonales).
-   * @returns {{fila:number, col:number, medioFila:number, medioCol:number}[]}
+   * Devuelve la ruta más corta hacia cada celda alcanzable.
+   * @returns {{fila:number, col:number, medioFila:number, medioCol:number}[][]}
    */
   movimientosDesde(fila, col) {
+    return this.rutasDesde(fila, col).map((ruta) => ruta.secuencia);
+  }
+
+  /** Devuelve un destino y la ruta más corta para alcanzarlo. */
+  rutasDesde(fila, col) {
+    return [...this._rutasMasCortasDesde(this.matriz, fila, col, new Map()).values()];
+  }
+
+  /** Devuelve los saltos inmediatos posibles en una matriz de estado. */
+  _destinosDesde(matriz, fila, col) {
     const destinos = [];
-    if (!this.estaOcupada(fila, col)) return destinos;
+    if (!this.enRango(fila, col) || matriz[fila][col] !== OCUPADA) return destinos;
+
     for (const [destFila, destCol] of SALTOS) {
       const medioFila = fila + destFila / 2;
       const medioCol = col + destCol / 2;
       const df2 = fila + destFila;
       const dc2 = col + destCol;
-      if (this.estaOcupada(medioFila, medioCol) && this.estaVacia(df2, dc2)) {
+      if (
+        this.enRango(medioFila, medioCol) &&
+        this.enRango(df2, dc2) &&
+        matriz[medioFila][medioCol] === OCUPADA &&
+        matriz[df2][dc2] === VACIA
+      ) {
         destinos.push({ fila: df2, col: dc2, medioFila, medioCol });
-        // destinos.push({ fila: df2, col: dc2, medioFila: mf, medioCol: mc });
-        // mf y mc no existian, daban referenceError
       }
     }
     return destinos;
+  }
+
+  /** Construye rutas mínimas por destino, reutilizando resultados de estados repetidos. */
+  _rutasMasCortasDesde(matriz, fila, col, cache) {
+    const claveEstado = `${fila},${col}:${matriz.map((linea) => linea.join(",")).join(";")}`;
+    if (cache.has(claveEstado)) return cache.get(claveEstado);
+
+    const rutas = new Map();
+    for (const movimiento of this._destinosDesde(matriz, fila, col)) {
+      const siguienteMatriz = matriz.map((linea) => [...linea]);
+      siguienteMatriz[fila][col] = VACIA;
+      siguienteMatriz[movimiento.medioFila][movimiento.medioCol] = VACIA;
+      siguienteMatriz[movimiento.fila][movimiento.col] = OCUPADA;
+
+      const continuaciones = this._rutasMasCortasDesde(
+        siguienteMatriz,
+        movimiento.fila,
+        movimiento.col,
+        cache,
+      );
+      const candidatas = [
+        { fila: movimiento.fila, col: movimiento.col, secuencia: [movimiento] },
+        ...[...continuaciones.values()].map((ruta) => ({
+          fila: ruta.fila,
+          col: ruta.col,
+          secuencia: [movimiento, ...ruta.secuencia],
+        })),
+      ];
+
+      for (const ruta of candidatas) {
+        const claveDestino = `${ruta.fila},${ruta.col}`;
+        const actual = rutas.get(claveDestino);
+        if (!actual || ruta.secuencia.length < actual.secuencia.length) {
+          rutas.set(claveDestino, ruta);
+        }
+      }
+    }
+
+    cache.set(claveEstado, rutas);
+    return rutas;
   }
 
   /** True si queda al menos un movimiento posible en todo el tablero. */
   hayMovimientosPosibles() {
     for (let f = 0; f < this.matriz.length; f++) {
       for (let c = 0; c < this.matriz[f].length; c++) {
-        if (this.movimientosDesde(f, c).length > 0) return true;
+        if (this._destinosDesde(this.matriz, f, c).length > 0) return true;
       }
     }
     return false;

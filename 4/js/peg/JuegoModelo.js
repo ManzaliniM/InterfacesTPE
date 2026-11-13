@@ -27,6 +27,7 @@ class JuegoModelo {
     this.tablero.reiniciar();
     this.estado = ESTADO.JUGANDO;
     this.tiempoRestante = this.tiempoLimite;
+    this.movimientosRealizados = 0;
   }
 
   /** Elige el estilo (tipo) que usarán TODAS las fichas y reinicia la partida. */
@@ -40,9 +41,19 @@ class JuegoModelo {
     return this.estado === ESTADO.JUGANDO;
   }
 
-  /** Destinos válidos para una ficha (usados por los hints). */
+  /** Rutas más cortas desde una ficha hacia cada destino alcanzable. */
+  rutasDe(ficha) {
+    return this.tablero.rutasDesde(ficha.fila, ficha.col);
+  }
+
+  /** Destinos de un salto para validar y ejecutar movimientos individuales. */
   destinosDe(ficha) {
-    return this.tablero.movimientosDesde(ficha.fila, ficha.col);
+    const rutas = this.rutasDe(ficha);
+    return rutas
+      .map((ruta) => ruta.secuencia[0])
+      .filter((movimiento, indice, movimientos) =>
+        movimientos.findIndex((otro) => otro.fila === movimiento.fila && otro.col === movimiento.col) === indice,
+      );
   }
 
   /**
@@ -55,8 +66,14 @@ class JuegoModelo {
     const mov = this.destinosDe(ficha).find((d) => d.fila === fila && d.col === col);
     if (!mov) return false;
     this.tablero.ejecutarMovimiento(ficha, mov);
+    this.movimientosRealizados++;
     this.verificarFin();
     return true;
+  }
+
+  /** Registra un movimiento completo, aunque incluya varios saltos. */
+  registrarMovimiento() {
+    this.movimientosRealizados++;
   }
 
   /**

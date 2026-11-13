@@ -32,13 +32,14 @@
     juego.className = "peg-juego";
     canvas.parentElement.replaceChild(juego, canvas);
 
-    // HUD: barra superior con el tiempo restante, la cantidad de fichas y el botón de reinicio.
+    // HUD: barra superior con tiempo, fichas, movimientos y el botón de reinicio.
     // Los valores "--" se reemplazan en cada cuadro por VistaJuego.actualizarHUD().
     const hud = document.createElement("div");
     hud.className = "peg-hud";
     hud.innerHTML = `
     <span>Tiempo: <strong id="peg-timer">--:--</strong></span>
     <span>Fichas: <strong id="peg-fichas">--</strong></span>
+    <span>Movimientos: <strong id="peg-movimientos">0</strong></span>
     <button type="button" id="peg-reiniciar" class="peg-btn">Reiniciar</button>`;
 
     // Pantalla de elección de ficha: una opción (botón con la imagen) por cada ficha disponible.
@@ -82,6 +83,7 @@
     const controlador = new Controlador(modelo, vista, {
         timer: document.getElementById("peg-timer"),
         fichas: document.getElementById("peg-fichas"),
+        movimientos: document.getElementById("peg-movimientos"),
         reiniciar: document.getElementById("peg-reiniciar"),
     });
 

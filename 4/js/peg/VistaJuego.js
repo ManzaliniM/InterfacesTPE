@@ -79,7 +79,8 @@ class VistaJuego {
 
     // 3) Hints animados sobre los destinos posibles
     if (seleccionada) {
-      for (const h of hints) this.dibujarHint(h, tiempoMs);
+      for (const ruta of hints) this.dibujarCamino(ruta, seleccionada);
+      for (const ruta of hints) this.dibujarHint(ruta, tiempoMs);
       this.dibujarFicha(seleccionada, true);
     }
 
@@ -145,9 +146,27 @@ class VistaJuego {
   /**
    * Hint animado: un aro que pulsa y una flecha que rebota arriba del destino.
    */
-  dibujarHint(h, tiempoMs) {
+  dibujarCamino(ruta, ficha) {
     const ctx = this.ctx;
-    const { x, y } = this.modelo.tablero.celdaAPixeles(h.fila, h.col);
+    const origen = this.modelo.tablero.celdaAPixeles(ficha.fila, ficha.col);
+    ctx.save();
+    ctx.strokeStyle = "rgba(255, 215, 0, 0.55)";
+    ctx.lineWidth = 5;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.beginPath();
+    ctx.moveTo(origen.x, origen.y);
+    for (const movimiento of ruta.secuencia) {
+      const destino = this.modelo.tablero.celdaAPixeles(movimiento.fila, movimiento.col);
+      ctx.lineTo(destino.x, destino.y);
+    }
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  dibujarHint(ruta, tiempoMs) {
+    const ctx = this.ctx;
+    const { x, y } = this.modelo.tablero.celdaAPixeles(ruta.fila, ruta.col);
     const t = tiempoMs / 1000;
     const pulso = 0.5 + 0.5 * Math.sin(t * 5);   // 0..1
     const rebote = Math.sin(t * 6) * 8;          // desplazamiento vertical
@@ -194,11 +213,12 @@ class VistaJuego {
   }
 
   /** Actualiza el timer y el contador de fichas en el HTML (mm:ss). */
-  actualizarHUD(elTimer, elFichas) {
+  actualizarHUD(elTimer, elFichas, elMovimientos) {
     const s = Math.ceil(this.modelo.tiempoRestante);
     const mm = String(Math.floor(s / 60)).padStart(2, "0");
     const ss = String(s % 60).padStart(2, "0");
     elTimer.textContent = `${mm}:${ss}`;
     elFichas.textContent = this.modelo.tablero.contarFichas();
+    elMovimientos.textContent = this.modelo.movimientosRealizados;
   }
 }
