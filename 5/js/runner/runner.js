@@ -19,7 +19,6 @@ class Runner {
     this.best = this.loadBest();
     this.obstacles = [];
     this.items = [];
-    this.kanyes = [];
     this.raf = 0;
     this.loop = this.loop.bind(this);
     this.reset();
@@ -34,10 +33,8 @@ class Runner {
   reset() {
     this.obstacles.forEach((o) => o.destroy());
     this.items.forEach((i) => i.destroy());
-    this.kanyes.forEach((kanye) => kanye.destroy());
     this.obstacles = [];
     this.items = [];
-    this.kanyes = [];
     this.player.reset();
     this.parallax.reset();
     this.speed = CONFIG_RUNNER.SPEED_START;
@@ -107,7 +104,6 @@ class Runner {
     const dx = this.speed * dt;
     this.obstacles.forEach((o) => o.move(dx));
     this.items.forEach((i) => i.move(dx));
-    this.kanyes.forEach((kanye) => kanye.move(dx));
     this.nextX -= dx;
     while (this.nextX <= CONFIG_RUNNER.WIDTH + 100) this.spawn();
 
@@ -146,10 +142,6 @@ class Runner {
       if (i.x + i.w < -60) return (i.destroy(), false);
       return true;
     });
-    this.kanyes = this.kanyes.filter((kanye) => {
-      if (kanye.x + kanye.w < -60) return (kanye.destroy(), false);
-      return true;
-    });
   }
 
   // ---------- Generación ----------
@@ -168,10 +160,6 @@ class Runner {
       const mid = (this.lastGapY + gapY) / 2 + runnerRand(-20, 20);
       const y = runnerClamp(mid - CONFIG_RUNNER.ITEM_SIZE / 2, CONFIG_RUNNER.GAP_MARGIN, CONFIG_RUNNER.PLAY_HEIGHT - CONFIG_RUNNER.GAP_MARGIN - CONFIG_RUNNER.ITEM_SIZE);
       this.items.push(new ItemRunner(this.layer, { kind, x: x - this.spacing / 2 - CONFIG_RUNNER.ITEM_SIZE / 2, y }));
-    }
-
-    if (Math.random() < CONFIG_RUNNER.KANYE_CHANCE) {
-      this.kanyes.push(new KanyeRunner(this.stage, { x: x + this.spacing / 2 }));
     }
 
     this.lastGapY = gapY;

@@ -3,7 +3,7 @@ const CONFIG_RUNNER = {
   // Escenario (px lógicos; el contenedor se escala por CSS)
   WIDTH: 960,
   HEIGHT: 540,
-  GROUND_HEIGHT: 0, // sin franja reservada: el límite inferior coincide con el borde del escenario
+  GROUND_HEIGHT: 52, // piso lunar compacto: zona no jugable
 
   // Jugador
   PLAYER: { x: 180, w: 64, h: 48, hitboxInset: 8 }, // hitbox = sprite menos este margen
@@ -32,19 +32,17 @@ const CONFIG_RUNNER = {
   ITEM_SIZE: 40,
   ITEM_CHANCE: 0.5, // probabilidad de ítem entre dos obstáculos
   ITEM_GRAVITY_ORB_CHANCE: 0.3, // de los ítems, proporción de orbes (el resto son estrellas)
-  KANYE_CHANCE: 0.05, // cameo visual: probabilidad por obstáculo
-  KANYE_WIDTH: 500,
-  KANYE_HEIGHT: 200,
   STAR_POINTS: 5,
   GRAVITY_ORB_DURATION: 5, // s
   GRAVITY_ORB_FACTOR: 0.3, // factor de gravedad mientras dura el efecto
 
-  // Parallax: factor × velocidad del mundo
+  // Parallax: factor × velocidad del mundo (el piso acompaña a los obstáculos)
   PARALLAX: [
     { id: 'sky', factor: 0.04 },
     { id: 'stars', factor: 0.16 },
     { id: 'ufo', factor: 0.24 },
     { id: 'earth', factor: 0.4 },
+    { id: 'ground', factor: 1.0 },
   ],
   EARTH_REPEAT_DISTANCE: 1920, // distancia entre apariciones, en px lógicos
   UFO_REPEAT_DISTANCE: 2600,

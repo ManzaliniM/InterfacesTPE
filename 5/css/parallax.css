@@ -1,4 +1,4 @@
-/* parallax.css — capas de cielo, estrellas, UFO y Tierra.
+/* parallax.css — capas de cielo, estrellas, UFO, Tierra y piso lunar.
    Los PNG están en ../assets/juegos/moon-runner/bg/. STARS se usa como textura repetible;
    earth.png es un sprite de 180x180 y ufo.png se muestra como un objeto distante.
    parallax.js actualiza la posición horizontal de las capas. */
@@ -61,4 +61,18 @@
   width: 180px;
   height: 180px;
   background: url(../assets/juegos/moon-runner/bg/earth.png) center / 100% 100% no-repeat;
+}
+
+/* Piso lunar (1.0): avanza a la velocidad del mundo y ocupa una franja baja. */
+.layer-ground {
+  bottom: 0;
+  height: 52px;
+  z-index: 5;
+  box-sizing: border-box;
+  border-top: 3px solid #b9b4dc;
+  background-image:
+    radial-gradient(ellipse 18px 6px at 32px 22px, rgba(42, 39, 62, 0.55) 0 45%, rgba(42, 39, 62, 0.45) 54%, rgba(190, 185, 220, 0.32) 68%, transparent 80%),
+    radial-gradient(ellipse 12px 4px at 102px 36px, rgba(42, 39, 62, 0.48) 0 45%, rgba(42, 39, 62, 0.38) 55%, rgba(190, 185, 220, 0.26) 70%, transparent 82%),
+    linear-gradient(180deg, #8f8ab8 0%, #716c96 18%, #494563 100%);
+  background-size: 160px 100%, 160px 100%, 100% 100%;
 }

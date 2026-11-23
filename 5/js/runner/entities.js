@@ -204,29 +204,3 @@ class ItemRunner {
     this.el.remove();
   }
 }
-
-class KanyeRunner {
-  constructor(stage, { x }) {
-    this.x = x;
-    this.w = CONFIG_RUNNER.KANYE_WIDTH;
-    this.h = CONFIG_RUNNER.KANYE_HEIGHT;
-    this.y = CONFIG_RUNNER.PLAY_HEIGHT - this.h;
-    this.el = runnerEl('kanye-easter-egg', stage);
-    this.el.style.width = `${this.w}px`;
-    this.el.style.height = `${this.h}px`;
-    this.render();
-  }
-
-  move(dx) {
-    this.x -= dx;
-    this.render();
-  }
-
-  render() {
-    this.el.style.transform = `translate3d(${this.x}px, ${this.y}px, 0)`;
-  }
-
-  destroy() {
-    this.el.remove();
-  }
-}

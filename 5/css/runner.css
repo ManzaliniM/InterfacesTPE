@@ -193,16 +193,6 @@
   --dur: 0.72s;
 }
 
-.kanye-easter-egg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 5;
-  pointer-events: none;
-  opacity: 15%;
-  background: url(../assets/juegos/moon-runner/bg/kanye.png) center / 100% 100% no-repeat;
-}
-
 @keyframes laser-flicker {
   50% {
     opacity: 0.7;
