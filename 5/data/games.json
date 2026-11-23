@@ -99,7 +99,7 @@
             "Con cada obstáculo superado el juego se acelera y el hueco se achica. Intenta superar tu récord."
         ],
         "controlesTexto": "Teclado: Espacio o flecha arriba para dar impulso. Ratón: clic sobre el juego. Botón en pantalla: «Jugar» y «Jugar de nuevo».",
-        "imagenPortada": "assets/juegos/moon-runner/screenshots/pantalla-inicio.png",
+        "imagenPortada": "assets/juegos/moon-runner/portada.png",
         "css": "css/runner.css",
         "script": [
             "js/runner/config.js",
