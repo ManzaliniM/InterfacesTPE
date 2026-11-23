@@ -15,11 +15,13 @@ function runnerSprite(parent, cls) {
 }
 
 class PlayerRunner {
-  constructor(layer) {
+  constructor(layer, orbStatus, orbTime) {
     const { x, w, h } = CONFIG_RUNNER.PLAYER;
     this.x = x;
     this.w = w;
     this.h = h;
+    this.orbStatus = orbStatus;
+    this.orbTime = orbTime;
     this.el = runnerEl('player', layer); // JS lo posiciona con transform
     this.el.style.width = `${w}px`;
     this.el.style.height = `${h}px`;
@@ -35,6 +37,9 @@ class PlayerRunner {
     this.y = (CONFIG_RUNNER.PLAY_HEIGHT - this.h) / 2;
     this.vy = 0;
     this.lowGravityTime = 0;
+    this.orbStatus.hidden = true;
+    this.orbStatus.classList.remove('is-warning');
+    this.orbTime.textContent = String(CONFIG_RUNNER.GRAVITY_ORB_DURATION);
     this.sprite.className = 'sprite player-sprite';
     this.render();
   }
@@ -48,15 +53,15 @@ class PlayerRunner {
 
   flap() {
     // Con gravedad lunar el impulso se reduce para que la altura del salto sea la misma, pero más flotante
-    const k = this.lowGravityTime > 0 ? Math.sqrt(CONFIG_RUNNER.UFO_GRAVITY_FACTOR) : 1;
+    const k = this.lowGravityTime > 0 ? Math.sqrt(CONFIG_RUNNER.GRAVITY_ORB_FACTOR) : 1;
     this.vy = CONFIG_RUNNER.JUMP_VELOCITY * k;
     this.sprite.classList.remove('is-fall');
     this.play('is-flap');
   }
 
   collect(kind) {
-    if (kind === 'ufo') {
-      this.lowGravityTime = CONFIG_RUNNER.UFO_DURATION;
+    if (kind === 'gravity-orb') {
+      this.lowGravityTime = CONFIG_RUNNER.GRAVITY_ORB_DURATION;
       this.sprite.classList.add('is-lowgrav');
     }
     this.play('is-glow');
@@ -69,10 +74,15 @@ class PlayerRunner {
 
   update(dt) {
     if (this.lowGravityTime > 0) {
-      this.lowGravityTime -= dt;
+      this.lowGravityTime = Math.max(0, this.lowGravityTime - dt);
       if (this.lowGravityTime <= 0) this.sprite.classList.remove('is-lowgrav');
     }
-    const g = CONFIG_RUNNER.GRAVITY * (this.lowGravityTime > 0 ? CONFIG_RUNNER.UFO_GRAVITY_FACTOR : 1);
+    const orbActive = this.lowGravityTime > 0;
+    this.orbStatus.hidden = !orbActive;
+    this.orbStatus.classList.toggle('is-warning', orbActive && this.lowGravityTime <= 2);
+    if (orbActive) this.orbTime.textContent = String(Math.ceil(this.lowGravityTime));
+
+    const g = CONFIG_RUNNER.GRAVITY * (this.lowGravityTime > 0 ? CONFIG_RUNNER.GRAVITY_ORB_FACTOR : 1);
     this.vy = Math.min(this.vy + g * dt, CONFIG_RUNNER.MAX_FALL_SPEED);
     this.y += this.vy * dt;
     if (this.y < 0) {
@@ -94,22 +104,22 @@ class PlayerRunner {
 }
 
 // Un obstáculo = dos piezas (arriba y abajo) con un hueco en el medio.
-// Cada pieza es un tile repetible (rayo, mástil, cable) más un remate (.cap: emisor, antena, satélite),
-// así cualquier altura funciona sin deformar el arte.
+// Las variantes de color del beam comparten el mismo haz y spritesheet animado.
 class ObstacleRunner {
   constructor(layer, { x, gapY, gap, type }) {
     this.x = x;
     this.w = CONFIG_RUNNER.OBSTACLE_WIDTH;
     this.type = type;
+    const family = type.startsWith('laser-') ? 'laser' : type;
     this.gapTop = gapY - gap / 2;
     this.gapBottom = gapY + gap / 2;
     this.scored = false;
 
-    this.top = runnerEl(`obstacle-piece obstacle-${type} is-top`, layer);
-    this.bottom = runnerEl(`obstacle-piece obstacle-${type} is-bottom`, layer);
+    this.top = runnerEl(`obstacle-piece obstacle-${family} obstacle-${type} is-top`, layer);
+    this.bottom = runnerEl(`obstacle-piece obstacle-${family} obstacle-${type} is-bottom`, layer);
     for (const p of [this.top, this.bottom]) {
       p.style.width = `${this.w}px`;
-      runnerEl('cap', p);
+      runnerSprite(runnerEl('cap', p), `obstacle-cap-${family}`);
     }
     this.top.style.height = `${this.gapTop}px`;
     this.bottom.style.top = `${this.gapBottom}px`;
@@ -148,9 +158,10 @@ class ObstacleRunner {
   }
 }
 
-// kind: 'star' (+puntos) | 'ufo' (gravedad lunar temporal)
+// kind: 'star' (+puntos) | 'gravity-orb' (gravedad reducida temporal)
 class ItemRunner {
   constructor(layer, { kind, x, y }) {
+    this.layer = layer;
     this.kind = kind;
     this.x = x;
     this.y = y;
@@ -178,7 +189,41 @@ class ItemRunner {
   collect() {
     this.collected = true;
     this.el.classList.add('is-collected'); // animación de "pop" en CSS
+    if (this.kind === 'star') {
+      const scorePop = runnerEl('score-pop', this.layer);
+      scorePop.textContent = `+${CONFIG_RUNNER.STAR_POINTS}`;
+      scorePop.style.left = `${this.x}px`;
+      scorePop.style.top = `${this.y}px`;
+      scorePop.addEventListener('animationend', () => scorePop.remove(), { once: true });
+      setTimeout(() => scorePop.remove(), 800);
+    }
     setTimeout(() => this.destroy(), 300);
+  }
+
+  destroy() {
+    this.el.remove();
+  }
+}
+
+class KanyeRunner {
+  constructor(stage, { x }) {
+    this.x = x;
+    this.w = CONFIG_RUNNER.KANYE_WIDTH;
+    this.h = CONFIG_RUNNER.KANYE_HEIGHT;
+    this.y = CONFIG_RUNNER.PLAY_HEIGHT - this.h;
+    this.el = runnerEl('kanye-easter-egg', stage);
+    this.el.style.width = `${this.w}px`;
+    this.el.style.height = `${this.h}px`;
+    this.render();
+  }
+
+  move(dx) {
+    this.x -= dx;
+    this.render();
+  }
+
+  render() {
+    this.el.style.transform = `translate3d(${this.x}px, ${this.y}px, 0)`;
   }
 
   destroy() {

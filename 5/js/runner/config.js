@@ -3,7 +3,7 @@ const CONFIG_RUNNER = {
   // Escenario (px lógicos; el contenedor se escala por CSS)
   WIDTH: 960,
   HEIGHT: 540,
-  GROUND_HEIGHT: 90, // piso lunar (zona no jugable)
+  GROUND_HEIGHT: 0, // sin franja reservada: el límite inferior coincide con el borde del escenario
 
   // Jugador
   PLAYER: { x: 180, w: 64, h: 48, hitboxInset: 8 }, // hitbox = sprite menos este margen
@@ -17,7 +17,7 @@ const CONFIG_RUNNER = {
   SPEED_PER_OBSTACLE: 5, // +px/s por obstáculo superado
 
   // Obstáculos
-  OBSTACLE_TYPES: ['laser', 'structure'],
+  OBSTACLE_TYPES: ['laser-cyan', 'laser-violet', 'laser-amber'],
   OBSTACLE_WIDTH: 56,
   OBSTACLE_HITBOX_INSET: 18, // los remates visuales sobresalen: el choque es más angosto
   GAP_START: 230, // hueco vertical inicial
@@ -31,18 +31,23 @@ const CONFIG_RUNNER = {
   // Ítems
   ITEM_SIZE: 40,
   ITEM_CHANCE: 0.5, // probabilidad de ítem entre dos obstáculos
-  ITEM_UFO_CHANCE: 0.3, // de los ítems, proporción de ovnis (el resto son estrellas)
+  ITEM_GRAVITY_ORB_CHANCE: 0.3, // de los ítems, proporción de orbes (el resto son estrellas)
+  KANYE_CHANCE: 0.05, // cameo visual: probabilidad por obstáculo
+  KANYE_WIDTH: 500,
+  KANYE_HEIGHT: 200,
   STAR_POINTS: 5,
-  UFO_DURATION: 5, // s
-  UFO_GRAVITY_FACTOR: 0.3, // gravedad lunar
+  GRAVITY_ORB_DURATION: 5, // s
+  GRAVITY_ORB_FACTOR: 0.3, // factor de gravedad mientras dura el efecto
 
-  // Parallax: factor × velocidad del mundo (el piso es 1.0)
+  // Parallax: factor × velocidad del mundo
   PARALLAX: [
     { id: 'sky', factor: 0.04 },
     { id: 'stars', factor: 0.16 },
+    { id: 'ufo', factor: 0.24 },
     { id: 'earth', factor: 0.4 },
-    { id: 'ground', factor: 1.0 },
   ],
+  EARTH_REPEAT_DISTANCE: 1920, // distancia entre apariciones, en px lógicos
+  UFO_REPEAT_DISTANCE: 2600,
 
   STORAGE_KEY: 'moonRunner:highScore',
 };

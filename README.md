@@ -23,7 +23,4 @@
 |[TP4](4)| MOON SOLITAIRE: peg solitaire lunar. |
 |[TP5](5)| MOON RUNNER: nyan cat flappy bird thingy |
 
-<!-- TODO Moon Runner
-- [ ] Agregar portada.png, pantalla-inicio.png, obstaculos.png e items.png en assets/juegos/runner/ -->
-
 <img src="2/assets/images/sailor-moon.gif" width="300" height="300">

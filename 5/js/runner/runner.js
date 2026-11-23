@@ -8,16 +8,18 @@ const runnerOverlap = (a, b) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y 
 class Runner {
   // hud: { score, best } (elementos de texto) — callbacks: { onStart, onGameOver({ score, best, isNewBest }) }
   constructor(stage, hud, callbacks = {}) {
+    this.stage = stage;
     this.hud = hud;
     this.cb = callbacks;
     this.parallax = new ParallaxRunner(stage); // las capas se crean primero: quedan detrás
     this.layer = document.createElement('div');
     this.layer.className = 'entities';
     stage.appendChild(this.layer);
-    this.player = new PlayerRunner(this.layer);
+    this.player = new PlayerRunner(this.layer, hud.orbStatus, hud.orbTime);
     this.best = this.loadBest();
     this.obstacles = [];
     this.items = [];
+    this.kanyes = [];
     this.raf = 0;
     this.loop = this.loop.bind(this);
     this.reset();
@@ -32,14 +34,17 @@ class Runner {
   reset() {
     this.obstacles.forEach((o) => o.destroy());
     this.items.forEach((i) => i.destroy());
+    this.kanyes.forEach((kanye) => kanye.destroy());
     this.obstacles = [];
     this.items = [];
+    this.kanyes = [];
     this.player.reset();
     this.parallax.reset();
     this.speed = CONFIG_RUNNER.SPEED_START;
     this.passed = 0;
     this.bonus = 0;
     this.spawned = 0;
+    this.lastObstacleType = null;
     this.lastGapY = CONFIG_RUNNER.PLAY_HEIGHT / 2;
     this.nextX = CONFIG_RUNNER.WIDTH + 200; // posición x del próximo obstáculo
     this.spacing = 400; // distancia respecto del obstáculo anterior
@@ -102,6 +107,7 @@ class Runner {
     const dx = this.speed * dt;
     this.obstacles.forEach((o) => o.move(dx));
     this.items.forEach((i) => i.move(dx));
+    this.kanyes.forEach((kanye) => kanye.move(dx));
     this.nextX -= dx;
     while (this.nextX <= CONFIG_RUNNER.WIDTH + 100) this.spawn();
 
@@ -140,6 +146,10 @@ class Runner {
       if (i.x + i.w < -60) return (i.destroy(), false);
       return true;
     });
+    this.kanyes = this.kanyes.filter((kanye) => {
+      if (kanye.x + kanye.w < -60) return (kanye.destroy(), false);
+      return true;
+    });
   }
 
   // ---------- Generación ----------
@@ -147,14 +157,21 @@ class Runner {
     const gap = Math.max(CONFIG_RUNNER.GAP_MIN, CONFIG_RUNNER.GAP_START - this.spawned * CONFIG_RUNNER.GAP_SHRINK);
     const gapY = this.pickGapY(gap, this.spacing);
     const x = this.nextX;
-    this.obstacles.push(new ObstacleRunner(this.layer, { x, gapY, gap, type: runnerPick(CONFIG_RUNNER.OBSTACLE_TYPES) }));
+    const availableTypes = CONFIG_RUNNER.OBSTACLE_TYPES.filter((type) => type !== this.lastObstacleType);
+    const type = runnerPick(availableTypes.length ? availableTypes : CONFIG_RUNNER.OBSTACLE_TYPES);
+    this.lastObstacleType = type;
+    this.obstacles.push(new ObstacleRunner(this.layer, { x, gapY, gap, type }));
 
     // Ítem opcional en el "corredor" entre el obstáculo anterior y este (siempre alcanzable)
     if (this.spawned > 0 && Math.random() < CONFIG_RUNNER.ITEM_CHANCE) {
-      const kind = Math.random() < CONFIG_RUNNER.ITEM_UFO_CHANCE ? 'ufo' : 'star';
+      const kind = Math.random() < CONFIG_RUNNER.ITEM_GRAVITY_ORB_CHANCE ? 'gravity-orb' : 'star';
       const mid = (this.lastGapY + gapY) / 2 + runnerRand(-20, 20);
       const y = runnerClamp(mid - CONFIG_RUNNER.ITEM_SIZE / 2, CONFIG_RUNNER.GAP_MARGIN, CONFIG_RUNNER.PLAY_HEIGHT - CONFIG_RUNNER.GAP_MARGIN - CONFIG_RUNNER.ITEM_SIZE);
       this.items.push(new ItemRunner(this.layer, { kind, x: x - this.spacing / 2 - CONFIG_RUNNER.ITEM_SIZE / 2, y }));
+    }
+
+    if (Math.random() < CONFIG_RUNNER.KANYE_CHANCE) {
+      this.kanyes.push(new KanyeRunner(this.stage, { x: x + this.spacing / 2 }));
     }
 
     this.lastGapY = gapY;

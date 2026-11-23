@@ -1,10 +1,10 @@
 @import url("parallax.css");
 /* runner.css — jugador, obstáculos, ítems, HUD y pantallas.
-   Los colores planos son PLACEHOLDERS: reemplazar por sprites cuando estén los assets
-   (assets/juegos/runner/...). Los tamaños de jugador, obstáculos e ítems salen de config.js. */
+   Las hojas de sprites están en assets/juegos/moon-runner/; los haces láser se dibujan en CSS.
+   Los tamaños de jugador, obstáculos e ítems salen de config.js. */
 
 .runner-wrap {
-  /* Toma los colores del sitio (base.css); el segundo valor es el respaldo para runner-demo.html */
+  /* Toma los colores del sitio (base.css); el segundo valor es el respaldo si la variable no existe. */
   --rn-bg: var(--color-bg, #0d0a24);
   --rn-pink: var(--color-primary, #ff4fd8);
   --rn-violet: var(--color-secondary, #7a5cff);
@@ -99,12 +99,18 @@
   filter: drop-shadow(0 0 8px var(--rn-violet));
 }
 
-.player-sprite.is-crash {
-  animation: cat-crash 0.6s ease-in forwards;
+.player-sprite.is-crash .sprite-strip {
+  background-image: url(../assets/juegos/moon-runner/player/nyan-cat-die.png);
+  --frames: 6;
+  --dur: 0.6s;
+  animation: strip-play-once var(--dur) steps(5) 1 forwards;
 }
 
-/* Explosión: en .is-crash .sprite-strip usar la hoja de explosión (mismo tamaño de frame),
-   --frames: N; animation-iteration-count: 1; animation-fill-mode: forwards */
+@keyframes strip-play-once {
+  to {
+    transform: translateX(-83.333333%);
+  }
+}
 
 @keyframes cat-flap {
   0% {
@@ -134,29 +140,13 @@
   }
 }
 
-@keyframes cat-crash {
-  0% {
-    transform: scale(1) rotate(0);
-    opacity: 1;
-  }
-
-  50% {
-    transform: scale(1.6) rotate(200deg);
-    opacity: 0.9;
-  }
-
-  100% {
-    transform: scale(0.2) rotate(540deg);
-    opacity: 0;
-  }
-}
-
 /* ---------- Obstáculos ---------- */
 .obstacle-piece .cap {
   position: absolute;
   left: -8px;
   right: -8px;
   height: 20px;
+  z-index: 1;
 }
 
 .obstacle-piece.is-top .cap {
@@ -167,47 +157,55 @@
   top: 0;
 }
 
-/* Compuerta láser: rayo que parpadea, emisores como remate */
+/* Compuerta láser: haz cian y cápsula animada en cada extremo */
 .obstacle-laser {
-  background: linear-gradient(90deg, transparent 35%, var(--rn-pink) 35% 65%, transparent 65%);
+  background: linear-gradient(90deg, transparent 43%, rgba(99, 255, 234, 0.4) 43% 46%, #78fff0 48% 52%, rgba(99, 255, 234, 0.4) 54% 57%, transparent 57%);
   animation: laser-flicker 0.18s steps(2) infinite;
 }
 
+.obstacle-laser-violet {
+  filter: hue-rotate(100deg) saturate(1.2);
+}
+
+.obstacle-laser-amber {
+  filter: hue-rotate(205deg) saturate(1.15);
+}
+
 .obstacle-laser .cap {
-  background: var(--rn-violet);
-  border-radius: 6px;
+  left: 14px;
+  right: 14px;
+  height: 115px;
 }
 
-/* Estructura lunar: antena desde el piso, satélite defectuoso colgando de un cable */
-.obstacle-structure.is-bottom {
-  background: repeating-linear-gradient(0deg, #8f8ab8 0 12px, #6a6693 12px 16px);
-  -webkit-mask: linear-gradient(90deg, transparent 30%, #000 30% 70%, transparent 70%);
-  mask: linear-gradient(90deg, transparent 30%, #000 30% 70%, transparent 70%);
+.obstacle-piece.is-top.obstacle-laser .cap .sprite {
+  transform: scale(1.25);
+  transform-origin: center bottom;
 }
 
-.obstacle-structure.is-top {
-  background: linear-gradient(90deg, transparent 46%, #8f8ab8 46% 54%, transparent 54%);
+.obstacle-piece.is-bottom.obstacle-laser .cap .sprite {
+  transform: scale(1.25);
+  transform-origin: center top;
 }
 
-.obstacle-structure .cap {
-  background: var(--rn-gold);
-  border-radius: 4px;
+.obstacle-laser .cap .sprite-strip {
+  background-image: url(../assets/juegos/moon-runner/obstacles/laser.png);
+  --frames: 4;
+  --dur: 0.72s;
 }
 
-.obstacle-structure.is-top .cap {
-  animation: sat-blink 1.2s steps(2) infinite;
-  /* luz del satélite defectuoso */
+.kanye-easter-egg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 15%;
+  background: url(../assets/juegos/moon-runner/bg/kanye.png) center / 100% 100% no-repeat;
 }
 
 @keyframes laser-flicker {
   50% {
     opacity: 0.7;
-  }
-}
-
-@keyframes sat-blink {
-  50% {
-    opacity: 0.35;
   }
 }
 
@@ -217,15 +215,13 @@
 }
 
 .item-star .sprite-strip {
-  background-color: var(--rn-gold);
-  /* PLACEHOLDER */
-  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  background-image: url(../assets/juegos/moon-runner/items/star.png);
+  --frames: 6;
 }
 
-.item-ufo .sprite-strip {
-  background-color: var(--rn-violet);
-  /* PLACEHOLDER */
-  border-radius: 50% 50% 30% 30%;
+.item-gravity-orb .sprite-strip {
+  background-image: url(../assets/juegos/moon-runner/items/zero.png);
+  --frames: 4;
 }
 
 .item.is-collected .item-sprite {
@@ -265,6 +261,54 @@
   color: var(--rn-gold);
 }
 
+.orb-status {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  padding: 6px 10px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(183, 164, 255, 0.55);
+  border-radius: 4px;
+  background: rgba(13, 10, 36, 0.85);
+  color: #b7a4ff;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.orb-status[hidden] {
+  display: none;
+}
+
+.orb-status.is-warning {
+  border-color: var(--rn-gold);
+  color: #fff;
+  animation: orb-warning 0.45s steps(2) infinite;
+}
+
+@keyframes orb-warning {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.score-pop {
+  position: absolute;
+  z-index: 12;
+  color: var(--rn-gold);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  text-shadow: 1px 1px 0 #000;
+  pointer-events: none;
+  animation: score-float 0.8s ease-out forwards;
+}
+
+@keyframes score-float {
+  to {
+    transform: translateY(-28px);
+    opacity: 0;
+  }
+}
+
 .overlay {
   position: absolute;
   inset: 0;
@@ -284,11 +328,78 @@
   display: none;
 }
 
+.start-overlay {
+  display: grid;
+  place-items: center;
+}
+
 .overlay h2 {
   margin: 0;
   font-family: 'Press Start 2P', monospace;
   font-size: 24px;
   color: var(--rn-pink);
+}
+
+.start-card {
+  display: flex;
+  width: min(620px, 100%);
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 28px 36px;
+  border: 2px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  background: rgba(13, 10, 36, 0.92);
+}
+
+.start-card h2 {
+  text-shadow: none;
+}
+
+.start-tagline {
+  margin: 0;
+  color: #c9bdff;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.start-instructions {
+  display: grid;
+  width: 100%;
+  gap: 14px;
+  padding: 8px 0;
+}
+
+.start-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0;
+}
+
+.start-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.start-row span {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.start-controls {
+  color: #75f4e3;
+}
+
+.start-objective,
+.start-orb {
+  color: #b7a4ff;
+}
+
+.start-star {
+  color: var(--rn-gold);
 }
 
 .overlay p {
@@ -318,8 +429,10 @@
 @media (prefers-reduced-motion: reduce) {
 
   .obstacle-laser,
-  .obstacle-structure .cap,
-  .item-sprite {
+  .obstacle-cap-laser .sprite-strip,
+  .item-sprite,
+  .orb-status.is-warning,
+  .score-pop {
     animation: none;
   }
 }

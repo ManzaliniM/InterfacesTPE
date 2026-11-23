@@ -1,7 +1,7 @@
-/* parallax.css — 4 capas. Los degradados son PLACEHOLDERS que ya permiten ver las velocidades.
-   Para pasar a PNG: background-image: url(../assets/juegos/runner/bg/<capa>.png) y background-size al alto del
-   escenario (auto 100%). Cada PNG debe repetirse sin corte (borde izquierdo = borde derecho).
-   La posición horizontal la actualiza parallax.js; aquí solo va el aspecto. */
+/* parallax.css — capas de cielo, estrellas, UFO y Tierra.
+   Los PNG están en ../assets/juegos/moon-runner/bg/. STARS se usa como textura repetible;
+   earth.png es un sprite de 180x180 y ufo.png se muestra como un objeto distante.
+   parallax.js actualiza la posición horizontal de las capas. */
 
 .parallax-layer {
   position: absolute;
@@ -24,31 +24,41 @@
   top: 0;
   height: 100%;
   z-index: 2;
-  background-image:
-    radial-gradient(2px 2px at 20px 30px, #fff, transparent),
-    radial-gradient(1.5px 1.5px at 90px 120px, #c9bdff, transparent),
-    radial-gradient(2px 2px at 160px 70px, rgba(255, 255, 255, 0.7), transparent);
-  background-size: 200px 200px;
+  opacity: 0.35;
+  background-image: url(../assets/juegos/moon-runner/bg/stars.png);
+  background-size: 408px 240px;
   background-repeat: repeat;
 }
 
-/* 3. Tierra a la distancia (0.4): un tile ancho con la Tierra una sola vez, para que pase de vez en cuando */
-.layer-earth {
+/* 3. Platillo volador a la distancia (0.24) */
+.layer-ufo {
   top: 0;
   height: 100%;
   z-index: 3;
-  background-image: radial-gradient(circle 90px at 1400px 130px, #4f7bff 0 96%, transparent 100%);
-  background-size: 1920px 100%;
 }
 
-/* 4. Piso lunar (1.0 = velocidad de los obstáculos) */
-.layer-ground {
-  bottom: 0;
-  height: 90px;
-  /* = GROUND_HEIGHT de config.js */
-  z-index: 5;
-  background-image: repeating-linear-gradient(90deg, #8f8ab8 0 40px, #7d78a8 40px 80px);
-  background-size: 80px 100%;
-  border-top: 6px solid #b9b4dc;
-  box-sizing: border-box;
+.ufo-sprite {
+  position: absolute;
+  top: 245px;
+  left: 1050px;
+  width: 112px;
+  height: 76px;
+  opacity: 0.9;
+  background: url(../assets/juegos/moon-runner/bg/ufo.png) center / contain no-repeat;
+  image-rendering: pixelated;
+}
+
+.layer-earth {
+  top: 0;
+  height: 100%;
+  z-index: 4;
+}
+
+.earth-sprite {
+  position: absolute;
+  top: 40px;
+  left: 1310px;
+  width: 180px;
+  height: 180px;
+  background: url(../assets/juegos/moon-runner/bg/earth.png) center / 100% 100% no-repeat;
 }

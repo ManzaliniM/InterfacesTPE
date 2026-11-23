@@ -7,13 +7,33 @@ const TEMPLATE = `
     <div class="runner-stage">
       <div class="hud">
         <span>Puntos <b class="hud-score">0</b></span>
+        <span class="orb-status" hidden>GRAVEDAD CERO · <b class="orb-time">5</b>s</span>
         <span class="hud-best">Récord <b class="hud-best-value">0</b></span>
       </div>
-      <section class="overlay" data-screen="start">
-        <h2>Moon Runner</h2>
-        <p>Espacio, flecha arriba o clic para dar impulso. Pasa por el hueco sin tocar los obstáculos.</p>
-        <p>Estrella: +${CONFIG_RUNNER.STAR_POINTS} puntos. Ovni: gravedad lunar durante ${CONFIG_RUNNER.UFO_DURATION} segundos.</p>
-        <button type="button" class="runner-btn" data-action="play">Jugar</button>
+      <section class="overlay start-overlay" data-screen="start">
+        <div class="start-card">
+          <h2>Moon Runner</h2>
+          <p class="start-tagline">Vuela tan lejos como puedas</p>
+          <div class="start-instructions">
+            <p class="start-row">
+              <strong class="start-label start-controls">IMPULSO</strong>
+              <span>Espacio / Flecha arriba / Clic</span>
+            </p>
+            <p class="start-row">
+              <strong class="start-label start-objective">OBJETIVO</strong>
+              <span>Esquiva los obstáculos</span>
+            </p>
+            <p class="start-row">
+              <strong class="start-label start-star">ESTRELLA</strong>
+              <span>+${CONFIG_RUNNER.STAR_POINTS} puntos</span>
+            </p>
+            <p class="start-row">
+              <strong class="start-label start-orb">ORBE DE GRAVEDAD CERO</strong>
+              <span>Gravedad reducida durante ${CONFIG_RUNNER.GRAVITY_ORB_DURATION} segundos</span>
+            </p>
+          </div>
+          <button type="button" class="runner-btn" data-action="play">Jugar</button>
+        </div>
       </section>
       <section class="overlay" data-screen="over" hidden>
         <h2>Fin del juego</h2>
@@ -45,7 +65,12 @@ function initRunner(root = findRunnerRoot()) {
 
   const runner = new Runner(
     stage,
-    { score: q('.hud-score'), best: q('.hud-best-value') },
+    {
+      score: q('.hud-score'),
+      best: q('.hud-best-value'),
+      orbStatus: q('.orb-status'),
+      orbTime: q('.orb-time'),
+    },
     {
       onStart: () => {
         startScreen.hidden = true;

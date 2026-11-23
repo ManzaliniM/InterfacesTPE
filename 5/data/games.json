@@ -89,17 +89,17 @@
         "categoria": "Arcade",
         "destacado": true,
         "descripcion": [
-            "Moon Runner es un juego de vuelo infinito por el espacio. Cruza una zona llena de compuertas láser, antenas lunares y satélites defectuosos, y avanza lo más lejos que puedas.",
-            "Cada obstáculo superado suma un punto, pero el hueco por donde pasar se achica y el mundo acelera. Las estrellas fugaces te dan puntos extra y los ovnis activan la gravedad lunar por unos segundos.",
+            "Moon Runner es un juego de vuelo infinito por el espacio. Esquiva haces láser cian, violetas y ámbar mientras avanzas lo más lejos que puedas.",
+            "Cada obstáculo superado suma un punto, pero el hueco por donde pasar se achica y el mundo acelera. Las estrellas fugaces te dan puntos extra y los orbes de gravedad cero reducen la gravedad por unos segundos.",
             "Tu récord queda guardado en el navegador. ¿Cuántos obstáculos puedes superar?"
         ],
         "comoJugar": [
             "Tu personaje avanza solo: tú controlas la altura. Cada impulso lo hace subir y, si no lo repites, cae por la gravedad. Pasa por el hueco entre los obstáculos sin tocarlos.",
-            "Si chocas con un obstáculo o con el suelo lunar, la partida termina. En cambio, las estrellas fugaces suman 5 puntos y los ovnis activan la gravedad lunar durante 5 segundos: no terminan la partida.",
+            "Si chocas con un obstáculo o caes fuera del área de vuelo, la partida termina. En cambio, las estrellas fugaces suman 5 puntos y los orbes de gravedad cero reducen la gravedad durante 5 segundos: no terminan la partida.",
             "Con cada obstáculo superado el juego se acelera y el hueco se achica. Intenta superar tu récord."
         ],
         "controlesTexto": "Teclado: Espacio o flecha arriba para dar impulso. Ratón: clic sobre el juego. Botón en pantalla: «Jugar» y «Jugar de nuevo».",
-        "imagenPortada": "assets/juegos/runner/portada.png",
+        "imagenPortada": "assets/juegos/moon-runner/screenshots/pantalla-inicio.png",
         "css": "css/runner.css",
         "script": [
             "js/runner/config.js",
@@ -115,19 +115,19 @@
         },
         "galeria": [
             {
-                "src": "assets/juegos/runner/pantalla-inicio.png",
+                "src": "assets/juegos/moon-runner/screenshots/pantalla-inicio.png",
                 "alt": "Pantalla de inicio de Moon Runner",
                 "caption": "Pantalla de inicio"
             },
             {
-                "src": "assets/juegos/runner/obstaculos.png",
-                "alt": "El personaje pasando entre compuertas láser y estructuras lunares",
-                "caption": "Láseres y estructuras lunares"
+                "src": "assets/juegos/moon-runner/screenshots/obstaculos.png",
+                "alt": "Nyan Cat entre compuertas láser de distintos colores, con un UFO al fondo",
+                "caption": "Variantes de color del beam"
             },
             {
-                "src": "assets/juegos/runner/items.png",
-                "alt": "El personaje recogiendo una estrella fugaz y un ovni",
-                "caption": "Estrellas y ovnis"
+                "src": "assets/juegos/moon-runner/screenshots/items.png",
+                "alt": "Nyan Cat, la estrella fugaz y el orbe de gravedad cero con un UFO de fondo",
+                "caption": "Ítems y UFO de fondo"
             }
         ]
     },
