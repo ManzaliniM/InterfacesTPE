@@ -175,8 +175,11 @@ class Runner {
     const t = spacing / this.speed; // tiempo entre un hueco y el siguiente
     const up = CONFIG_RUNNER.CLIMB_RATE * t;
     const down = 0.5 * CONFIG_RUNNER.GRAVITY * t * t;
-    const lo = Math.max(min, this.lastGapY - up);
-    const hi = Math.min(max, this.lastGapY + down);
+    const progress = Math.min(this.passed / CONFIG_RUNNER.GAP_VARIATION_RAMP_OBSTACLES, 1);
+    const maxShift = CONFIG_RUNNER.GAP_VARIATION_START
+      + (CONFIG_RUNNER.GAP_VARIATION_MAX - CONFIG_RUNNER.GAP_VARIATION_START) * progress;
+    const lo = Math.max(min, this.lastGapY - up, this.lastGapY - maxShift);
+    const hi = Math.min(max, this.lastGapY + down, this.lastGapY + maxShift);
     return lo > hi ? runnerClamp(this.lastGapY, min, max) : runnerRand(lo, hi);
   }
 

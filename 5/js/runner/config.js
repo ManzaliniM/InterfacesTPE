@@ -23,6 +23,8 @@ const CONFIG_RUNNER = {
   GAP_START: 230, // hueco vertical inicial
   GAP_MIN: 140,
   GAP_SHRINK: 4, // px que se achica el hueco por cada obstáculo generado
+  GAP_VARIATION_START: 10, // cambio máximo inicial del centro respecto al hueco anterior (px)
+  GAP_VARIATION_RAMP_OBSTACLES: 10, // obstáculos superados para alcanzar la variación máxima
   GAP_MARGIN: 30, // distancia mínima del hueco al borde superior y al piso
   SPACING_MIN: 260, // distancia horizontal entre obstáculos (borde a borde)
   SPACING_MAX: 460,
@@ -51,3 +53,6 @@ const CONFIG_RUNNER = {
 };
 
 CONFIG_RUNNER.PLAY_HEIGHT = CONFIG_RUNNER.HEIGHT - CONFIG_RUNNER.GROUND_HEIGHT;
+CONFIG_RUNNER.GAP_VARIATION_MAX = CONFIG_RUNNER.PLAY_HEIGHT
+  - 2 * CONFIG_RUNNER.GAP_MARGIN
+  - CONFIG_RUNNER.GAP_MIN; // rango total de centros posible con el hueco mínimo
